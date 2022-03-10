@@ -62,9 +62,7 @@ class _EditableFieldState extends State<EditableField> {
                       ? MediaQuery.of(context).size.width * 0.1
                       : MediaQuery.of(context).size.width * 0.3,
                   child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+                    onPressed: () => Navigator.pop(context),
                     child: const Text("Save"),
                   ),
                 ),
