@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:statementmanager/provider/queries.dart';
+import 'package:statementmanager/utilities/utilities.dart';
 import 'package:statementmanager/widgets/statement_card.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -52,12 +53,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 controller: searchController,
                 decoration: InputDecoration(
                   labelText: "Search by subject, e.g. Covid",
-                  errorText: _checkSearch,
+                  border: const OutlineInputBorder(),
+                  errorText: Utils.checkIfEmpty(searchController),
                 ),
               ),
               Builder(
                 builder: (BuildContext context) {
-                  if (_checkSearch == null) {
+                  if (Utils.checkIfEmpty(searchController) == null) {
                     return Query(
                       options: QueryOptions(
                           document: gql(
@@ -98,12 +100,12 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  String? get _checkSearch {
-    final text = searchController.text;
-    if (text.isEmpty) {
-      return 'Can\'t be empty';
-    }
-    // return null if the text is valid
-    return null;
-  }
+  // String? get _checkSearch {
+  //   final text = searchController.text;
+  //   if (text.isEmpty) {
+  //     return 'Can\'t be empty';
+  //   }
+  //   // return null if the text is valid
+  //   return null;
+  // }
 }
