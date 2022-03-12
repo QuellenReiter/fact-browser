@@ -29,8 +29,23 @@ class MyApp extends StatelessWidget {
     );
 
     return MaterialApp(
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        primarySwatch: Colors.blueGrey,
+        textTheme: const TextTheme(
+          bodyText2: TextStyle(
+              // default all text widget
+              color: Color(0xFFF5DE5B),
+              fontSize: 16.0,
+              fontFamily: 'Iranian'),
+        ),
+        // fill back inside all TextFormField
+        inputDecorationTheme: const InputDecorationTheme(
+          isDense: true,
+        ),
+      ),
       home: GraphQLProvider(
-        child: HomeScreen(
+        child: const HomeScreen(
           title: "Home",
         ),
         client: client,
