@@ -14,8 +14,11 @@ class Queries {
         true,
         medium,
         language,
-        statementLink,
-        relevance
+        label,
+        statementType,
+        relevance,
+        funny,
+        corrected
       }
     }
   }

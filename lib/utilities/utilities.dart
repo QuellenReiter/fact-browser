@@ -14,7 +14,17 @@ class Utils {
       TextEditingController textEditingController, int minLength) {
     final text = textEditingController.text;
     if (text.length < minLength) {
-      return 'Mindestens $minLength Zeichen';
+      return 'Mindestens ${minLength.toString()} Zeichen';
+    }
+    // return null if the text is valid
+    return null;
+  }
+
+  static String? checkIfEmptyOrEqualTo(
+      TextEditingController textEditingController, String compareString) {
+    final text = textEditingController.text;
+    if (text == compareString) {
+      return 'Text ist unverändert';
     }
     // return null if the text is valid
     return null;
