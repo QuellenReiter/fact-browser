@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:statementmanager/models/statement.dart';
 import 'package:statementmanager/provider/device_type_provider.dart';
+import 'package:statementmanager/provider/queries.dart';
 import 'package:statementmanager/utilities/utilities.dart';
 
 import '../widgets/text_field_container.dart';
@@ -108,30 +109,44 @@ class _DetailScreenState extends State<DetailScreen> {
                         ]),
                       ),
                       Flexible(
-                        child: Row(children: [
-                          Flexible(
-                            child: TextFieldContainer(
-                              textController:
-                                  statementController.correctnessController,
-                              label: "Wie ist die Aussage einzuordnen?",
-                            ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: Row(
+                            children: [
+                              const Text("Wie ist die Aussage einzuordnen?"),
+                              DropdownButton(
+                                value: widget.statement.statementCorrectness, 
+                                onChanged: (value){
+                                setState(() {
+                                  widget.statement.statementCorrectness = value.toString();
+                                });
+                                },
+                                items: Queries.correctnessValues
+                                .map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                                )
+                            ],
                           ),
-                          Flexible(
-                            child: Padding(
-                              padding: const EdgeInsets.all(5),
-                              child: Row(
-                                children: [
-                                  const Text("Wurde die Aussage Korrigiert?"),
-                                  Switch(value: widget.statement.statementRectification, onChanged: (value){
-                                    setState(() {
-                                      widget.statement.statementRectification = value;
-                                    });
-                                  })
-                                ],
-                              ),
-                            ),
+                        ),
+                      ),
+                      Flexible(
+                        child: Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: Row(
+                            children: [
+                              const Text("Wurde die Aussage Korrigiert?"),
+                              Switch(value: widget.statement.statementRectification, onChanged: (value){
+                                setState(() {
+                                  widget.statement.statementRectification = value;
+                                });
+                              })
+                            ],
                           ),
-                        ]),
+                        ),
                       ),
                       Flexible(
                         child: Row(children: [
