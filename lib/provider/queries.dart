@@ -24,6 +24,14 @@ class Queries {
   static String factAuthor = "author";
   static String factMedia = "media";
 
+  static List<String> correctnessValues = [
+    "richtig",
+    "unbelegt", 
+    "falscher Kontext", 
+    "manipuliert", 
+    "irreführend", 
+    "frei erfunden", 
+    "Fehlinformation"];
 
 
 
