@@ -1,3 +1,7 @@
+import 'dart:io';
+import 'dart:typed_data';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 class Utils {
@@ -28,6 +32,19 @@ class Utils {
     }
     // return null if the text is valid
     return null;
+  }
+
+  static void pickFile(Function callback) async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+      if (result != null) {
+        Uint8List? file = (await FilePicker.platform.pickFiles(
+          type: FileType.image,
+          allowMultiple: false
+        ))?.files.single.bytes;
+        callback(file);
+    } else {
+      return;
+    }
   }
 }
 
