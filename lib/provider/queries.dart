@@ -33,6 +33,24 @@ class Queries {
     "frei erfunden", 
     "Fehlinformation"];
 
+  static List<String> categoryValues = [
+    "Politik",
+    "Sport", 
+    "Wirtschaft", 
+    "Gesellschaft", 
+    "Wissenschaft", 
+    "Kultur", 
+    "Geschichte"];
+
+  static List<String> mediatypeValues = [
+    "Online-Artikel",
+    "Print-Artikel", 
+    "Interview", 
+    "Social Media Post", 
+    "Werbung", 
+    "Foto", 
+    "Video",
+    "TV-Beitrag"];
 
 
   // static String[4] categories = [];
