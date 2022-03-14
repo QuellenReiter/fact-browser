@@ -95,18 +95,62 @@ class _DetailScreenState extends State<DetailScreen> {
                             child: TextFieldContainer(
                               textController:
                                   statementController.mediaTypeController,
-                              label: "Gebe den Aussagentyp ein",
+                              label: "Gebe den Medientyp ein",
                             ),
                           ),
                           Flexible(
                             child: TextFieldContainer(
                               textController:
                                   statementController.categoryController,
-                              label: "Gebe Tags, mit comma getrennt, ein.",
+                              label: "Gebe eine Kategorie ein.",
                             ),
                           ),
                         ]),
                       ),
+                      Flexible(
+                        child: Row(children: [
+                          Flexible(
+                            child: TextFieldContainer(
+                              textController:
+                                  statementController.correctnessController,
+                              label: "Wie ist die Aussage einzuordnen?",
+                            ),
+                          ),
+                          Flexible(
+                            child: Padding(
+                              padding: const EdgeInsets.all(5),
+                              child: Row(
+                                children: [
+                                  const Text("Wurde die Aussage Korrigiert?"),
+                                  Switch(value: widget.statement.statementRectification, onChanged: (value){
+                                    setState(() {
+                                      widget.statement.statementRectification = value;
+                                    });
+                                  })
+                                ],
+                              ),
+                            ),
+                          ),
+                        ]),
+                      ),
+                      Flexible(
+                        child: Row(children: [
+                          Flexible(
+                            child: TextFieldContainer(
+                              textController:
+                                  statementController.dateController,
+                              label: "Gebe das Ursprungsdatum ein.",
+                            ),
+                          ),
+                          Flexible(
+                            child: TextFieldContainer(
+                              textController:
+                                  statementController.linkController,
+                              label: "Der Link zur Aussage (Wayback machine etc).",
+                            ),
+                          ),
+                        ]),
+                      )
                     ],
                   ),
                 ),

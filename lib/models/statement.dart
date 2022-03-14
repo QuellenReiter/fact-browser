@@ -12,7 +12,6 @@ class StatementController {
   late TextEditingController categoryController;
   late TextEditingController samplePictureCopyrightController;
   late TextEditingController linkController;
-  late TextEditingController rectificationController;
   late TextEditingController relevanceController;
   late TextEditingController authorController;
   late TextEditingController mediaController;
@@ -31,10 +30,6 @@ class StatementController {
         TextEditingController(text: statement["funny"] ? "Lustig" : "Ernst");
     linkController =
         TextEditingController(text: statement["statementLink"]);
-    rectificationController = TextEditingController(
-        text: statement["corrected"]
-            ? "Wurde korrigiert"
-            : "Wurde nicht korrigiert.");
     relevanceController = TextEditingController(text: statement["relevance"]);
     authorController = TextEditingController(text: statement["author"]);
     mediaController = TextEditingController(text: statement["medium"]);
@@ -66,7 +61,6 @@ class StatementController {
     categoryController.dispose();
     samplePictureCopyrightController.dispose();
     linkController.dispose();
-    rectificationController.dispose();
     relevanceController.dispose();
     authorController.dispose();
     mediaController.dispose();
@@ -74,19 +68,19 @@ class StatementController {
 }
 
 class Statement{
-  final String statementText;
-  final String statementPictureURL;
-  final String statementDate;
-  final String statementMediatype;
-  final String statementLanguage;
-  final String statementCorrectness;
-  final String statementLink;
-  final bool statementRectification;
-  final String statementCategory;
-  final String samplePictureCopyright;
-  final String statementAuthor;
-  final String statementMedia;
-  final Facts statementFactchecks;
+  String statementText;
+  String statementPictureURL;
+  String statementDate;
+  String statementMediatype;
+  String statementLanguage;
+  String statementCorrectness;
+  String statementLink;
+  bool statementRectification;
+  String statementCategory;
+  String samplePictureCopyright;
+  String statementAuthor;
+  String statementMedia;
+  Facts statementFactchecks;
   Statement(
     this.statementText,
     this.statementAuthor,
