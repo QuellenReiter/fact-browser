@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:statementmanager/models/statement.dart';
 import 'package:statementmanager/provider/queries.dart';
 import 'package:statementmanager/utilities/utilities.dart';
 import 'package:statementmanager/widgets/statement_card.dart';
@@ -15,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late TextEditingController searchController;
-
+  late Statements statements;
   @override
   void initState() {
     searchController = TextEditingController();
@@ -51,6 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Builder(
                   builder: (BuildContext context) {
                     if (Utils.checkIfEmpty(searchController) == null) {
+                      print(Queries.searchStatements(searchController.text));
                       return Query(
                         options: QueryOptions(
                             document: gql(Queries.searchStatements(
@@ -68,15 +70,15 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             );
                           } else {
+                            print(result.data.toString());
+                            statements = Statements.fromMap(result.data);
                             return Flexible(
                               child: ListView.builder(
-                                  itemCount: result
-                                      .data?["statements"]["edges"].length,
+                                  itemCount: statements.statements.length,
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     return StatementCard(
-                                      statement: result.data?["statements"]
-                                          ["edges"][index]['node'],
+                                      statement: statements.statements[index],
                                     );
                                   }),
                             );

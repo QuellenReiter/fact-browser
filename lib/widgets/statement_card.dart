@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:statementmanager/models/statement.dart';
 import 'package:statementmanager/screens/detail_screen.dart';
 
 class StatementCard extends StatelessWidget {
   const StatementCard({Key? key, required this.statement}) : super(key: key);
-  final Map<String, dynamic> statement;
+  final Statement statement;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -22,11 +23,11 @@ class StatementCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              statement["text"],
+              statement.statementText,
               style: const TextStyle(fontSize: 20.0),
             ),
             Column(
-              children: [Text(statement["author"]), Text(statement["date"])],
+              children: [Text(statement.statementAuthor), Text(statement.statementMedia)],
             ),
           ],
         ),

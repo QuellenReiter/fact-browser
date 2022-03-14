@@ -8,7 +8,7 @@ import '../widgets/text_field_container.dart';
 class DetailScreen extends StatefulWidget {
   const DetailScreen({Key? key, required this.statement}) : super(key: key);
 
-  final Map<String, dynamic> statement;
+  final Statement statement;
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
@@ -34,12 +34,12 @@ class _DetailScreenState extends State<DetailScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.statement['text'],
+          widget.statement.statementText,
         ),
       ),
       body: Container(
         height: DeviceType.height(context),
-        color: widget.statement["true"]
+        color: widget.statement.statementCorrectness == CorrectnessCategory.correct
             ? const Color(0xFFff3a93)
             : const Color(0xFF0999bc),
         child: Padding(
@@ -74,7 +74,7 @@ class _DetailScreenState extends State<DetailScreen> {
                           Flexible(
                             child: TextFieldContainer(
                               textController:
-                                  statementController.mediumController,
+                                  statementController.mediaController,
                               label: "Gebe das Medium ein.",
                             ),
                           ),
@@ -94,14 +94,14 @@ class _DetailScreenState extends State<DetailScreen> {
                           Flexible(
                             child: TextFieldContainer(
                               textController:
-                                  statementController.statementTypeController,
+                                  statementController.mediaTypeController,
                               label: "Gebe den Aussagentyp ein",
                             ),
                           ),
                           Flexible(
                             child: TextFieldContainer(
                               textController:
-                                  statementController.labelController,
+                                  statementController.categoryController,
                               label: "Gebe Tags, mit comma getrennt, ein.",
                             ),
                           ),
