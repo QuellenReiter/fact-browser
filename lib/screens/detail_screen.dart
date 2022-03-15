@@ -51,7 +51,7 @@ class _DetailScreenState extends State<DetailScreen> {
       ),
       body: Container(
         height: DeviceType.height(context),
-        color: widget.statement.statementCorrectness == CorrectnessCategory.correct
+        color: widget.statement.statementCorrectness != CorrectnessCategory.correct
             ? const Color(0xFFff3a93)
             : const Color(0xFF0999bc),
         child: Padding(
@@ -76,6 +76,7 @@ class _DetailScreenState extends State<DetailScreen> {
                           TextFieldContainer(
                             textController: statementController.textController,
                             label: "Gebe eine Aussage ein.",
+                            errorCallback: Utils.checkIfEmpty,
                           ),
                           Flexible(
                             child: Row(children: [
@@ -84,6 +85,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                   textController:
                                       statementController.authorController,
                                   label: "Gebe den Author ein.",
+                                  errorCallback: Utils.checkIfEmpty
                                 ),
                               ),
                               Flexible(
@@ -91,6 +93,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                   textController:
                                       statementController.mediaController,
                                   label: "Gebe das Medium ein.",
+                                  errorCallback: Utils.checkIfEmpty
                                 ),
                               ),
                             ]),
@@ -102,6 +105,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                   textController:
                                       statementController.languageController,
                                   label: "Gebe die Originalsprache ein.",
+                                  errorCallback: Utils.checkIfEmpty
                                 ),
                               ),
                               Flexible(
@@ -109,6 +113,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                   textController:
                                       statementController.mediaTypeController,
                                   label: "Gebe ein Copyright für das Foto ein.",
+                                  errorCallback: Utils.checkIfEmpty
                                 ),
                               ),
                             ]),
@@ -120,6 +125,8 @@ class _DetailScreenState extends State<DetailScreen> {
                                   textController:
                                       statementController.dateController,
                                   label: "Gebe das Ursprungsdatum ein(dd/mm/yyyy)",
+                                  errorCallback: Utils.checkIfEmpty,
+                                  inputFormatter: DateTextFormatter(),
                                 ),
                               ),
                               Flexible(
@@ -127,6 +134,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                   textController:
                                       statementController.linkController,
                                   label: "Der Link zur Aussage (Wayback machine etc).",
+                                  errorCallback: Utils.checkIfEmpty
                                 ),
                               ),
                             ]),
@@ -210,7 +218,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                 children: [
                                   const Text("Wie ist die Aussage einzuordnen?"),
                                   DropdownButton(
-                                    value: widget.statement.statementCorrectness, 
+                                    value: widget.statement.statementCorrectness,
                                     onChanged: (value){
                                     setState(() {
                                       widget.statement.statementCorrectness = value.toString();
