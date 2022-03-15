@@ -48,6 +48,10 @@ class Utils {
       return;
     }
   }
+
+  static String formatDate(String date){
+        return date.substring(8,10) + "/" + date.substring(5,7) + "/" + date.substring(0,4);
+  }
 }
 
 class CorrectnessCategory{
@@ -75,7 +79,6 @@ class DateTextFormatter extends TextInputFormatter {
   String _format(String value, String seperator) {
     value = value.replaceAll(seperator, '');
     var newString = '';
-    
     for (int i = 0; i < min(value.length, _maxChars); i++) {
       newString += value[i];
       if ((i == 1 || i == 3) && i != value.length - 1) {

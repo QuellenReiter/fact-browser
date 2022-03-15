@@ -12,32 +12,28 @@ class StatementController {
   late TextEditingController categoryController;
   late TextEditingController samplePictureCopyrightController;
   late TextEditingController linkController;
-  late TextEditingController relevanceController;
   late TextEditingController authorController;
   late TextEditingController mediaController;
   late TextEditingController languageController;
 
 
   StatementController.fromMap(Map<String, dynamic> statement) {
-    textController = TextEditingController(text: statement["text"]);
-    dateController = TextEditingController(text: statement["date"]);
+    textController = TextEditingController(text: statement[Queries.statementText]);
+    dateController = TextEditingController(text: statement[Queries.statementDate]);
     mediaTypeController =
-        TextEditingController(text: statement["statementType"]);
+        TextEditingController(text: statement[Queries.statementMediatype]);
     correctnessController =
-        TextEditingController(text: statement["true"] ? "Fakt" : "Fake");
-    categoryController = TextEditingController(text: statement["label"]);
+        TextEditingController(text: statement[Queries.statementCorrectness]);
+    categoryController = TextEditingController(text: statement[Queries.statementCategory]);
     samplePictureCopyrightController =
-        TextEditingController(text: statement["funny"] ? "Lustig" : "Ernst");
-    linkController =
-        TextEditingController(text: statement["statementLink"]);
-    relevanceController = TextEditingController(text: statement["relevance"]);
-    authorController = TextEditingController(text: statement["author"]);
-    mediaController = TextEditingController(text: statement["medium"]);
+        TextEditingController(text: statement[Queries.statementPictureCopyright]);
+    linkController = TextEditingController(text: statement[Queries.statementLink]);
+    authorController = TextEditingController(text: statement[Queries.statementAuthor]);
+    mediaController = TextEditingController(text: statement[Queries.statementMedia]);
   }
 
   StatementController(Statement statement){
     textController = TextEditingController(text: statement.statementText);
-    // add date conversion functions
     dateController = TextEditingController(text: statement.statementDate);
     mediaTypeController =
         TextEditingController(text: statement.statementMediatype);
@@ -61,7 +57,6 @@ class StatementController {
     categoryController.dispose();
     samplePictureCopyrightController.dispose();
     linkController.dispose();
-    relevanceController.dispose();
     authorController.dispose();
     mediaController.dispose();
   }
@@ -100,7 +95,7 @@ class Statement{
       statementText = map?[Queries.statementText],
       statementAuthor = map?[Queries.statementAuthor],
       statementCorrectness = map?[Queries.statementCorrectness],
-      statementDate = map?[Queries.statementDate],
+      statementDate = Utils.formatDate(map?[Queries.statementDate]),
       statementLanguage = map?[Queries.statementLanguage],
       statementLink = map?[Queries.statementLink],
       statementCategory = map?[Queries.statementCategory],
