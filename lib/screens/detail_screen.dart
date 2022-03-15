@@ -144,7 +144,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             Flexible(
                               child: TextFieldContainer(
                                 textController:
-                                    statementController.mediaTypeController,
+                                    statementController.samplePictureCopyrightController,
                                 label: "Gebe ein Copyright für das Foto ein.",
                                 errorCallback: Utils.checkIfEmpty
                               ),
