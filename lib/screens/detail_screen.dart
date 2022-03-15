@@ -326,6 +326,13 @@ class _DetailScreenState extends State<DetailScreen> {
                   )
                 )
               ),
+                Padding(
+                  padding: EdgeInsets.all(20),
+                  child: ElevatedButton.icon(
+                    onPressed: () => print("hello"),
+                    icon: const Icon(Icons.upload_file),
+                    label: const Text("Diese Aussage speichern")),
+                ),
               ]
             ),
           ),
