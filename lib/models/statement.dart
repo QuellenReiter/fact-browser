@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:statementmanager/models/fact.dart';
 import 'package:statementmanager/provider/queries.dart';
@@ -63,19 +62,19 @@ class StatementController {
 }
 
 class Statement{
-  String statementText;
-  String statementPictureURL;
-  String statementDate;
-  String statementMediatype;
-  String statementLanguage;
-  String statementCorrectness;
-  String statementLink;
-  bool statementRectification;
-  String statementCategory;
-  String samplePictureCopyright;
-  String statementAuthor;
-  String statementMedia;
-  Facts statementFactchecks;
+  late String statementText;
+  late String statementPictureURL;
+  late String statementDate;
+  late String statementMediatype;
+  late String statementLanguage;
+  late String statementCorrectness;
+  late String statementLink;
+  late bool statementRectification;
+  late String statementCategory;
+  late String samplePictureCopyright;
+  late String statementAuthor;
+  late String statementMedia;
+  late Facts statementFactchecks;
   Statement(
     this.statementText,
     this.statementAuthor,
@@ -105,6 +104,22 @@ class Statement{
       statementRectification = map?[Queries.statementRectification],
       statementPictureURL = map?[Queries.statementPicture]["url"],
       statementFactchecks = Facts.fromMap(map?[Queries.statementFactcheckIDs]);
+
+      Statement.empty(){
+        statementText = "";
+        statementAuthor = "";
+        statementCategory = Queries.categoryValues.first;
+        statementCorrectness = Queries.correctnessValues.first;
+        statementDate = "";
+        statementFactchecks = Facts();
+        statementLanguage = "";
+        statementLink = "";
+        statementMedia = "";
+        statementMediatype = Queries.mediatypeValues.first;
+        statementPictureURL = "";
+        samplePictureCopyright = "";
+        statementRectification = false;
+      }
 }
 
 class Statements{

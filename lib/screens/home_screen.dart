@@ -5,6 +5,8 @@ import 'package:statementmanager/provider/queries.dart';
 import 'package:statementmanager/utilities/utilities.dart';
 import 'package:statementmanager/widgets/statement_card.dart';
 
+import 'detail_screen.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key, required this.title}) : super(key: key);
 
@@ -34,6 +36,20 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DetailScreen(
+                statement: Statement.empty(),
+              ),
+            ),
+          );
+        },
       ),
       body: ValueListenableBuilder(
           valueListenable: searchController,
