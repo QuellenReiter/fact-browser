@@ -68,7 +68,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 Builder(
                   builder: (BuildContext context) {
                     if (Utils.checkIfEmpty(searchController) == null) {
-                      print(Queries.searchStatements(searchController.text));
                       return Query(
                         options: QueryOptions(
                             document: gql(Queries.searchStatements(

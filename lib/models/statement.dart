@@ -115,6 +115,7 @@ class Statement {
   late String statementMedia;
   late Facts statementFactchecks;
   Uint8List? uploadImage;
+  String? objectId;
   Statement(
       this.statementText,
       this.statementAuthor,
