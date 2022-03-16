@@ -26,32 +26,34 @@ class Queries {
 
   static List<String> correctnessValues = [
     "richtig",
-    "unbelegt", 
-    "falscher Kontext", 
-    "manipuliert", 
-    "irreführend", 
-    "frei erfunden", 
-    "Fehlinformation"];
+    "unbelegt",
+    "falscher Kontext",
+    "manipuliert",
+    "irreführend",
+    "frei erfunden",
+    "Fehlinformation"
+  ];
 
   static List<String> categoryValues = [
     "Politik",
-    "Sport", 
-    "Wirtschaft", 
-    "Gesellschaft", 
-    "Wissenschaft", 
-    "Kultur", 
-    "Geschichte"];
+    "Sport",
+    "Wirtschaft",
+    "Gesellschaft",
+    "Wissenschaft",
+    "Kultur",
+    "Geschichte"
+  ];
 
   static List<String> mediatypeValues = [
     "Online-Artikel",
-    "Print-Artikel", 
-    "Interview", 
-    "Social Media Post", 
-    "Werbung", 
-    "Foto", 
+    "Print-Artikel",
+    "Interview",
+    "Social Media Post",
+    "Werbung",
+    "Foto",
     "Video",
-    "TV-Beitrag"];
-
+    "TV-Beitrag"
+  ];
 
   // static String[4] categories = [];
 
@@ -102,8 +104,8 @@ class Queries {
 
   static String createStatement(Statement statement) {
     String factString = "[";
-    for (Fact fact in statement.statementFactchecks.facts){
-        factString += '''
+    for (Fact fact in statement.statementFactchecks.facts) {
+      factString += '''
             {
               $factText: "${fact.factText}",
               $factAuthor:"${fact.factAuthor}",
@@ -114,8 +116,7 @@ class Queries {
               },
 ''';
     }
-  factString += "]";
-
+    factString += "]";
 
     String ret = '''
   mutation createAStatement{
