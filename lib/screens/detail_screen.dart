@@ -14,7 +14,7 @@ class DetailScreen extends StatefulWidget {
   DetailScreen({Key? key, required this.statement}) : super(key: key);
 
   Statement statement;
-  
+
   @override
   State<DetailScreen> createState() => _DetailScreenState();
 }
@@ -29,7 +29,7 @@ class _DetailScreenState extends State<DetailScreen> {
     statementController = StatementController(widget.statement);
 
     // if no facts, add an empty one.
-    if(widget.statement.statementFactchecks.facts.isEmpty){
+    if (widget.statement.statementFactchecks.facts.isEmpty) {
       widget.statement.statementFactchecks.facts.add(Fact.empty());
     }
     factControllers = FactControllers(widget.statement.statementFactchecks);
@@ -43,37 +43,41 @@ class _DetailScreenState extends State<DetailScreen> {
     super.dispose();
   }
 
-  void safeFile(Uint8List? path){
+  void safeFile(Uint8List? path) {
     setState(() {
       widget.statement.statementPictureURL = path.toString();
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
-
-    List<Widget> factContainers =
-        List.generate(numFacts, (int i) => FactContainer(
-                                                  controllers: factControllers.controllers[i]
-                                                  ),
-                                                );
+    List<Widget> factContainers = List.generate(
+      numFacts,
+      (int i) => FactContainer(controllers: factControllers.controllers[i]),
+    );
 
     // this must be done somewhere alse
     // statements should be updated while edited by the textcontrollers
     // every variable needs to be checked for completenes
     // and then send to database
-    void uploadStatement(){
+    void uploadStatement() {
       widget.statement.statementText = statementController.textController.text;
-      widget.statement.statementMedia = statementController.mediaController.text;
-      widget.statement.statementMediatype= statementController.mediaTypeController.text;
+      widget.statement.statementMedia =
+          statementController.mediaController.text;
+      widget.statement.statementMediatype =
+          statementController.mediaTypeController.text;
       widget.statement.statementDate = statementController.dateController.text;
-      widget.statement.statementCategory = statementController.categoryController.text;
-      widget.statement.statementCorrectness = statementController.correctnessController.text;
+      widget.statement.statementCategory =
+          statementController.categoryController.text;
+      widget.statement.statementCorrectness =
+          statementController.correctnessController.text;
       widget.statement.statementLink = statementController.linkController.text;
-      widget.statement.statementLanguage = statementController.languageController.text;
-      widget.statement.statementAuthor = statementController.authorController.text;
-      widget.statement.samplePictureCopyright = statementController.samplePictureCopyrightController.text;
+      widget.statement.statementLanguage =
+          statementController.languageController.text;
+      widget.statement.statementAuthor =
+          statementController.authorController.text;
+      widget.statement.samplePictureCopyright =
+          statementController.samplePictureCopyrightController.text;
       // widget.statement.statementPictureURL : already set
       // widget.statement.statementRectification : already set
 
@@ -83,20 +87,21 @@ class _DetailScreenState extends State<DetailScreen> {
       // }
     }
 
-    void addNewFact(){
+    void addNewFact() {
       setState(() {
-      numFacts += 1;
-      widget.statement.statementFactchecks.facts.add(Fact.empty());
-      factControllers.controllers.add(FactController(Fact.empty()));
+        numFacts += 1;
+        widget.statement.statementFactchecks.facts.add(Fact.empty());
+        factControllers.controllers.add(FactController(Fact.empty()));
       });
     }
-    void removeFact(){
-      if(numFacts<1) return;
+
+    void removeFact() {
+      if (numFacts < 1) return;
 
       setState(() {
-      numFacts -= 1;
-      widget.statement.statementFactchecks.facts.removeLast();
-      factControllers.controllers.removeLast();
+        numFacts -= 1;
+        widget.statement.statementFactchecks.facts.removeLast();
+        factControllers.controllers.removeLast();
       });
     }
 
@@ -108,15 +113,15 @@ class _DetailScreenState extends State<DetailScreen> {
       ),
       body: Container(
         height: DeviceType.height(context),
-        color: widget.statement.statementCorrectness != CorrectnessCategory.correct
-            ? const Color(0xFFff3a93)
-            : const Color(0xFF0999bc),
+        color:
+            widget.statement.statementCorrectness != CorrectnessCategory.correct
+                ? const Color(0xFFff3a93)
+                : const Color(0xFF0999bc),
         child: Align(
           alignment: Alignment.topLeft,
           child: Padding(
             padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
+            child: Column(children: [
               Flex(
                 direction: DeviceType.oneColumn(context)
                     ? Axis.vertical
@@ -138,19 +143,17 @@ class _DetailScreenState extends State<DetailScreen> {
                           child: Row(children: [
                             Flexible(
                               child: TextFieldContainer(
-                                textController:
-                                    statementController.authorController,
-                                label: "Gebe den Author ein.",
-                                errorCallback: Utils.checkIfEmpty
-                              ),
+                                  textController:
+                                      statementController.authorController,
+                                  label: "Gebe den Author ein.",
+                                  errorCallback: Utils.checkIfEmpty),
                             ),
                             Flexible(
                               child: TextFieldContainer(
-                                textController:
-                                    statementController.mediaController,
-                                label: "Gebe das Medium ein.",
-                                errorCallback: Utils.checkIfEmpty
-                              ),
+                                  textController:
+                                      statementController.mediaController,
+                                  label: "Gebe das Medium ein.",
+                                  errorCallback: Utils.checkIfEmpty),
                             ),
                           ]),
                         ),
@@ -158,19 +161,17 @@ class _DetailScreenState extends State<DetailScreen> {
                           child: Row(children: [
                             Flexible(
                               child: TextFieldContainer(
-                                textController:
-                                    statementController.languageController,
-                                label: "Gebe die Originalsprache ein.",
-                                errorCallback: Utils.checkIfEmpty
-                              ),
+                                  textController:
+                                      statementController.languageController,
+                                  label: "Gebe die Originalsprache ein.",
+                                  errorCallback: Utils.checkIfEmpty),
                             ),
                             Flexible(
                               child: TextFieldContainer(
-                                textController:
-                                    statementController.samplePictureCopyrightController,
-                                label: "Gebe ein Copyright für das Foto ein.",
-                                errorCallback: Utils.checkIfEmpty
-                              ),
+                                  textController: statementController
+                                      .samplePictureCopyrightController,
+                                  label: "Gebe ein Copyright für das Foto ein.",
+                                  errorCallback: Utils.checkIfEmpty),
                             ),
                           ]),
                         ),
@@ -180,18 +181,19 @@ class _DetailScreenState extends State<DetailScreen> {
                               child: TextFieldContainer(
                                 textController:
                                     statementController.dateController,
-                                label: "Gebe das Ursprungsdatum ein(dd/mm/yyyy)",
+                                label:
+                                    "Gebe das Ursprungsdatum ein(dd/mm/yyyy)",
                                 errorCallback: Utils.checkIfEmpty,
                                 inputFormatter: DateTextFormatter(),
                               ),
                             ),
                             Flexible(
                               child: TextFieldContainer(
-                                textController:
-                                    statementController.linkController,
-                                label: "Der Link zur Aussage (Wayback machine etc).",
-                                errorCallback: Utils.checkIfEmpty
-                              ),
+                                  textController:
+                                      statementController.linkController,
+                                  label:
+                                      "Der Link zur Aussage (Wayback machine etc).",
+                                  errorCallback: Utils.checkIfEmpty),
                             ),
                           ]),
                         )
@@ -213,20 +215,22 @@ class _DetailScreenState extends State<DetailScreen> {
                                 Padding(
                                   padding: const EdgeInsets.all(5),
                                   child: DropdownButton(
-                                    value: widget.statement.statementCategory, 
-                                    onChanged: (value){
-                                    setState(() {
-                                      widget.statement.statementCategory = value.toString();
-                                    });
+                                    value: widget.statement.statementCategory,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        widget.statement.statementCategory =
+                                            value.toString();
+                                      });
                                     },
                                     items: Queries.categoryValues
-                                    .map<DropdownMenuItem<String>>((String value) {
+                                        .map<DropdownMenuItem<String>>(
+                                            (String value) {
                                       return DropdownMenuItem<String>(
                                         value: value,
                                         child: Text(value),
                                       );
                                     }).toList(),
-                                    ),
+                                  ),
                                 )
                               ],
                             ),
@@ -241,8 +245,8 @@ class _DetailScreenState extends State<DetailScreen> {
                                 Padding(
                                   padding: const EdgeInsets.all(5),
                                   child: ElevatedButton(
-                                    onPressed: () => Utils.pickFile(safeFile),
-                                    child: const Text("wählen")),
+                                      onPressed: () => Utils.pickFile(safeFile),
+                                      child: const Text("wählen")),
                                 )
                               ],
                             ),
@@ -257,20 +261,22 @@ class _DetailScreenState extends State<DetailScreen> {
                                 Padding(
                                   padding: const EdgeInsets.all(5),
                                   child: DropdownButton(
-                                    value: widget.statement.statementMediatype, 
-                                    onChanged: (value){
-                                    setState(() {
-                                      widget.statement.statementMediatype = value.toString();
-                                    });
+                                    value: widget.statement.statementMediatype,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        widget.statement.statementMediatype =
+                                            value.toString();
+                                      });
                                     },
                                     items: Queries.mediatypeValues
-                                    .map<DropdownMenuItem<String>>((String value) {
+                                        .map<DropdownMenuItem<String>>(
+                                            (String value) {
                                       return DropdownMenuItem<String>(
                                         value: value,
                                         child: Text(value),
                                       );
                                     }).toList(),
-                                    ),
+                                  ),
                                 )
                               ],
                             ),
@@ -285,20 +291,23 @@ class _DetailScreenState extends State<DetailScreen> {
                                 Padding(
                                   padding: const EdgeInsets.all(5),
                                   child: DropdownButton(
-                                    value: widget.statement.statementCorrectness,
-                                    onChanged: (value){
-                                    setState(() {
-                                      widget.statement.statementCorrectness = value.toString();
-                                    });
+                                    value:
+                                        widget.statement.statementCorrectness,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        widget.statement.statementCorrectness =
+                                            value.toString();
+                                      });
                                     },
                                     items: Queries.correctnessValues
-                                    .map<DropdownMenuItem<String>>((String value) {
+                                        .map<DropdownMenuItem<String>>(
+                                            (String value) {
                                       return DropdownMenuItem<String>(
                                         value: value,
                                         child: Text(value),
                                       );
                                     }).toList(),
-                                    ),
+                                  ),
                                 )
                               ],
                             ),
@@ -312,11 +321,15 @@ class _DetailScreenState extends State<DetailScreen> {
                                 const Text("Wurde die Aussage Korrigiert?"),
                                 Padding(
                                   padding: const EdgeInsets.all(5),
-                                  child: Switch(value: widget.statement.statementRectification, onChanged: (value){
-                                    setState(() {
-                                      widget.statement.statementRectification = value;
-                                    });
-                                  }),
+                                  child: Switch(
+                                      value: widget
+                                          .statement.statementRectification,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          widget.statement
+                                              .statementRectification = value;
+                                        });
+                                      }),
                                 )
                               ],
                             ),
@@ -330,34 +343,30 @@ class _DetailScreenState extends State<DetailScreen> {
                 ],
               ),
               Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: factContainers..add(
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ElevatedButton.icon(
-                        onPressed: addNewFact,
-                        icon: const Icon(Icons.add),
-                        label: const Text("Fakt"),
-                      ),
-                      TextButton.icon(
-                        onPressed: removeFact,
-                        icon: const Icon(Icons.remove),
-                        label: const Text("Fakt"),
-                      ),
-                    ]
-                  )
-                )
-              ),
-                Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: ElevatedButton.icon(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: factContainers
+                    ..add(Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ElevatedButton.icon(
+                            onPressed: addNewFact,
+                            icon: const Icon(Icons.add),
+                            label: const Text("Fakt"),
+                          ),
+                          TextButton.icon(
+                            onPressed: removeFact,
+                            icon: const Icon(Icons.remove),
+                            label: const Text("Fakt"),
+                          ),
+                        ]))),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: ElevatedButton.icon(
                     onPressed: () => uploadStatement,
                     icon: const Icon(Icons.upload_file),
                     label: const Text("Diese Aussage speichern")),
-                ),
-              ]
-            ),
+              ),
+            ]),
           ),
         ),
       ),
