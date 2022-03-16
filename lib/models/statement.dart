@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:statementmanager/models/fact.dart';
 import 'package:statementmanager/provider/queries.dart';
@@ -111,6 +114,7 @@ class Statement {
   late String statementAuthor;
   late String statementMedia;
   late Facts statementFactchecks;
+  Uint8List? uploadImage;
   Statement(
       this.statementText,
       this.statementAuthor,
