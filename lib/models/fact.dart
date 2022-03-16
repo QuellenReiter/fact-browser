@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../provider/queries.dart';
@@ -12,25 +11,40 @@ class FactController {
   late TextEditingController mediaController;
   late TextEditingController languageController;
 
-
   FactController.fromMap(Map<String, dynamic> statement) {
     factController = TextEditingController(text: statement["text"]);
     dateController = TextEditingController(text: statement["date"]);
-    linkController =
-        TextEditingController(text: statement["statementLink"]);
+    linkController = TextEditingController(text: statement["statementLink"]);
     authorController = TextEditingController(text: statement["author"]);
     mediaController = TextEditingController(text: statement["medium"]);
   }
 
-  FactController(Fact fact){
+  FactController(Fact fact) {
     factController = TextEditingController(text: fact.factText);
+    factController.addListener(() {
+      fact.factText = factController.text;
+    });
     // add date conversion functions
     dateController = TextEditingController(text: fact.factDate);
-    linkController =
-        TextEditingController(text: fact.factLink);
+    dateController.addListener(() {
+      fact.factDate = dateController.text;
+    });
+    linkController = TextEditingController(text: fact.factLink);
+    linkController.addListener(() {
+      fact.factLink = linkController.text;
+    });
     authorController = TextEditingController(text: fact.factAuthor);
+    authorController.addListener(() {
+      fact.factAuthor = authorController.text;
+    });
     mediaController = TextEditingController(text: fact.factMedia);
+    mediaController.addListener(() {
+      fact.factMedia = mediaController.text;
+    });
     languageController = TextEditingController(text: fact.factLanguage);
+    languageController.addListener(() {
+      fact.factLanguage = languageController.text;
+    });
   }
 
   void dispose() {
@@ -42,27 +56,27 @@ class FactController {
   }
 }
 
-class FactControllers{
+class FactControllers {
   List<FactController> controllers = [];
 
-  void dispose(){
+  void dispose() {
     for (FactController c in controllers) {
       c.dispose();
     }
   }
 
-  FactControllers(Facts facts){
+  FactControllers(Facts facts) {
     for (Fact fact in facts.facts) {
       controllers.add(FactController(fact));
     }
     //add empty fact controller, if no facts given
-    if (facts.facts.isEmpty){
+    if (facts.facts.isEmpty) {
       controllers.add(FactController(Fact.empty()));
     }
   }
 }
 
-class Fact{
+class Fact {
   late String factText;
   late String factDate;
   late String factLanguage;
@@ -70,23 +84,18 @@ class Fact{
   late String factAuthor;
   late String factMedia;
 
-  Fact(
-    this.factText,
-    this.factAuthor,
-    this.factDate,
-    this.factLanguage,
-    this.factLink,
-    this.factMedia);
-    
-  Fact.fromMap(Map<String, dynamic>? map) : 
-    factText = map?[Queries.factText],
-    factAuthor = map?[Queries.factAuthor],
-    factMedia = map?[Queries.factMedia],
-    factDate = Utils.formatDate(map?[Queries.factDate]),
-    factLink = map?[Queries.factLink],
-    factLanguage = map?[Queries.factLanguage];
+  Fact(this.factText, this.factAuthor, this.factDate, this.factLanguage,
+      this.factLink, this.factMedia);
 
-  Fact.empty(){
+  Fact.fromMap(Map<String, dynamic>? map)
+      : factText = map?[Queries.factText],
+        factAuthor = map?[Queries.factAuthor],
+        factMedia = map?[Queries.factMedia],
+        factDate = Utils.formatDate(map?[Queries.factDate]),
+        factLink = map?[Queries.factLink],
+        factLanguage = map?[Queries.factLanguage];
+
+  Fact.empty() {
     factText = "";
     factAuthor = "";
     factMedia = "";
@@ -96,14 +105,14 @@ class Fact{
   }
 }
 
-class Facts{
+class Facts {
   List<Fact> facts = [];
   Facts.fromMap(Map<String, dynamic>? map) {
-    for(Map<String, dynamic>? fact in map?["edges"]){
+    for (Map<String, dynamic>? fact in map?["edges"]) {
       facts.add(Fact.fromMap(fact?["node"]));
     }
   }
-  Facts(){
+  Facts() {
     facts.add(Fact.empty());
   }
 }
