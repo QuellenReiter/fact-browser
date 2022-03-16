@@ -1,3 +1,4 @@
+import 'package:http/http.dart';
 import 'package:statementmanager/models/statement.dart';
 
 import '../models/fact.dart';
@@ -70,6 +71,7 @@ class Queries {
   }){
     edges{
       node{
+        objectId
         $statementText
         $statementPicture{url}
         $statementDate
@@ -85,6 +87,7 @@ class Queries {
         $statementFactcheckIDs{
             edges{
               node{
+                objectId
                 $factText
                 $factAuthor
                 $factDate
@@ -102,7 +105,26 @@ class Queries {
     return ret;
   }
 
-  static String createStatement(Statement statement) {
+  static String createFile() {
+    String ret = '''
+  mutation createAFile(\$file: Upload!){
+  createFile(
+    input:{
+      upload: \$file
+    }
+  ){
+    fileInfo{
+      name
+      url
+    }
+  }
+}
+  ''';
+    return ret;
+  }
+
+  static String createStatement(
+      Statement statement, String fileName, String fileUrl) {
     String factString = "[";
     for (Fact fact in statement.statementFactchecks.facts) {
       factString += '''
@@ -119,12 +141,15 @@ class Queries {
     factString += "]";
 
     String ret = '''
-  mutation createAStatement{
+  mutation createAStatement(){
   createStatement(
     input:{
       fields:{
         $statementText: "${statement.statementText}",
-        $statementPicture: "${statement.statementPictureURL}",
+        $statementPicture: {
+          name: "$fileName",
+          url: "$fileUrl"
+        },
         $statementDate: "${statement.statementDate}",
         $statementCorrectness: "${statement.statementCorrectness}",
         $statementMedia: "${statement.statementMedia}",
@@ -133,40 +158,43 @@ class Queries {
         $statementMediatype: "${statement.statementMediatype}",
         $statementAuthor: "${statement.statementAuthor}",
         $statementLink: "${statement.statementLink}",
-        $statementRectification: "${statement.statementRectification}",
+        $statementRectification: ${statement.statementRectification},
         $statementPictureCopyright: "${statement.samplePictureCopyright}",
-        $statementFactcheckIDs{
+        $statementFactcheckIDs: {
           createAndAdd:
               $factString
         }
       }
     }
     ){
-    edges{
-      node{
-        $statementText,
-        $statementPicture,
-        $statementDate,
-        $statementCorrectness,
-        $statementMedia,
-        $statementLanguage,
-        $statementCategory,
-        $statementMediatype,
-        $statementAuthor,
-        $statementLink,
-        $statementRectification,
-        $statementPictureCopyright
-        $statementFactcheckIDs{
-            edges{
-              node{
-                $factText,
-                $factAuthor,
-                $factDate,
-                $factLanguage,
-                $factMedia,
-                $factLink
-              }
-            }
+  statement{
+    objectId
+    $statementText,
+    $statementPicture{
+      name,
+      url
+    },
+    $statementDate,
+    $statementCorrectness,
+    $statementMedia,
+    $statementLanguage,
+    $statementCategory,
+    $statementMediatype,
+    $statementAuthor,
+    $statementLink,
+    $statementRectification,
+    $statementPictureCopyright
+    $statementFactcheckIDs{
+        edges{
+          node{
+            objectId
+            $factText,
+            $factAuthor,
+            $factDate,
+            $factLanguage,
+            $factMedia,
+            $factLink
+          }
         }
       }
     }

@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:statementmanager/models/fact.dart';
 import 'package:statementmanager/models/statement.dart';
+import 'package:statementmanager/provider/database_utils.dart';
 import 'package:statementmanager/provider/device_type_provider.dart';
 import 'package:statementmanager/provider/queries.dart';
 import 'package:statementmanager/utilities/utilities.dart';
@@ -58,35 +59,19 @@ class _DetailScreenState extends State<DetailScreen> {
       (int i) => FactContainer(controllers: factControllers.controllers[i]),
     );
 
-    // this must be done somewhere alse
-    // statements should be updated while edited by the textcontrollers
-    // every variable needs to be checked for completenes
-    // and then send to database
     void uploadStatement() {
-      widget.statement.statementText = statementController.textController.text;
-      widget.statement.statementMedia =
-          statementController.mediaController.text;
-      widget.statement.statementMediatype =
-          statementController.mediaTypeController.text;
-      widget.statement.statementDate = statementController.dateController.text;
-      widget.statement.statementCategory =
-          statementController.categoryController.text;
-      widget.statement.statementCorrectness =
-          statementController.correctnessController.text;
-      widget.statement.statementLink = statementController.linkController.text;
-      widget.statement.statementLanguage =
-          statementController.languageController.text;
-      widget.statement.statementAuthor =
-          statementController.authorController.text;
-      widget.statement.samplePictureCopyright =
-          statementController.samplePictureCopyrightController.text;
-      // widget.statement.statementPictureURL : already set
-      // widget.statement.statementRectification : already set
+      //check if all fields are non zero
 
-      // for (int i = 0; i < widget.statement.statementFactchecks.facts.length; i++) {
-      //   widget.statement.statementFactchecks.facts[i].factAuthor = factControllers.controllers[i].authorController.text;
-      //    und so weiter...
-      // }
+      // push everything to server
+      if (widget.statement.objectId == null) {
+        // create new statement
+        DatabaseUtils db = DatabaseUtils();
+        db.sendData(widget.statement);
+      } else {
+        // update existing statement
+        DatabaseUtils db = DatabaseUtils();
+        db.sendData(widget.statement);
+      }
     }
 
     void addNewFact() {
@@ -126,7 +111,7 @@ class _DetailScreenState extends State<DetailScreen> {
               maxWidth: 1000,
             ),
             // this is a problem ? may case these squeezing effects.
-            height: DeviceType.height(context),
+            height: DeviceType.height(context) * 2,
             child: Align(
               alignment: Alignment.topLeft,
               child: Padding(
@@ -401,7 +386,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     Padding(
                       padding: const EdgeInsets.all(20),
                       child: ElevatedButton.icon(
-                          onPressed: () => uploadStatement,
+                          onPressed: () => uploadStatement(),
                           icon: const Icon(Icons.upload_file),
                           label: const Text("Diese Aussage speichern")),
                     ),

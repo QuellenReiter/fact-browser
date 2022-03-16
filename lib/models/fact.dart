@@ -10,6 +10,7 @@ class FactController {
   late TextEditingController authorController;
   late TextEditingController mediaController;
   late TextEditingController languageController;
+  String? objectId;
 
   FactController.fromMap(Map<String, dynamic> statement) {
     factController = TextEditingController(text: statement["text"]);
