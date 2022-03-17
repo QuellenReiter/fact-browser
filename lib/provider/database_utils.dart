@@ -148,16 +148,15 @@ class DatabaseUtils {
 
     // delete all facts:
     for (var fact in statement.statementFactchecks.facts) {
-      var factResult = await client.mutate(
-        MutationOptions(
-          document: gql(Queries.deleteFact(fact.objectId!)),
-        ),
-      );
-      print(factResult.toString());
-
-      // if (factResult.hasException) {
-      //   return factResult;
-      // }
+      // only if fact exists and thus has an objectId
+      if (fact.objectId != null) {
+        var factResult = await client.mutate(
+          MutationOptions(
+            document: gql(Queries.deleteFact(fact.objectId!)),
+          ),
+        );
+        print(factResult.toString());
+      }
     }
 
     var queryResult = await client.mutate(

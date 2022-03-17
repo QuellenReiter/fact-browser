@@ -25,6 +25,8 @@ class _DetailScreenState extends State<DetailScreen> {
   late StatementController statementController;
   late FactControllers factControllers;
   late int numFacts;
+  String? errorText;
+  List<String> factsToBeDeleted = [];
 
   @override
   void initState() {
@@ -54,7 +56,12 @@ class _DetailScreenState extends State<DetailScreen> {
 
   void uploadStatement() {
     //check if all fields are non zero
-
+    if (!widget.statement.isComplete()) {
+      setState(() {
+        errorText = "Keines der Felder darf Leer sein.";
+      });
+      return;
+    }
     // push everything to server
     if (widget.statement.objectId == null) {
       // create new statement
@@ -76,13 +83,19 @@ class _DetailScreenState extends State<DetailScreen> {
     });
   }
 
-  void removeFact() {
+  void removeFact(FactController factController) {
     if (numFacts < 1) return;
-
+    int factIndex = factControllers.controllers.indexOf(factController);
+    Fact fact = widget.statement.statementFactchecks.facts.elementAt(factIndex);
+    widget.statement.statementFactchecks.facts.removeAt(factIndex);
+    factControllers.controllers.removeAt(factIndex);
     setState(() {
       numFacts -= 1;
-      widget.statement.statementFactchecks.facts.removeLast();
-      factControllers.controllers.removeLast();
+      if (fact.objectId != null) {
+        //safe id to delete this fact later on
+        factsToBeDeleted.add(fact.objectId!);
+      }
+      // remove controller and fact from lists.
     });
   }
 
@@ -90,7 +103,10 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget build(BuildContext context) {
     List<Widget> factContainers = List.generate(
       numFacts,
-      (int i) => FactContainer(controllers: factControllers.controllers[i]),
+      (int i) => FactContainer(
+        controllers: factControllers.controllers[i],
+        removeFact: removeFact,
+      ),
     );
 
     return Scaffold(
@@ -119,6 +135,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
+                    errorText == null ? const Text("") : Text(errorText!),
                     Flexible(
                       child: TextFieldContainer(
                         textController: statementController.textController,
@@ -369,20 +386,11 @@ class _DetailScreenState extends State<DetailScreen> {
                     Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: factContainers
-                          ..add(Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ElevatedButton.icon(
-                                  onPressed: addNewFact,
-                                  icon: const Icon(Icons.add),
-                                  label: const Text("Fakt"),
-                                ),
-                                TextButton.icon(
-                                  onPressed: removeFact,
-                                  icon: const Icon(Icons.remove),
-                                  label: const Text("Fakt"),
-                                ),
-                              ]))),
+                          ..add(ElevatedButton.icon(
+                            onPressed: addNewFact,
+                            icon: const Icon(Icons.add),
+                            label: const Text("Fakt"),
+                          ))),
                     Padding(
                       padding: const EdgeInsets.all(20),
                       child: ElevatedButton.icon(
