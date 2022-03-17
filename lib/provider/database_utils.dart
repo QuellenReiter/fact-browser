@@ -1,6 +1,5 @@
-import 'dart:html';
 import 'dart:io';
-
+import 'package:http_parser/http_parser.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:http/http.dart';
@@ -51,7 +50,8 @@ class DatabaseUtils {
     MultipartFile multipartFile = MultipartFile.fromBytes(
       Queries.statementPicture,
       statement.uploadImage!.toList(),
-      filename: "test.jpg",
+      filename: '${DateTime.now().second}.jpg',
+      contentType: MediaType("image", "jpg"),
     );
 
     final HttpLink httpLink = HttpLink(kUrl, defaultHeaders: {
@@ -67,9 +67,6 @@ class DatabaseUtils {
 
     print('sendingFile');
 
-    String fileName;
-    String fileUrl;
-
     var uploadResult = await client.mutate(
       MutationOptions(
         document: gql(Queries.createFile()),
@@ -78,21 +75,97 @@ class DatabaseUtils {
         },
       ),
     );
+    print(uploadResult.toString());
 
-    fileName = uploadResult.data?["fileInfo"]["name"];
-    fileUrl = uploadResult.data?["fileInfo"]["url"];
     if (uploadResult.hasException) {
-      print("Upload exception: ");
-      print(uploadResult.exception.toString());
+      return uploadResult;
+    }
+
+    print("Image uplaoded");
+
+    //update picture url
+    statement.statementPictureURL =
+        uploadResult.data?["createFile"]["fileInfo"]["url"];
+
+    var queryResult = await client.mutate(
+      MutationOptions(
+        document: gql(Queries.createStatement(statement)),
+      ),
+    );
+    print(queryResult.toString());
+    if (queryResult.hasException) {
+      // show some warning
+      print(queryResult.exception.toString());
     } else {
-      print(fileUrl);
+      print("Statement added.");
+    }
+    return queryResult;
+  }
+
+  Future<QueryResult> updateData(Statement statement) async {
+    // Setup Client
+    final HttpLink httpLink = HttpLink(kUrl, defaultHeaders: {
+      'X-Parse-Application-Id': kParseApplicationId,
+      'X-Parse-Client-Key': kParseClientKey,
+      //'X-Parse-REST-API-Key' : kParseRestApiKey,
+    });
+    // create the data provider
+    GraphQLClient client = GraphQLClient(
+      cache: GraphQLCache(),
+      link: httpLink,
+    );
+
+    // prepare the picture if updated
+    if (statement.uploadImage != null) {
+      MultipartFile multipartFile = MultipartFile.fromBytes(
+        Queries.statementPicture,
+        statement.uploadImage!.toList(),
+        filename: '${DateTime.now().second}.jpg',
+        contentType: MediaType("image", "jpg"),
+      );
+      print('sendingFile');
+
+      var uploadResult = await client.mutate(
+        MutationOptions(
+          document: gql(Queries.createFile()),
+          variables: {
+            "file": multipartFile,
+          },
+        ),
+      );
+      print(uploadResult.toString());
+
+      if (uploadResult.hasException) {
+        return uploadResult;
+      }
+
+      print("Image uploaded");
+
+      //update the pictureURL
+      statement.statementPictureURL =
+          uploadResult.data?["createFile"]["fileInfo"]["url"];
+    }
+
+    // delete all facts:
+    for (var fact in statement.statementFactchecks.facts) {
+      var factResult = await client.mutate(
+        MutationOptions(
+          document: gql(Queries.deleteFact(fact.objectId!)),
+        ),
+      );
+      print(factResult.toString());
+
+      // if (factResult.hasException) {
+      //   return factResult;
+      // }
     }
 
     var queryResult = await client.mutate(
       MutationOptions(
-        document: gql(Queries.createStatement(statement, fileName, fileUrl)),
+        document: gql(Queries.updateStatement(statement)),
       ),
     );
+    print(queryResult.toString());
     if (queryResult.hasException) {
       // show some warning
       print(queryResult.exception.toString());
@@ -102,29 +175,6 @@ class DatabaseUtils {
     }
     return queryResult;
   }
-
-  // Future<QueryResult> updateData() async {
-  //   final variable = {
-  //     "id": objectId,
-  //     "input": {"name": langName}
-  //   };
-
-  //   final HttpLink httpLink = HttpLink(kUrl, defaultHeaders: {
-  //     'X-Parse-Application-Id': kParseApplicationId,
-  //     'X-Parse-Client-Key': kParseClientKey,
-  //     //'X-Parse-REST-API-Key' : kParseRestApiKey,
-  //   });
-  //   // create the data provider
-  //   GraphQLClient client = GraphQLClient(
-  //     cache: GraphQLCache(),
-  //     link: httpLink,
-  //   );
-
-  //   QueryResult queryResult = await client.query(
-  //     QueryOptions(document: gql(update), variables: variable),
-  //   );
-  //   return queryResult;
-  // }
 
   // Future<QueryResult> deleteData() async {
   //   final variable = {

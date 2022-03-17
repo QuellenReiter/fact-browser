@@ -45,10 +45,44 @@ class _DetailScreenState extends State<DetailScreen> {
     super.dispose();
   }
 
-  void safeFile(Uint8List? path) {
+  void safeFile(Uint8List? img) {
     setState(() {
       // whaaaat to do here?
-      widget.statement.uploadImage = path;
+      widget.statement.uploadImage = img;
+    });
+  }
+
+  void uploadStatement() {
+    //check if all fields are non zero
+
+    // push everything to server
+    if (widget.statement.objectId == null) {
+      // create new statement
+      DatabaseUtils db = DatabaseUtils();
+      db.sendData(widget.statement);
+    } else {
+      // update existing statement
+      DatabaseUtils db = DatabaseUtils();
+      db.updateData(widget.statement);
+    }
+  }
+
+  void addNewFact() {
+    setState(() {
+      numFacts += 1;
+      widget.statement.statementFactchecks.facts.add(Fact.empty());
+      factControllers.controllers.add(FactController(
+          widget.statement.statementFactchecks.facts[numFacts - 1]));
+    });
+  }
+
+  void removeFact() {
+    if (numFacts < 1) return;
+
+    setState(() {
+      numFacts -= 1;
+      widget.statement.statementFactchecks.facts.removeLast();
+      factControllers.controllers.removeLast();
     });
   }
 
@@ -58,40 +92,6 @@ class _DetailScreenState extends State<DetailScreen> {
       numFacts,
       (int i) => FactContainer(controllers: factControllers.controllers[i]),
     );
-
-    void uploadStatement() {
-      //check if all fields are non zero
-
-      // push everything to server
-      if (widget.statement.objectId == null) {
-        // create new statement
-        DatabaseUtils db = DatabaseUtils();
-        db.sendData(widget.statement);
-      } else {
-        // update existing statement
-        DatabaseUtils db = DatabaseUtils();
-        db.sendData(widget.statement);
-      }
-    }
-
-    void addNewFact() {
-      setState(() {
-        numFacts += 1;
-        widget.statement.statementFactchecks.facts.add(Fact.empty());
-        factControllers.controllers.add(FactController(
-            widget.statement.statementFactchecks.facts[numFacts - 1]));
-      });
-    }
-
-    void removeFact() {
-      if (numFacts < 1) return;
-
-      setState(() {
-        numFacts -= 1;
-        widget.statement.statementFactchecks.facts.removeLast();
-        factControllers.controllers.removeLast();
-      });
-    }
 
     return Scaffold(
       appBar: AppBar(
