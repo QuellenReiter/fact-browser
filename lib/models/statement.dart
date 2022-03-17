@@ -164,6 +164,34 @@ class Statement {
     samplePictureCopyright = "";
     statementRectification = false;
   }
+  // are all variables filled ?
+  bool isComplete() {
+    //check statement
+    if (statementText.isEmpty ||
+        statementAuthor.isEmpty ||
+        statementCategory.isEmpty ||
+        statementCorrectness.isEmpty ||
+        statementDate.isEmpty ||
+        statementLanguage.isEmpty ||
+        statementLink.isEmpty ||
+        statementMedia.isEmpty ||
+        statementMediatype.isEmpty ||
+        statementPictureURL.isEmpty) {
+      return false;
+    }
+    //checl all facts
+    for (var fact in statementFactchecks.facts) {
+      if (fact.factAuthor.isEmpty ||
+          fact.factDate.isEmpty ||
+          fact.factLanguage.isEmpty ||
+          fact.factLink.isEmpty ||
+          fact.factMedia.isEmpty ||
+          fact.factText.isEmpty) {
+        return false;
+      }
+    }
+    return true;
+  }
 }
 
 class Statements {
