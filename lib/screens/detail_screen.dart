@@ -70,7 +70,7 @@ class _DetailScreenState extends State<DetailScreen> {
     } else {
       // update existing statement
       DatabaseUtils db = DatabaseUtils();
-      db.updateData(widget.statement);
+      db.updateData(widget.statement, factsToBeDeleted);
     }
   }
 
@@ -87,14 +87,15 @@ class _DetailScreenState extends State<DetailScreen> {
     if (numFacts < 1) return;
     int factIndex = factControllers.controllers.indexOf(factController);
     Fact fact = widget.statement.statementFactchecks.facts.elementAt(factIndex);
-    widget.statement.statementFactchecks.facts.removeAt(factIndex);
-    factControllers.controllers.removeAt(factIndex);
+
     setState(() {
       numFacts -= 1;
       if (fact.objectId != null) {
         //safe id to delete this fact later on
         factsToBeDeleted.add(fact.objectId!);
       }
+      widget.statement.statementFactchecks.facts.removeAt(factIndex);
+      factControllers.controllers.removeAt(factIndex);
       // remove controller and fact from lists.
     });
   }

@@ -102,7 +102,8 @@ class DatabaseUtils {
     return queryResult;
   }
 
-  Future<QueryResult> updateData(Statement statement) async {
+  Future<QueryResult> updateData(
+      Statement statement, List<String> oldFactIds) async {
     // Setup Client
     final HttpLink httpLink = HttpLink(kUrl, defaultHeaders: {
       'X-Parse-Application-Id': kParseApplicationId,
@@ -155,8 +156,21 @@ class DatabaseUtils {
             document: gql(Queries.deleteFact(fact.objectId!)),
           ),
         );
+        //remove deleted ID from oldIDs
+        oldFactIds.remove(fact.objectId);
         print(factResult.toString());
       }
+    }
+    // and remove all facts, that have been removed
+    for (var id in oldFactIds) {
+      // only if fact exists and thus has an objectId
+
+      var factResult = await client.mutate(
+        MutationOptions(
+          document: gql(Queries.deleteFact(id)),
+        ),
+      );
+      print(factResult.toString());
     }
 
     var queryResult = await client.mutate(
