@@ -10,7 +10,6 @@ class FactController {
   late TextEditingController authorController;
   late TextEditingController mediaController;
   late TextEditingController languageController;
-  String? objectId;
 
   FactController.fromMap(Map<String, dynamic> statement) {
     factController = TextEditingController(text: statement["text"]);
@@ -84,9 +83,10 @@ class Fact {
   late String factLink;
   late String factAuthor;
   late String factMedia;
+  String? objectId;
 
   Fact(this.factText, this.factAuthor, this.factDate, this.factLanguage,
-      this.factLink, this.factMedia);
+      this.factLink, this.factMedia, this.objectId);
 
   Fact.fromMap(Map<String, dynamic>? map)
       : factText = map?[Queries.factText],
@@ -94,7 +94,8 @@ class Fact {
         factMedia = map?[Queries.factMedia],
         factDate = Utils.formatDate(map?[Queries.factDate]),
         factLink = map?[Queries.factLink],
-        factLanguage = map?[Queries.factLanguage];
+        factLanguage = map?[Queries.factLanguage],
+        objectId = map?["objectId"];
 
   Fact.empty() {
     factText = "";
