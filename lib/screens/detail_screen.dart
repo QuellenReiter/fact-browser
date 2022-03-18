@@ -80,6 +80,7 @@ class _DetailScreenState extends State<DetailScreen> {
         });
     //check if all fields are non zero
     if (!widget.statement.isComplete()) {
+      Navigator.pop(context);
       setState(() {
         errorText = "Keines der Felder darf Leer sein.";
       });
@@ -333,18 +334,14 @@ class _DetailScreenState extends State<DetailScreen> {
                                     ),
                                   ),
                                 ),
-                                widget.statement.statementMediatype == "Foto" ||
-                                        widget.statement.statementMediatype ==
-                                            "Video"
-                                    ? const SizedBox.shrink()
-                                    : Flexible(
-                                        child: TextFieldContainer(
-                                            textController: statementController
-                                                .samplePictureCopyrightController,
-                                            label:
-                                                "Gebe ein Copyright für das Foto ein.",
-                                            errorCallback: Utils.checkIfEmpty),
-                                      ),
+                                Flexible(
+                                  child: TextFieldContainer(
+                                      textController: statementController
+                                          .samplePictureCopyrightController,
+                                      label:
+                                          "Gebe ein Copyright für das Foto ein.",
+                                      errorCallback: Utils.checkIfEmpty),
+                                ),
                                 Flexible(
                                   flex: 2,
                                   child: Padding(
