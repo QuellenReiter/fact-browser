@@ -171,13 +171,6 @@ class _DetailScreenState extends State<DetailScreen> {
                               label: "Gebe die Originalsprache ein.",
                               errorCallback: Utils.checkIfEmpty),
                         ),
-                        Flexible(
-                          child: TextFieldContainer(
-                              textController: statementController
-                                  .samplePictureCopyrightController,
-                              label: "Gebe ein Copyright für das Foto ein.",
-                              errorCallback: Utils.checkIfEmpty),
-                        ),
                       ]),
                     ),
                     Flexible(
@@ -272,24 +265,6 @@ class _DetailScreenState extends State<DetailScreen> {
                                     padding: const EdgeInsets.all(5),
                                     child: Row(
                                       children: [
-                                        const Text("Wähle ein Foto aus."),
-                                        Padding(
-                                          padding: const EdgeInsets.all(5),
-                                          child: ElevatedButton(
-                                              onPressed: () =>
-                                                  Utils.pickFile(safeFile),
-                                              child: const Text("wählen")),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Flexible(
-                                  flex: 2,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5),
-                                    child: Row(
-                                      children: [
                                         const Text("Wähle einen Medientyp."),
                                         Padding(
                                           padding: const EdgeInsets.all(5),
@@ -317,6 +292,36 @@ class _DetailScreenState extends State<DetailScreen> {
                                     ),
                                   ),
                                 ),
+                                Flexible(
+                                  flex: 2,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(5),
+                                    child: Row(
+                                      children: [
+                                        const Text("Wähle ein Foto aus."),
+                                        Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: ElevatedButton(
+                                              onPressed: () =>
+                                                  Utils.pickFile(safeFile),
+                                              child: const Text("wählen")),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                widget.statement.statementMediatype == "Foto" ||
+                                        widget.statement.statementMediatype ==
+                                            "Video"
+                                    ? const SizedBox.shrink()
+                                    : Flexible(
+                                        child: TextFieldContainer(
+                                            textController: statementController
+                                                .samplePictureCopyrightController,
+                                            label:
+                                                "Gebe ein Copyright für das Foto ein.",
+                                            errorCallback: Utils.checkIfEmpty),
+                                      ),
                                 Flexible(
                                   flex: 2,
                                   child: Padding(
