@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:statementmanager/models/fact.dart';
@@ -54,6 +53,16 @@ class _DetailScreenState extends State<DetailScreen> {
     });
   }
 
+  void reloadAndPopLoading(Statement? _statement, String? _error) {
+    setState(() {
+      Navigator.pop(context);
+      errorText = _error;
+      if (_statement != null) {
+        widget.statement = _statement;
+      }
+    });
+  }
+
   void uploadStatement() {
     // show loading indicator
     showModalBottomSheet<void>(
@@ -80,11 +89,11 @@ class _DetailScreenState extends State<DetailScreen> {
     if (widget.statement.objectId == null) {
       // create new statement
       DatabaseUtils db = DatabaseUtils();
-      db.sendData(widget.statement, context);
+      db.sendData(widget.statement, reloadAndPopLoading);
     } else {
       // update existing statement
       DatabaseUtils db = DatabaseUtils();
-      db.updateData(widget.statement, factsToBeDeleted, context);
+      db.updateData(widget.statement, factsToBeDeleted, reloadAndPopLoading);
     }
   }
 
