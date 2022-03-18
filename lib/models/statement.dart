@@ -176,7 +176,7 @@ class Statement {
         statementLink.isEmpty ||
         statementMedia.isEmpty ||
         statementMediatype.isEmpty ||
-        statementPictureURL.isEmpty) {
+        (statementPictureURL.isEmpty && (uploadImage == null))) {
       return false;
     }
     //checl all facts
