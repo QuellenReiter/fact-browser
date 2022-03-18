@@ -4,7 +4,11 @@ import '../utilities/utilities.dart';
 
 class TextFieldContainer extends StatelessWidget {
   const TextFieldContainer(
-      {Key? key, required this.textController, required this.label, required this.errorCallback, this.inputFormatter})
+      {Key? key,
+      required this.textController,
+      required this.label,
+      required this.errorCallback,
+      this.inputFormatter})
       : super(key: key);
 
   final TextEditingController textController;
@@ -17,33 +21,33 @@ class TextFieldContainer extends StatelessWidget {
     return ValueListenableBuilder(
       valueListenable: textController,
       builder: (context, TextEditingValue value, __) {
-        if(inputFormatter == null){
+        if (inputFormatter == null) {
           return Container(
-          padding: const EdgeInsets.all(5),
-          child: TextField(
-            controller: textController,
-            decoration: InputDecoration(
-              labelText: label,
-              border: const OutlineInputBorder(),
-              errorText: errorCallback(textController),
+            padding: const EdgeInsets.all(5),
+            child: TextField(
+              maxLines: null,
+              controller: textController,
+              decoration: InputDecoration(
+                labelText: label,
+                border: const OutlineInputBorder(),
+                errorText: errorCallback(textController),
+              ),
             ),
-          ),
-        );
-        }else{
+          );
+        } else {
           return Container(
-          padding: const EdgeInsets.all(5),
-          child: TextField(
-            controller: textController,
-            inputFormatters: [
-              inputFormatter!
-            ],
-            decoration: InputDecoration(
-              labelText: label,
-              border: const OutlineInputBorder(),
-              errorText: errorCallback(textController),
+            padding: const EdgeInsets.all(5),
+            child: TextField(
+              maxLines: null,
+              controller: textController,
+              inputFormatters: [inputFormatter!],
+              decoration: InputDecoration(
+                labelText: label,
+                border: const OutlineInputBorder(),
+                errorText: errorCallback(textController),
+              ),
             ),
-          ),
-        );
+          );
         }
       },
     );
