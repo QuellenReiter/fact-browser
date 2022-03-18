@@ -45,7 +45,8 @@ class DatabaseUtils {
   // }
   // ''';
 
-  Future<QueryResult> sendData(Statement statement) async {
+  Future<QueryResult> sendData(
+      Statement statement, BuildContext context) async {
     // prepare the picture
     MultipartFile multipartFile = MultipartFile.fromBytes(
       Queries.statementPicture,
@@ -99,11 +100,12 @@ class DatabaseUtils {
     } else {
       print("Statement added.");
     }
+    Navigator.pop(context);
     return queryResult;
   }
 
-  Future<QueryResult> updateData(
-      Statement statement, List<String> oldFactIds) async {
+  Future<QueryResult> updateData(Statement statement, List<String> oldFactIds,
+      BuildContext context) async {
     // Setup Client
     final HttpLink httpLink = HttpLink(kUrl, defaultHeaders: {
       'X-Parse-Application-Id': kParseApplicationId,
@@ -186,6 +188,7 @@ class DatabaseUtils {
       print("RESULT:");
       print(queryResult.data.toString());
     }
+    Navigator.pop(context);
     return queryResult;
   }
 
