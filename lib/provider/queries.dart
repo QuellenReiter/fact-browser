@@ -166,27 +166,27 @@ class Queries {
     ){
   statement{
     objectId
-    $statementText,
-    $statementPicture,
-    $statementDate,
-    $statementCorrectness,
-    $statementMedia,
-    $statementLanguage,
-    $statementCategory,
-    $statementMediatype,
-    $statementAuthor,
-    $statementLink,
-    $statementRectification,
+    $statementText
+    $statementPicture
+    $statementDate
+    $statementCorrectness
+    $statementMedia
+    $statementLanguage
+    $statementCategory
+    $statementMediatype
+    $statementAuthor
+    $statementLink
+    $statementRectification
     $statementPictureCopyright
     $statementFactcheckIDs{
         edges{
           node{
             objectId
-            $factText,
-            $factAuthor,
-            $factDate,
-            $factLanguage,
-            $factMedia,
+            $factText
+            $factAuthor
+            $factDate
+            $factLanguage
+            $factMedia
             $factLink
           }
         }
@@ -244,28 +244,28 @@ class Queries {
     ){
   statement{
     objectId
-    $statementText,
-    $statementPicture,
-    $statementDate,
-    $statementCorrectness,
-    $statementMedia,
-    $statementLanguage,
-    $statementCategory,
-    $statementMediatype,
-    $statementAuthor,
-    $statementLink,
-    $statementRectification,
+    $statementText
+    $statementPicture
+    $statementDate
+    $statementCorrectness
+    $statementMedia
+    $statementLanguage
+    $statementCategory
+    $statementMediatype
+    $statementAuthor
+    $statementLink
+    $statementRectification
     $statementPictureCopyright
     $statementFactcheckIDs{
         edges{
           node{
             objectId
-            $factText,
-            $factAuthor,
-            $factDate,
-            $factLanguage,
-            $factMedia,
-            $factLink
+              $factText
+              $factAuthor
+              $factDate
+              $factLanguage
+              $factMedia
+              $factLink
           }
         }
       }

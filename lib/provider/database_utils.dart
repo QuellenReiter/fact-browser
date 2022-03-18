@@ -46,7 +46,7 @@ class DatabaseUtils {
   // ''';
 
   Future<QueryResult> sendData(
-      Statement statement, BuildContext context) async {
+      Statement statement, Function reloadDetailScreen) async {
     // prepare the picture
     MultipartFile multipartFile = MultipartFile.fromBytes(
       Queries.statementPicture,
@@ -79,6 +79,7 @@ class DatabaseUtils {
     print(uploadResult.toString());
 
     if (uploadResult.hasException) {
+      reloadDetailScreen(null, "Upload fehlgeschlagen.");
       return uploadResult;
     }
 
@@ -100,12 +101,14 @@ class DatabaseUtils {
     } else {
       print("Statement added.");
     }
-    Navigator.pop(context);
+    reloadDetailScreen(
+        Statement.fromMap(queryResult.data?["createStatement"]["statement"]),
+        null);
     return queryResult;
   }
 
   Future<QueryResult> updateData(Statement statement, List<String> oldFactIds,
-      BuildContext context) async {
+      Function reloadDetailScreen) async {
     // Setup Client
     final HttpLink httpLink = HttpLink(kUrl, defaultHeaders: {
       'X-Parse-Application-Id': kParseApplicationId,
@@ -139,6 +142,7 @@ class DatabaseUtils {
       print(uploadResult.toString());
 
       if (uploadResult.hasException) {
+        reloadDetailScreen(null, "Upload fehlgeschlagen.");
         return uploadResult;
       }
 
@@ -188,7 +192,9 @@ class DatabaseUtils {
       print("RESULT:");
       print(queryResult.data.toString());
     }
-    Navigator.pop(context);
+    reloadDetailScreen(
+        Statement.fromMap(queryResult.data?["updateStatement"]["statement"]),
+        null);
     return queryResult;
   }
 
