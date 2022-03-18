@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:statementmanager/models/fact.dart';
 import 'package:statementmanager/models/statement.dart';
+import 'package:statementmanager/provider/database_utils.dart';
 import 'package:statementmanager/provider/device_type_provider.dart';
 import 'package:statementmanager/provider/queries.dart';
 import 'package:statementmanager/utilities/utilities.dart';
@@ -24,6 +25,8 @@ class _DetailScreenState extends State<DetailScreen> {
   late StatementController statementController;
   late FactControllers factControllers;
   late int numFacts;
+  String? errorText;
+  List<String> factsToBeDeleted = [];
 
   @override
   void initState() {
@@ -44,10 +47,56 @@ class _DetailScreenState extends State<DetailScreen> {
     super.dispose();
   }
 
-  void safeFile(Uint8List? path) {
+  void safeFile(Uint8List? img) {
     setState(() {
       // whaaaat to do here?
-      widget.statement.uploadImage = path;
+      widget.statement.uploadImage = img;
+    });
+  }
+
+  void uploadStatement() {
+    //check if all fields are non zero
+    if (!widget.statement.isComplete()) {
+      setState(() {
+        errorText = "Keines der Felder darf Leer sein.";
+      });
+      return;
+    }
+    // push everything to server
+    if (widget.statement.objectId == null) {
+      // create new statement
+      DatabaseUtils db = DatabaseUtils();
+      db.sendData(widget.statement);
+    } else {
+      // update existing statement
+      DatabaseUtils db = DatabaseUtils();
+      db.updateData(widget.statement, factsToBeDeleted);
+    }
+  }
+
+  void addNewFact() {
+    setState(() {
+      numFacts += 1;
+      widget.statement.statementFactchecks.facts.add(Fact.empty());
+      factControllers.controllers.add(FactController(
+          widget.statement.statementFactchecks.facts[numFacts - 1]));
+    });
+  }
+
+  void removeFact(FactController factController) {
+    if (numFacts < 1) return;
+    int factIndex = factControllers.controllers.indexOf(factController);
+    Fact fact = widget.statement.statementFactchecks.facts.elementAt(factIndex);
+
+    setState(() {
+      numFacts -= 1;
+      if (fact.objectId != null) {
+        //safe id to delete this fact later on
+        factsToBeDeleted.add(fact.objectId!);
+      }
+      widget.statement.statementFactchecks.facts.removeAt(factIndex);
+      factControllers.controllers.removeAt(factIndex);
+      // remove controller and fact from lists.
     });
   }
 
@@ -55,58 +104,11 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget build(BuildContext context) {
     List<Widget> factContainers = List.generate(
       numFacts,
-      (int i) => FactContainer(controllers: factControllers.controllers[i]),
+      (int i) => FactContainer(
+        controllers: factControllers.controllers[i],
+        removeFact: removeFact,
+      ),
     );
-
-    // this must be done somewhere alse
-    // statements should be updated while edited by the textcontrollers
-    // every variable needs to be checked for completenes
-    // and then send to database
-    void uploadStatement() {
-      widget.statement.statementText = statementController.textController.text;
-      widget.statement.statementMedia =
-          statementController.mediaController.text;
-      widget.statement.statementMediatype =
-          statementController.mediaTypeController.text;
-      widget.statement.statementDate = statementController.dateController.text;
-      widget.statement.statementCategory =
-          statementController.categoryController.text;
-      widget.statement.statementCorrectness =
-          statementController.correctnessController.text;
-      widget.statement.statementLink = statementController.linkController.text;
-      widget.statement.statementLanguage =
-          statementController.languageController.text;
-      widget.statement.statementAuthor =
-          statementController.authorController.text;
-      widget.statement.samplePictureCopyright =
-          statementController.samplePictureCopyrightController.text;
-      // widget.statement.statementPictureURL : already set
-      // widget.statement.statementRectification : already set
-
-      // for (int i = 0; i < widget.statement.statementFactchecks.facts.length; i++) {
-      //   widget.statement.statementFactchecks.facts[i].factAuthor = factControllers.controllers[i].authorController.text;
-      //    und so weiter...
-      // }
-    }
-
-    void addNewFact() {
-      setState(() {
-        numFacts += 1;
-        widget.statement.statementFactchecks.facts.add(Fact.empty());
-        factControllers.controllers.add(FactController(
-            widget.statement.statementFactchecks.facts[numFacts - 1]));
-      });
-    }
-
-    void removeFact() {
-      if (numFacts < 1) return;
-
-      setState(() {
-        numFacts -= 1;
-        widget.statement.statementFactchecks.facts.removeLast();
-        factControllers.controllers.removeLast();
-      });
-    }
 
     return Scaffold(
       appBar: AppBar(
@@ -126,7 +128,7 @@ class _DetailScreenState extends State<DetailScreen> {
               maxWidth: 1000,
             ),
             // this is a problem ? may case these squeezing effects.
-            height: DeviceType.height(context),
+            height: DeviceType.height(context) * 2,
             child: Align(
               alignment: Alignment.topLeft,
               child: Padding(
@@ -134,6 +136,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
+                    errorText == null ? const Text("") : Text(errorText!),
                     Flexible(
                       child: TextFieldContainer(
                         textController: statementController.textController,
@@ -166,13 +169,6 @@ class _DetailScreenState extends State<DetailScreen> {
                               textController:
                                   statementController.languageController,
                               label: "Gebe die Originalsprache ein.",
-                              errorCallback: Utils.checkIfEmpty),
-                        ),
-                        Flexible(
-                          child: TextFieldContainer(
-                              textController: statementController
-                                  .samplePictureCopyrightController,
-                              label: "Gebe ein Copyright für das Foto ein.",
                               errorCallback: Utils.checkIfEmpty),
                         ),
                       ]),
@@ -269,24 +265,6 @@ class _DetailScreenState extends State<DetailScreen> {
                                     padding: const EdgeInsets.all(5),
                                     child: Row(
                                       children: [
-                                        const Text("Wähle ein Foto aus."),
-                                        Padding(
-                                          padding: const EdgeInsets.all(5),
-                                          child: ElevatedButton(
-                                              onPressed: () =>
-                                                  Utils.pickFile(safeFile),
-                                              child: const Text("wählen")),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Flexible(
-                                  flex: 2,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5),
-                                    child: Row(
-                                      children: [
                                         const Text("Wähle einen Medientyp."),
                                         Padding(
                                           padding: const EdgeInsets.all(5),
@@ -314,6 +292,36 @@ class _DetailScreenState extends State<DetailScreen> {
                                     ),
                                   ),
                                 ),
+                                Flexible(
+                                  flex: 2,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(5),
+                                    child: Row(
+                                      children: [
+                                        const Text("Wähle ein Foto aus."),
+                                        Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: ElevatedButton(
+                                              onPressed: () =>
+                                                  Utils.pickFile(safeFile),
+                                              child: const Text("wählen")),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                widget.statement.statementMediatype == "Foto" ||
+                                        widget.statement.statementMediatype ==
+                                            "Video"
+                                    ? const SizedBox.shrink()
+                                    : Flexible(
+                                        child: TextFieldContainer(
+                                            textController: statementController
+                                                .samplePictureCopyrightController,
+                                            label:
+                                                "Gebe ein Copyright für das Foto ein.",
+                                            errorCallback: Utils.checkIfEmpty),
+                                      ),
                                 Flexible(
                                   flex: 2,
                                   child: Padding(
@@ -384,24 +392,15 @@ class _DetailScreenState extends State<DetailScreen> {
                     Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: factContainers
-                          ..add(Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ElevatedButton.icon(
-                                  onPressed: addNewFact,
-                                  icon: const Icon(Icons.add),
-                                  label: const Text("Fakt"),
-                                ),
-                                TextButton.icon(
-                                  onPressed: removeFact,
-                                  icon: const Icon(Icons.remove),
-                                  label: const Text("Fakt"),
-                                ),
-                              ]))),
+                          ..add(ElevatedButton.icon(
+                            onPressed: addNewFact,
+                            icon: const Icon(Icons.add),
+                            label: const Text("Fakt"),
+                          ))),
                     Padding(
                       padding: const EdgeInsets.all(20),
                       child: ElevatedButton.icon(
-                          onPressed: () => uploadStatement,
+                          onPressed: () => uploadStatement(),
                           icon: const Icon(Icons.upload_file),
                           label: const Text("Diese Aussage speichern")),
                     ),

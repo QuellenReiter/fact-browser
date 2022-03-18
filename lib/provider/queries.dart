@@ -1,10 +1,12 @@
+import 'package:http/http.dart';
 import 'package:statementmanager/models/statement.dart';
 
 import '../models/fact.dart';
+import '../utilities/utilities.dart';
 
 class Queries {
   static String statementText = "statement";
-  static String statementPicture = "picture";
+  static String statementPicture = "pictureUrl";
   static String statementDate = "date";
   static String statementMediatype = "mediatype";
   static String statementLanguage = "language";
@@ -70,8 +72,9 @@ class Queries {
   }){
     edges{
       node{
+        objectId
         $statementText
-        $statementPicture{url}
+        $statementPicture
         $statementDate
         $statementCorrectness
         $statementMedia
@@ -85,6 +88,7 @@ class Queries {
         $statementFactcheckIDs{
             edges{
               node{
+                objectId
                 $factText
                 $factAuthor
                 $factDate
@@ -102,6 +106,24 @@ class Queries {
     return ret;
   }
 
+  static String createFile() {
+    String ret = '''
+  mutation createAFile(\$file: Upload!){
+  createFile(
+    input:{
+      upload: \$file
+    }
+  ){
+    fileInfo{
+      name
+      url
+    }
+  }
+}
+  ''';
+    return ret;
+  }
+
   static String createStatement(Statement statement) {
     String factString = "[";
     for (Fact fact in statement.statementFactchecks.facts) {
@@ -109,7 +131,7 @@ class Queries {
             {
               $factText: "${fact.factText}",
               $factAuthor:"${fact.factAuthor}",
-              $factDate:"${fact.factDate}",
+              $factDate:"${Utils.toUTCDateFormat(fact.factDate)}",
               $factLanguage:"${fact.factLanguage}",
               $factMedia:"${fact.factMedia}",
               $factLink:"${fact.factLink}"
@@ -124,8 +146,8 @@ class Queries {
     input:{
       fields:{
         $statementText: "${statement.statementText}",
-        $statementPicture: "${statement.statementPictureURL}",
-        $statementDate: "${statement.statementDate}",
+        $statementPicture: "${statement.statementPictureURL}"
+        $statementDate: "${Utils.toUTCDateFormat(statement.statementDate)}",
         $statementCorrectness: "${statement.statementCorrectness}",
         $statementMedia: "${statement.statementMedia}",
         $statementLanguage: "${statement.statementLanguage}",
@@ -133,42 +155,140 @@ class Queries {
         $statementMediatype: "${statement.statementMediatype}",
         $statementAuthor: "${statement.statementAuthor}",
         $statementLink: "${statement.statementLink}",
-        $statementRectification: "${statement.statementRectification}",
+        $statementRectification: ${statement.statementRectification},
         $statementPictureCopyright: "${statement.samplePictureCopyright}",
-        $statementFactcheckIDs{
+        $statementFactcheckIDs: {
           createAndAdd:
               $factString
         }
       }
     }
     ){
-    edges{
-      node{
-        $statementText,
-        $statementPicture,
-        $statementDate,
-        $statementCorrectness,
-        $statementMedia,
-        $statementLanguage,
-        $statementCategory,
-        $statementMediatype,
-        $statementAuthor,
-        $statementLink,
-        $statementRectification,
-        $statementPictureCopyright
-        $statementFactcheckIDs{
-            edges{
-              node{
-                $factText,
-                $factAuthor,
-                $factDate,
-                $factLanguage,
-                $factMedia,
-                $factLink
-              }
-            }
+  statement{
+    objectId
+    $statementText,
+    $statementPicture,
+    $statementDate,
+    $statementCorrectness,
+    $statementMedia,
+    $statementLanguage,
+    $statementCategory,
+    $statementMediatype,
+    $statementAuthor,
+    $statementLink,
+    $statementRectification,
+    $statementPictureCopyright
+    $statementFactcheckIDs{
+        edges{
+          node{
+            objectId
+            $factText,
+            $factAuthor,
+            $factDate,
+            $factLanguage,
+            $factMedia,
+            $factLink
+          }
         }
       }
+    }
+  }
+}
+  ''';
+    return ret;
+  }
+
+  static String updateStatement(Statement statement) {
+    // how to ensure that facts are not duplicated but changes
+    //are still updated..??
+
+    String factString = "[";
+    for (Fact fact in statement.statementFactchecks.facts) {
+      factString += '''
+            {
+              $factText: "${fact.factText}",
+              $factAuthor:"${fact.factAuthor}",
+              $factDate:"${Utils.toUTCDateFormat(fact.factDate)}",
+              $factLanguage:"${fact.factLanguage}",
+              $factMedia:"${fact.factMedia}",
+              $factLink:"${fact.factLink}"
+              },
+''';
+    }
+    factString += "]";
+
+    String ret = '''
+  mutation updateAStatement{
+  updateStatement(
+    input:{
+      id: "${statement.objectId}"
+      fields:{
+        $statementText: "${statement.statementText}",
+        $statementPicture: "${statement.statementPictureURL}"
+        $statementDate: "${Utils.toUTCDateFormat(statement.statementDate)}",
+        $statementCorrectness: "${statement.statementCorrectness}",
+        $statementMedia: "${statement.statementMedia}",
+        $statementLanguage: "${statement.statementLanguage}",
+        $statementCategory: "${statement.statementCategory}",
+        $statementMediatype: "${statement.statementMediatype}",
+        $statementAuthor: "${statement.statementAuthor}",
+        $statementLink: "${statement.statementLink}",
+        $statementRectification: ${statement.statementRectification},
+        $statementPictureCopyright: "${statement.samplePictureCopyright}",
+        $statementFactcheckIDs: {
+          createAndAdd:
+              $factString
+        }
+      }
+    }
+    ){
+  statement{
+    objectId
+    $statementText,
+    $statementPicture,
+    $statementDate,
+    $statementCorrectness,
+    $statementMedia,
+    $statementLanguage,
+    $statementCategory,
+    $statementMediatype,
+    $statementAuthor,
+    $statementLink,
+    $statementRectification,
+    $statementPictureCopyright
+    $statementFactcheckIDs{
+        edges{
+          node{
+            objectId
+            $factText,
+            $factAuthor,
+            $factDate,
+            $factLanguage,
+            $factMedia,
+            $factLink
+          }
+        }
+      }
+    }
+  }
+}
+  ''';
+    return ret;
+  }
+
+  static String deleteFact(String factId) {
+    // how to ensure that facts are not duplicated but changes
+    //are still updated..??
+
+    String ret = '''
+  mutation deleteAFact{
+  deleteFactcheck(
+    input:{
+      id: "$factId"
+    }
+    ){
+    factcheck{
+      fact
     }
   }
 }
