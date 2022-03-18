@@ -55,6 +55,20 @@ class _DetailScreenState extends State<DetailScreen> {
   }
 
   void uploadStatement() {
+    // show loading indicator
+    showModalBottomSheet<void>(
+        context: context,
+        isDismissible: false,
+        builder: (BuildContext context) {
+          return Container(
+            height: DeviceType.height(context) / 2,
+            child: const Center(
+              child: CircularProgressIndicator(
+                semanticsLabel: "loading",
+              ),
+            ),
+          );
+        });
     //check if all fields are non zero
     if (!widget.statement.isComplete()) {
       setState(() {
@@ -66,11 +80,11 @@ class _DetailScreenState extends State<DetailScreen> {
     if (widget.statement.objectId == null) {
       // create new statement
       DatabaseUtils db = DatabaseUtils();
-      db.sendData(widget.statement);
+      db.sendData(widget.statement, context);
     } else {
       // update existing statement
       DatabaseUtils db = DatabaseUtils();
-      db.updateData(widget.statement, factsToBeDeleted);
+      db.updateData(widget.statement, factsToBeDeleted, context);
     }
   }
 
