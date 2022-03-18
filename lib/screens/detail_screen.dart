@@ -340,7 +340,9 @@ class _DetailScreenState extends State<DetailScreen> {
                                           .samplePictureCopyrightController,
                                       label:
                                           "Gebe ein Copyright für das Foto ein.",
-                                      errorCallback: Utils.checkIfEmpty),
+                                      errorCallback: (TextEditingController c) {
+                                        return null;
+                                      }),
                                 ),
                                 Flexible(
                                   flex: 2,
