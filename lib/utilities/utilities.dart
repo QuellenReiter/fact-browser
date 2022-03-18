@@ -38,23 +38,37 @@ class Utils {
 
   static void pickFile(Function callback) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
-      if (result != null) {
-        Uint8List? file = (await FilePicker.platform.pickFiles(
-          type: FileType.image,
-          allowMultiple: false
-        ))?.files.single.bytes;
-        callback(file);
+    if (result != null) {
+      Uint8List? file = (await FilePicker.platform
+              .pickFiles(type: FileType.image, allowMultiple: false))
+          ?.files
+          .single
+          .bytes;
+      callback(file);
     } else {
       return;
     }
   }
 
-  static String formatDate(String date){
-        return date.substring(8,10) + "/" + date.substring(5,7) + "/" + date.substring(0,4);
+  static String formatDate(String date) {
+    return date.substring(8, 10) +
+        "/" +
+        date.substring(5, 7) +
+        "/" +
+        date.substring(0, 4);
+  }
+
+  static String toUTCDateFormat(String date) {
+    var ret = DateTime.utc(
+      int.parse(date.substring(6, 10)),
+      int.parse(date.substring(3, 5)),
+      int.parse(date.substring(0, 2)),
+    );
+    return ret.toString();
   }
 }
 
-class CorrectnessCategory{
+class CorrectnessCategory {
   static String correct = "richtig";
   static String unverified = "unbelegt";
   static String falseContext = "falscher Kontext";
@@ -64,8 +78,7 @@ class CorrectnessCategory{
   static String falseInformation = "Fehlinformation";
 }
 
-
-// Source: https://stackoverflow.com/questions/47403758/flutter-inputformatter-for-date 
+// Source: https://stackoverflow.com/questions/47403758/flutter-inputformatter-for-date
 class DateTextFormatter extends TextInputFormatter {
   static const _maxChars = 8;
 
@@ -93,4 +106,3 @@ class DateTextFormatter extends TextInputFormatter {
     return TextSelection.fromPosition(TextPosition(offset: text.length));
   }
 }
-

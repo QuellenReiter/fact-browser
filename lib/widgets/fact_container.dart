@@ -6,9 +6,11 @@ import '../utilities/utilities.dart';
 
 //ignore: must_be_immutable
 class FactContainer extends StatefulWidget {
-  FactContainer({ Key? key,  this.controllers }) : super(key: key);
+  FactContainer({Key? key, required this.removeFact, this.controllers})
+      : super(key: key);
 
   FactController? controllers;
+  final Function removeFact;
   @override
   State<FactContainer> createState() => _FactContainerState();
 }
@@ -20,11 +22,11 @@ class _FactContainerState extends State<FactContainer> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    widget.controllers!.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   widget.controllers!.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -43,19 +45,15 @@ class _FactContainerState extends State<FactContainer> {
             child: Row(children: [
               Flexible(
                 child: TextFieldContainer(
-                  textController:
-                      widget.controllers!.authorController,
-                  label: "Gebe den Author ein.",
-                  errorCallback: Utils.checkIfEmpty
-                ),
+                    textController: widget.controllers!.authorController,
+                    label: "Gebe den Author ein.",
+                    errorCallback: Utils.checkIfEmpty),
               ),
               Flexible(
                 child: TextFieldContainer(
-                  textController:
-                      widget.controllers!.mediaController,
-                  label: "Gebe das Medium ein.",
-                  errorCallback: Utils.checkIfEmpty
-                ),
+                    textController: widget.controllers!.mediaController,
+                    label: "Gebe das Medium ein.",
+                    errorCallback: Utils.checkIfEmpty),
               ),
             ]),
           ),
@@ -63,16 +61,13 @@ class _FactContainerState extends State<FactContainer> {
             child: Row(children: [
               Flexible(
                 child: TextFieldContainer(
-                  textController:
-                      widget.controllers!.languageController,
-                  label: "Gebe die Originalsprache ein.",
-                  errorCallback: Utils.checkIfEmpty
-                ),
+                    textController: widget.controllers!.languageController,
+                    label: "Gebe die Originalsprache ein.",
+                    errorCallback: Utils.checkIfEmpty),
               ),
               Flexible(
                 child: TextFieldContainer(
-                  textController:
-                      widget.controllers!.dateController,
+                  textController: widget.controllers!.dateController,
                   label: "Gebe das Ursprungsdatum ein(dd/mm/yyyy)",
                   errorCallback: Utils.checkIfEmpty,
                   inputFormatter: DateTextFormatter(),
@@ -84,20 +79,27 @@ class _FactContainerState extends State<FactContainer> {
             child: Row(children: [
               Flexible(
                 child: TextFieldContainer(
-                  textController:
-                      widget.controllers!.linkController,
-                  label: "Der Link zur Aussage (Wayback machine etc).",
-                  errorCallback: Utils.checkIfEmpty
-                ),
+                    textController: widget.controllers!.linkController,
+                    label: "Der Link zur Aussage (Wayback machine etc).",
+                    errorCallback: Utils.checkIfEmpty),
               ),
             ]),
+          ),
+          Flexible(
+            child: TextButton.icon(
+              onPressed: () {
+                widget.removeFact(widget.controllers);
+              },
+              icon: const Icon(Icons.remove),
+              label: const Text("Fakt entfernen"),
+            ),
           ),
           const Divider(
             height: 20,
             thickness: 4,
-          )
-        ]
-       ),
+          ),
+        ],
+      ),
     );
   }
 }

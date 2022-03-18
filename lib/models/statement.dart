@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -115,6 +114,8 @@ class Statement {
   late String statementMedia;
   late Facts statementFactchecks;
   Uint8List? uploadImage;
+  String? objectId;
+
   Statement(
       this.statementText,
       this.statementAuthor,
@@ -128,7 +129,8 @@ class Statement {
       this.statementMediatype,
       this.statementPictureURL,
       this.samplePictureCopyright,
-      this.statementRectification);
+      this.statementRectification,
+      this.objectId);
 
   Statement.fromMap(Map<String, dynamic>? map)
       : statementText = map?[Queries.statementText],
@@ -142,9 +144,10 @@ class Statement {
         statementMediatype = map?[Queries.statementMediatype],
         samplePictureCopyright = map?[Queries.statementPictureCopyright],
         statementRectification = map?[Queries.statementRectification],
-        statementPictureURL = map?[Queries.statementPicture]["url"],
+        statementPictureURL = map?[Queries.statementPicture],
         statementFactchecks =
-            Facts.fromMap(map?[Queries.statementFactcheckIDs]);
+            Facts.fromMap(map?[Queries.statementFactcheckIDs]),
+        objectId = map?["objectId"];
 
   Statement.empty() {
     statementText = "";
@@ -160,6 +163,34 @@ class Statement {
     statementPictureURL = "";
     samplePictureCopyright = "";
     statementRectification = false;
+  }
+  // are all variables filled ?
+  bool isComplete() {
+    //check statement
+    if (statementText.isEmpty ||
+        statementAuthor.isEmpty ||
+        statementCategory.isEmpty ||
+        statementCorrectness.isEmpty ||
+        statementDate.isEmpty ||
+        statementLanguage.isEmpty ||
+        statementLink.isEmpty ||
+        statementMedia.isEmpty ||
+        statementMediatype.isEmpty ||
+        statementPictureURL.isEmpty) {
+      return false;
+    }
+    //checl all facts
+    for (var fact in statementFactchecks.facts) {
+      if (fact.factAuthor.isEmpty ||
+          fact.factDate.isEmpty ||
+          fact.factLanguage.isEmpty ||
+          fact.factLink.isEmpty ||
+          fact.factMedia.isEmpty ||
+          fact.factText.isEmpty) {
+        return false;
+      }
+    }
+    return true;
   }
 }
 
