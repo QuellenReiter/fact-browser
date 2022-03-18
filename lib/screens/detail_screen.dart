@@ -203,7 +203,9 @@ class _DetailScreenState extends State<DetailScreen> {
                           child: TextFieldContainer(
                             textController: statementController.dateController,
                             label: "Gebe das Ursprungsdatum ein(dd/mm/yyyy)",
-                            errorCallback: Utils.checkIfEmpty,
+                            errorCallback: (TextEditingController c) {
+                              return null;
+                            },
                             inputFormatter: DateTextFormatter(),
                           ),
                         ),
@@ -336,13 +338,14 @@ class _DetailScreenState extends State<DetailScreen> {
                                 ),
                                 Flexible(
                                   child: TextFieldContainer(
-                                      textController: statementController
-                                          .samplePictureCopyrightController,
-                                      label:
-                                          "Gebe ein Copyright für das Foto ein.",
-                                      errorCallback: (TextEditingController c) {
-                                        return null;
-                                      }),
+                                    textController: statementController
+                                        .samplePictureCopyrightController,
+                                    label:
+                                        "Gebe ein Copyright für das Foto ein.",
+                                    errorCallback: (TextEditingController c) {
+                                      return null;
+                                    },
+                                  ),
                                 ),
                                 Flexible(
                                   flex: 2,
