@@ -97,7 +97,8 @@ class DatabaseUtils {
     print(queryResult.toString());
     if (queryResult.hasException) {
       // show some warning
-      print(queryResult.exception.toString());
+      reloadDetailScreen(null, "Upload fehlgeschlagen.");
+      return uploadResult;
     } else {
       print("Statement added.");
     }
@@ -164,7 +165,10 @@ class DatabaseUtils {
         );
         //remove deleted ID from oldIDs
         oldFactIds.remove(fact.objectId);
-        print(factResult.toString());
+        if (factResult.hasException) {
+          reloadDetailScreen(null, "Upload fehlgeschlagen.");
+          return factResult;
+        }
       }
     }
     // and remove all facts, that have been removed
@@ -176,7 +180,10 @@ class DatabaseUtils {
           document: gql(Queries.deleteFact(id)),
         ),
       );
-      print(factResult.toString());
+      if (factResult.hasException) {
+        reloadDetailScreen(null, "Upload fehlgeschlagen.");
+        return factResult;
+      }
     }
 
     var queryResult = await client.mutate(
@@ -186,8 +193,8 @@ class DatabaseUtils {
     );
     print(queryResult.toString());
     if (queryResult.hasException) {
-      // show some warning
-      print(queryResult.exception.toString());
+      reloadDetailScreen(null, "Upload fehlgeschlagen.");
+      return queryResult;
     } else {
       print("RESULT:");
       print(queryResult.data.toString());
