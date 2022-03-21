@@ -125,16 +125,20 @@ class Queries {
   }
 
   static String createStatement(Statement statement) {
-    String factString = "[";
-
-    for (Fact fact in statement.statementFactchecks.facts) {
-      String tempFactDate = "";
-      if (fact.factDate != null && fact.factDate != "") {
-        tempFactDate = '''
+    String factString = "";
+    if (statement.statementFactchecks.facts.isNotEmpty) {
+      factString = '''
+$statementFactcheckIDs: {
+          createAndAdd: [
+''';
+      for (Fact fact in statement.statementFactchecks.facts) {
+        String tempFactDate = "";
+        if (fact.factDate != null && fact.factDate != "") {
+          tempFactDate = '''
 $factDate:"${Utils.toUTCDateFormat(fact.factDate)}",
 ''';
-      }
-      factString += '''
+        }
+        factString += '''
             {
               $factText: "${fact.factText}",
               $factAuthor:"${fact.factAuthor}",
@@ -144,13 +148,17 @@ $factDate:"${Utils.toUTCDateFormat(fact.factDate)}",
               $factLink:"${fact.factLink}"
               },
 ''';
+      }
+      factString += "]}";
     }
-    factString += "]";
+
     String statementDateString = "";
     if (statement.statementDate != null && statement.statementDate != "") {
       statementDateString = '''
 $statementDate: "${Utils.toUTCDateFormat(statement.statementDate)}",
 ''';
+    } else {
+      statementDateString = "$statementDate: null,";
     }
 
     String ret = '''
@@ -170,10 +178,7 @@ $statementDate: "${Utils.toUTCDateFormat(statement.statementDate)}",
         $statementLink: "${statement.statementLink}",
         $statementRectification: ${statement.statementRectification},
         $statementPictureCopyright: "${statement.samplePictureCopyright}",
-        $statementFactcheckIDs: {
-          createAndAdd:
-              $factString
-        }
+        $factString
       }
     }
     ){
