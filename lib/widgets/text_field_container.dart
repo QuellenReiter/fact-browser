@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../utilities/utilities.dart';
 
 class TextFieldContainer extends StatelessWidget {
   const TextFieldContainer(

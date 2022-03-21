@@ -7,7 +7,9 @@ import 'package:statementmanager/utilities/utilities.dart';
 
 class StatementController {
   late TextEditingController textController;
-  late TextEditingController dateController;
+  late TextEditingController yearController;
+  late TextEditingController monthController;
+  late TextEditingController dayController;
   late TextEditingController mediaTypeController;
   late TextEditingController correctnessController;
   late TextEditingController categoryController;
@@ -20,8 +22,12 @@ class StatementController {
   StatementController.fromMap(Map<String, dynamic> statement) {
     textController =
         TextEditingController(text: statement[Queries.statementText]);
-    dateController =
-        TextEditingController(text: statement[Queries.statementDate]);
+    yearController =
+        TextEditingController(text: statement[Queries.statementYear]);
+    monthController =
+        TextEditingController(text: statement[Queries.statementYear]);
+    dayController =
+        TextEditingController(text: statement[Queries.statementYear]);
     mediaTypeController =
         TextEditingController(text: statement[Queries.statementMediatype]);
     correctnessController =
@@ -43,9 +49,20 @@ class StatementController {
     textController.addListener(() {
       statement.statementText = textController.text;
     });
-    dateController = TextEditingController(text: statement.statementDate);
-    dateController.addListener(() {
-      statement.statementDate = dateController.text;
+    yearController =
+        TextEditingController(text: statement.statementYear.toString());
+    yearController.addListener(() {
+      statement.statementYear = int.parse(yearController.text);
+    });
+    monthController =
+        TextEditingController(text: statement.statementMonth.toString());
+    monthController.addListener(() {
+      statement.statementMonth = int.parse(monthController.text);
+    });
+    dayController =
+        TextEditingController(text: statement.statementDay.toString());
+    dayController.addListener(() {
+      statement.statementDay = int.parse(dayController.text);
     });
     mediaTypeController =
         TextEditingController(text: statement.statementMediatype);
@@ -88,7 +105,9 @@ class StatementController {
 
   void dispose() {
     textController.dispose();
-    dateController.dispose();
+    yearController.dispose();
+    monthController.dispose();
+    dayController.dispose();
     mediaTypeController.dispose();
     correctnessController.dispose();
     categoryController.dispose();
@@ -102,7 +121,9 @@ class StatementController {
 class Statement {
   late String statementText;
   late String statementPictureURL;
-  String? statementDate;
+  late int statementYear;
+  late int statementMonth;
+  late int statementDay;
   late String statementMediatype;
   late String statementLanguage;
   late String statementCorrectness;
@@ -121,7 +142,9 @@ class Statement {
       this.statementAuthor,
       this.statementCategory,
       this.statementCorrectness,
-      this.statementDate,
+      this.statementYear,
+      this.statementMonth,
+      this.statementDay,
       this.statementFactchecks,
       this.statementLanguage,
       this.statementLink,
@@ -136,7 +159,9 @@ class Statement {
       : statementText = map?[Queries.statementText],
         statementAuthor = map?[Queries.statementAuthor],
         statementCorrectness = map?[Queries.statementCorrectness],
-        statementDate = Utils.formatDate(map?[Queries.statementDate]),
+        statementYear = map?[Queries.statementYear],
+        statementMonth = map?[Queries.statementMonth],
+        statementDay = map?[Queries.statementDay],
         statementLanguage = map?[Queries.statementLanguage],
         statementLink = map?[Queries.statementLink],
         statementCategory = map?[Queries.statementCategory],
@@ -154,7 +179,9 @@ class Statement {
     statementAuthor = "";
     statementCategory = Queries.categoryValues.first;
     statementCorrectness = Queries.correctnessValues.first;
-    statementDate = "";
+    statementYear = 0;
+    statementMonth = 0;
+    statementDay = 0;
     statementFactchecks = Facts();
     statementLanguage = "";
     statementLink = "";

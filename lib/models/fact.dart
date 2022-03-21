@@ -5,18 +5,22 @@ import '../utilities/utilities.dart';
 
 class FactController {
   late TextEditingController factController;
-  late TextEditingController dateController;
+  late TextEditingController yearController;
+  late TextEditingController monthController;
+  late TextEditingController dayController;
   late TextEditingController linkController;
   late TextEditingController authorController;
   late TextEditingController mediaController;
   late TextEditingController languageController;
 
-  FactController.fromMap(Map<String, dynamic> statement) {
-    factController = TextEditingController(text: statement["text"]);
-    dateController = TextEditingController(text: statement["date"]);
-    linkController = TextEditingController(text: statement["statementLink"]);
-    authorController = TextEditingController(text: statement["author"]);
-    mediaController = TextEditingController(text: statement["medium"]);
+  FactController.fromMap(Map<String, dynamic> fact) {
+    factController = TextEditingController(text: fact["text"]);
+    yearController = TextEditingController(text: fact["year"]);
+    monthController = TextEditingController(text: fact["month"]);
+    dayController = TextEditingController(text: fact["day"]);
+    linkController = TextEditingController(text: fact["factLink"]);
+    authorController = TextEditingController(text: fact["author"]);
+    mediaController = TextEditingController(text: fact["medium"]);
   }
 
   FactController(Fact fact) {
@@ -25,9 +29,17 @@ class FactController {
       fact.factText = factController.text;
     });
     // add date conversion functions
-    dateController = TextEditingController(text: fact.factDate);
-    dateController.addListener(() {
-      fact.factDate = dateController.text;
+    yearController = TextEditingController(text: fact.factYear.toString());
+    yearController.addListener(() {
+      fact.factYear = int.parse(yearController.text);
+    });
+    monthController = TextEditingController(text: fact.factMonth.toString());
+    monthController.addListener(() {
+      fact.factMonth = int.parse(monthController.text);
+    });
+    dayController = TextEditingController(text: fact.factDay.toString());
+    dayController.addListener(() {
+      fact.factDay = int.parse(dayController.text);
     });
     linkController = TextEditingController(text: fact.factLink);
     linkController.addListener(() {
@@ -49,7 +61,9 @@ class FactController {
 
   void dispose() {
     factController.dispose();
-    dateController.dispose();
+    yearController.dispose();
+    monthController.dispose();
+    dayController.dispose();
     linkController.dispose();
     authorController.dispose();
     mediaController.dispose();
@@ -78,21 +92,33 @@ class FactControllers {
 
 class Fact {
   late String factText;
-  String? factDate;
+  late int factYear;
+  late int factMonth;
+  late int factDay;
   late String factLanguage;
   late String factLink;
   late String factAuthor;
   late String factMedia;
   String? objectId;
 
-  Fact(this.factText, this.factAuthor, this.factDate, this.factLanguage,
-      this.factLink, this.factMedia, this.objectId);
+  Fact(
+      this.factText,
+      this.factAuthor,
+      this.factYear,
+      this.factMonth,
+      this.factDay,
+      this.factLanguage,
+      this.factLink,
+      this.factMedia,
+      this.objectId);
 
   Fact.fromMap(Map<String, dynamic>? map)
       : factText = map?[Queries.factText],
         factAuthor = map?[Queries.factAuthor],
         factMedia = map?[Queries.factMedia],
-        factDate = Utils.formatDate(map?[Queries.factDate]),
+        factYear = map?[Queries.factYear],
+        factMonth = map?[Queries.factMonth],
+        factDay = map?[Queries.factDay],
         factLink = map?[Queries.factLink],
         factLanguage = map?[Queries.factLanguage],
         objectId = map?["objectId"];
@@ -101,7 +127,9 @@ class Fact {
     factText = "";
     factAuthor = "";
     factMedia = "";
-    factDate = "";
+    factYear = 0;
+    factMonth = 0;
+    factDay = 0;
     factLink = "";
     factLanguage = "";
   }
