@@ -78,7 +78,7 @@ class FactControllers {
 
 class Fact {
   late String factText;
-  late String factDate;
+  String? factDate;
   late String factLanguage;
   late String factLink;
   late String factAuthor;

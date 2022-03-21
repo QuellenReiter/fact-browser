@@ -102,7 +102,7 @@ class StatementController {
 class Statement {
   late String statementText;
   late String statementPictureURL;
-  late String statementDate;
+  String? statementDate;
   late String statementMediatype;
   late String statementLanguage;
   late String statementCorrectness;
@@ -171,7 +171,6 @@ class Statement {
         statementAuthor.isEmpty ||
         statementCategory.isEmpty ||
         statementCorrectness.isEmpty ||
-        statementDate.isEmpty ||
         statementLanguage.isEmpty ||
         statementLink.isEmpty ||
         statementMedia.isEmpty ||
@@ -182,7 +181,6 @@ class Statement {
     //checl all facts
     for (var fact in statementFactchecks.facts) {
       if (fact.factAuthor.isEmpty ||
-          fact.factDate.isEmpty ||
           fact.factLanguage.isEmpty ||
           fact.factLink.isEmpty ||
           fact.factMedia.isEmpty ||
