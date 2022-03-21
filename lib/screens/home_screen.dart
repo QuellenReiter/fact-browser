@@ -54,58 +54,66 @@ class _HomeScreenState extends State<HomeScreen> {
       body: ValueListenableBuilder(
           valueListenable: searchController,
           builder: (context, TextEditingValue value, __) {
-            return Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(children: [
-                TextField(
-                  controller: searchController,
-                  decoration: InputDecoration(
-                    labelText: "Search by subject, e.g. Covid",
-                    border: const OutlineInputBorder(),
-                    errorText: Utils.checkIfEmpty(searchController),
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Container(
+                  constraints: const BoxConstraints(
+                    maxWidth: 1000,
                   ),
+                  child: Column(children: [
+                    TextField(
+                      controller: searchController,
+                      decoration: InputDecoration(
+                        labelText: "Search by subject, e.g. Covid",
+                        border: const OutlineInputBorder(),
+                        errorText: Utils.checkIfEmpty(searchController),
+                      ),
+                    ),
+                    Builder(
+                      builder: (BuildContext context) {
+                        if (Utils.checkIfEmpty(searchController) == null) {
+                          return Query(
+                            options: QueryOptions(
+                                document: gql(Queries.searchStatements(
+                                    searchController.text))),
+                            builder: (
+                              QueryResult result, {
+                              VoidCallback? refetch,
+                              FetchMore? fetchMore,
+                            }) {
+                              if (result.data == null) {
+                                return const Center(
+                                  child: Text(
+                                    "Loading...",
+                                    style: TextStyle(fontSize: 20.0),
+                                  ),
+                                );
+                              } else {
+                                print(result.data.toString());
+                                statements = Statements.fromMap(result.data);
+                                return Flexible(
+                                  child: ListView.builder(
+                                      itemCount: statements.statements.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return StatementCard(
+                                          statement:
+                                              statements.statements[index],
+                                        );
+                                      }),
+                                );
+                              }
+                            },
+                          );
+                        } else {
+                          return const Text("");
+                        }
+                      },
+                    ),
+                  ]),
                 ),
-                Builder(
-                  builder: (BuildContext context) {
-                    if (Utils.checkIfEmpty(searchController) == null) {
-                      return Query(
-                        options: QueryOptions(
-                            document: gql(Queries.searchStatements(
-                                searchController.text))),
-                        builder: (
-                          QueryResult result, {
-                          VoidCallback? refetch,
-                          FetchMore? fetchMore,
-                        }) {
-                          if (result.data == null) {
-                            return const Center(
-                              child: Text(
-                                "Loading...",
-                                style: TextStyle(fontSize: 20.0),
-                              ),
-                            );
-                          } else {
-                            print(result.data.toString());
-                            statements = Statements.fromMap(result.data);
-                            return Flexible(
-                              child: ListView.builder(
-                                  itemCount: statements.statements.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return StatementCard(
-                                      statement: statements.statements[index],
-                                    );
-                                  }),
-                            );
-                          }
-                        },
-                      );
-                    } else {
-                      return const Text("");
-                    }
-                  },
-                ),
-              ]),
+              ),
             );
           }),
     );

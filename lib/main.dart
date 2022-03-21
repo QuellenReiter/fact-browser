@@ -28,6 +28,8 @@ class MyApp extends StatelessWidget {
       ),
     );
 
+    // check if signed in
+
     return MaterialApp(
       theme: ThemeData(
         brightness: Brightness.dark,
