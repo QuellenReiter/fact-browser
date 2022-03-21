@@ -126,12 +126,19 @@ class Queries {
 
   static String createStatement(Statement statement) {
     String factString = "[";
+
     for (Fact fact in statement.statementFactchecks.facts) {
+      String tempFactDate = "";
+      if (fact.factDate != null && fact.factDate != "") {
+        tempFactDate = '''
+$factDate:"${Utils.toUTCDateFormat(fact.factDate)}",
+''';
+      }
       factString += '''
             {
               $factText: "${fact.factText}",
               $factAuthor:"${fact.factAuthor}",
-              $factDate:"${Utils.toUTCDateFormat(fact.factDate)}",
+              $tempFactDate
               $factLanguage:"${fact.factLanguage}",
               $factMedia:"${fact.factMedia}",
               $factLink:"${fact.factLink}"
@@ -139,6 +146,12 @@ class Queries {
 ''';
     }
     factString += "]";
+    String statementDateString = "";
+    if (statement.statementDate != null && statement.statementDate != "") {
+      statementDateString = '''
+$statementDate: "${Utils.toUTCDateFormat(statement.statementDate)}",
+''';
+    }
 
     String ret = '''
   mutation createAStatement{
@@ -146,8 +159,8 @@ class Queries {
     input:{
       fields:{
         $statementText: "${statement.statementText}",
-        $statementPicture: "${statement.statementPictureURL}"
-        $statementDate: "${Utils.toUTCDateFormat(statement.statementDate)}",
+        $statementPicture: "${statement.statementPictureURL}",
+        $statementDateString
         $statementCorrectness: "${statement.statementCorrectness}",
         $statementMedia: "${statement.statementMedia}",
         $statementLanguage: "${statement.statementLanguage}",
@@ -201,22 +214,41 @@ class Queries {
   static String updateStatement(Statement statement) {
     // how to ensure that facts are not duplicated but changes
     //are still updated..??
-
-    String factString = "[";
-    for (Fact fact in statement.statementFactchecks.facts) {
-      factString += '''
+    String factString = "";
+    if (statement.statementFactchecks.facts.isNotEmpty) {
+      factString = '''
+$statementFactcheckIDs: {
+          createAndAdd: [
+''';
+      for (Fact fact in statement.statementFactchecks.facts) {
+        String tempFactDate = "";
+        if (fact.factDate != null && fact.factDate != "") {
+          tempFactDate = '''
+$factDate:"${Utils.toUTCDateFormat(fact.factDate)}",
+''';
+        }
+        factString += '''
             {
               $factText: "${fact.factText}",
               $factAuthor:"${fact.factAuthor}",
-              $factDate:"${Utils.toUTCDateFormat(fact.factDate)}",
+              $tempFactDate
               $factLanguage:"${fact.factLanguage}",
               $factMedia:"${fact.factMedia}",
               $factLink:"${fact.factLink}"
               },
 ''';
+      }
+      factString += "]}";
     }
-    factString += "]";
 
+    String statementDateString = "";
+    if (statement.statementDate != null && statement.statementDate != "") {
+      statementDateString = '''
+$statementDate: "${Utils.toUTCDateFormat(statement.statementDate)}",
+''';
+    } else {
+      statementDateString = "$statementDate: null,";
+    }
     String ret = '''
   mutation updateAStatement{
   updateStatement(
@@ -225,7 +257,7 @@ class Queries {
       fields:{
         $statementText: "${statement.statementText}",
         $statementPicture: "${statement.statementPictureURL}"
-        $statementDate: "${Utils.toUTCDateFormat(statement.statementDate)}",
+        $statementDateString
         $statementCorrectness: "${statement.statementCorrectness}",
         $statementMedia: "${statement.statementMedia}",
         $statementLanguage: "${statement.statementLanguage}",
@@ -235,10 +267,7 @@ class Queries {
         $statementLink: "${statement.statementLink}",
         $statementRectification: ${statement.statementRectification},
         $statementPictureCopyright: "${statement.samplePictureCopyright}",
-        $statementFactcheckIDs: {
-          createAndAdd:
-              $factString
-        }
+        $factString
       }
     }
     ){
