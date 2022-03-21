@@ -7,6 +7,7 @@ import 'package:statementmanager/provider/device_type_provider.dart';
 import 'package:statementmanager/provider/queries.dart';
 import 'package:statementmanager/utilities/utilities.dart';
 
+import '../widgets/date_container.dart';
 import '../widgets/fact_container.dart';
 import '../widgets/text_field_container.dart';
 
@@ -200,13 +201,12 @@ class _DetailScreenState extends State<DetailScreen> {
                     Flexible(
                       child: Row(children: [
                         Flexible(
-                          child: TextFieldContainer(
-                            textController: statementController.dateController,
+                          child: DateContainer(
+                            yearController: statementController.yearController,
+                            monthController:
+                                statementController.monthController,
+                            dayController: statementController.dayController,
                             label: "Gebe das Ursprungsdatum ein(dd/mm/yyyy)",
-                            errorCallback: (TextEditingController c) {
-                              return null;
-                            },
-                            inputFormatter: DateTextFormatter(),
                           ),
                         ),
                         Flexible(

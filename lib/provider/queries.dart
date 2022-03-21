@@ -1,4 +1,3 @@
-import 'package:http/http.dart';
 import 'package:statementmanager/models/statement.dart';
 
 import '../models/fact.dart';
@@ -7,7 +6,9 @@ import '../utilities/utilities.dart';
 class Queries {
   static String statementText = "statement";
   static String statementPicture = "pictureUrl";
-  static String statementDate = "date";
+  static String statementYear = "year";
+  static String statementMonth = "month";
+  static String statementDay = "day";
   static String statementMediatype = "mediatype";
   static String statementLanguage = "language";
   static String statementCorrectness = "correctness";
@@ -20,7 +21,9 @@ class Queries {
   static String statementFactcheckIDs = "factcheckIDs";
 
   static String factText = "fact";
-  static String factDate = "date";
+  static String factYear = "year";
+  static String factMonth = "month";
+  static String factDay = "day";
   static String factLanguage = "language";
   static String factLink = "link";
   static String factAuthor = "author";
@@ -54,7 +57,8 @@ class Queries {
     "Werbung",
     "Foto",
     "Video",
-    "TV-Beitrag"
+    "TV-Beitrag",
+    "Mythos"
   ];
 
   // static String[4] categories = [];
@@ -75,7 +79,9 @@ class Queries {
         objectId
         $statementText
         $statementPicture
-        $statementDate
+        $statementYear
+        $statementMonth
+        $statementDay
         $statementCorrectness
         $statementMedia
         $statementLanguage
@@ -91,7 +97,9 @@ class Queries {
                 objectId
                 $factText
                 $factAuthor
-                $factDate
+                $statementYear
+                $statementMonth
+                $statementDay
                 $factLanguage
                 $factMedia
                 $factLink
@@ -132,17 +140,13 @@ $statementFactcheckIDs: {
           createAndAdd: [
 ''';
       for (Fact fact in statement.statementFactchecks.facts) {
-        String tempFactDate = "";
-        if (fact.factDate != null && fact.factDate != "") {
-          tempFactDate = '''
-$factDate:"${Utils.toUTCDateFormat(fact.factDate)}",
-''';
-        }
         factString += '''
             {
               $factText: "${fact.factText}",
               $factAuthor:"${fact.factAuthor}",
-              $tempFactDate
+              $factYear: ${fact.factYear},
+              $factMonth: ${fact.factMonth},
+              $factDay: ${fact.factDay},
               $factLanguage:"${fact.factLanguage}",
               $factMedia:"${fact.factMedia}",
               $factLink:"${fact.factLink}"
@@ -152,15 +156,6 @@ $factDate:"${Utils.toUTCDateFormat(fact.factDate)}",
       factString += "]}";
     }
 
-    String statementDateString = "";
-    if (statement.statementDate != null && statement.statementDate != "") {
-      statementDateString = '''
-$statementDate: "${Utils.toUTCDateFormat(statement.statementDate)}",
-''';
-    } else {
-      statementDateString = "$statementDate: null,";
-    }
-
     String ret = '''
   mutation createAStatement{
   createStatement(
@@ -168,7 +163,9 @@ $statementDate: "${Utils.toUTCDateFormat(statement.statementDate)}",
       fields:{
         $statementText: "${statement.statementText}",
         $statementPicture: "${statement.statementPictureURL}",
-        $statementDateString
+        $statementYear: ${statement.statementYear},
+        $statementMonth: ${statement.statementMonth},
+        $statementDay: ${statement.statementDay},
         $statementCorrectness: "${statement.statementCorrectness}",
         $statementMedia: "${statement.statementMedia}",
         $statementLanguage: "${statement.statementLanguage}",
@@ -186,7 +183,9 @@ $statementDate: "${Utils.toUTCDateFormat(statement.statementDate)}",
     objectId
     $statementText
     $statementPicture
-    $statementDate
+    $statementYear
+    $statementMonth
+    $statementDay
     $statementCorrectness
     $statementMedia
     $statementLanguage
@@ -202,7 +201,9 @@ $statementDate: "${Utils.toUTCDateFormat(statement.statementDate)}",
             objectId
             $factText
             $factAuthor
-            $factDate
+            $factYear
+            $factMonth
+            $factDay
             $factLanguage
             $factMedia
             $factLink
@@ -226,17 +227,13 @@ $statementFactcheckIDs: {
           createAndAdd: [
 ''';
       for (Fact fact in statement.statementFactchecks.facts) {
-        String tempFactDate = "";
-        if (fact.factDate != null && fact.factDate != "") {
-          tempFactDate = '''
-$factDate:"${Utils.toUTCDateFormat(fact.factDate)}",
-''';
-        }
         factString += '''
             {
               $factText: "${fact.factText}",
               $factAuthor:"${fact.factAuthor}",
-              $tempFactDate
+              $factYear: ${fact.factYear},
+              $factMonth: ${fact.factMonth},
+              $factDay: ${fact.factDay},
               $factLanguage:"${fact.factLanguage}",
               $factMedia:"${fact.factMedia}",
               $factLink:"${fact.factLink}"
@@ -246,14 +243,6 @@ $factDate:"${Utils.toUTCDateFormat(fact.factDate)}",
       factString += "]}";
     }
 
-    String statementDateString = "";
-    if (statement.statementDate != null && statement.statementDate != "") {
-      statementDateString = '''
-$statementDate: "${Utils.toUTCDateFormat(statement.statementDate)}",
-''';
-    } else {
-      statementDateString = "$statementDate: null,";
-    }
     String ret = '''
   mutation updateAStatement{
   updateStatement(
@@ -262,7 +251,9 @@ $statementDate: "${Utils.toUTCDateFormat(statement.statementDate)}",
       fields:{
         $statementText: "${statement.statementText}",
         $statementPicture: "${statement.statementPictureURL}"
-        $statementDateString
+        $statementYear: ${statement.statementYear},
+        $statementMonth: ${statement.statementMonth},
+        $statementDay: ${statement.statementDay},
         $statementCorrectness: "${statement.statementCorrectness}",
         $statementMedia: "${statement.statementMedia}",
         $statementLanguage: "${statement.statementLanguage}",
@@ -280,7 +271,9 @@ $statementDate: "${Utils.toUTCDateFormat(statement.statementDate)}",
     objectId
     $statementText
     $statementPicture
-    $statementDate
+    $statementYear
+    $statementMonth
+    $statementDay
     $statementCorrectness
     $statementMedia
     $statementLanguage
@@ -296,7 +289,9 @@ $statementDate: "${Utils.toUTCDateFormat(statement.statementDate)}",
             objectId
               $factText
               $factAuthor
-              $factDate
+              $factYear
+              $factMonth
+              $factDay
               $factLanguage
               $factMedia
               $factLink

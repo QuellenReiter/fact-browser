@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:statementmanager/models/fact.dart';
+import 'package:statementmanager/widgets/date_container.dart';
 import 'package:statementmanager/widgets/text_field_container.dart';
 
 import '../utilities/utilities.dart';
@@ -66,13 +67,11 @@ class _FactContainerState extends State<FactContainer> {
                     errorCallback: Utils.checkIfEmpty),
               ),
               Flexible(
-                child: TextFieldContainer(
-                  textController: widget.controllers!.dateController,
-                  label: "Gebe das Ursprungsdatum ein(dd/mm/yyyy)",
-                  errorCallback: (TextEditingController c) {
-                    return null;
-                  },
-                  inputFormatter: DateTextFormatter(),
+                child: DateContainer(
+                  yearController: widget.controllers!.yearController,
+                  monthController: widget.controllers!.monthController,
+                  dayController: widget.controllers!.dayController,
+                  label: "gebe das datum ein.",
                 ),
               ),
             ]),
