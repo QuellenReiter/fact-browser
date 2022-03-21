@@ -69,7 +69,9 @@ class _FactContainerState extends State<FactContainer> {
                 child: TextFieldContainer(
                   textController: widget.controllers!.dateController,
                   label: "Gebe das Ursprungsdatum ein(dd/mm/yyyy)",
-                  errorCallback: Utils.checkIfEmpty,
+                  errorCallback: (TextEditingController c) {
+                    return null;
+                  },
                   inputFormatter: DateTextFormatter(),
                 ),
               ),

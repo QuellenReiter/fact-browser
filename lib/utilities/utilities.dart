@@ -50,7 +50,13 @@ class Utils {
     }
   }
 
-  static String formatDate(String date) {
+  static String formatDate(String? date) {
+    if (date == null) {
+      return "";
+    }
+    if (date.length < 10) {
+      return "";
+    }
     return date.substring(8, 10) +
         "/" +
         date.substring(5, 7) +
@@ -58,7 +64,13 @@ class Utils {
         date.substring(0, 4);
   }
 
-  static String toUTCDateFormat(String date) {
+  static String? toUTCDateFormat(String? date) {
+    if (date == null) {
+      return null;
+    }
+    if (date.length < 10) {
+      return null;
+    }
     var ret = DateTime.utc(
       int.parse(date.substring(6, 10)),
       int.parse(date.substring(3, 5)),
