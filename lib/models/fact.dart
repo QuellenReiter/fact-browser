@@ -31,15 +31,18 @@ class FactController {
     // add date conversion functions
     yearController = TextEditingController(text: fact.factYear.toString());
     yearController.addListener(() {
-      fact.factYear = int.parse(yearController.text);
+      fact.factYear =
+          yearController.text == "" ? 0 : int.parse(yearController.text);
     });
     monthController = TextEditingController(text: fact.factMonth.toString());
     monthController.addListener(() {
-      fact.factMonth = int.parse(monthController.text);
+      fact.factMonth =
+          monthController.text == "" ? 0 : int.parse(monthController.text);
     });
     dayController = TextEditingController(text: fact.factDay.toString());
     dayController.addListener(() {
-      fact.factDay = int.parse(dayController.text);
+      fact.factDay =
+          dayController.text == "" ? 0 : int.parse(dayController.text);
     });
     linkController = TextEditingController(text: fact.factLink);
     linkController.addListener(() {
