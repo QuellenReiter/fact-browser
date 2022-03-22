@@ -16,6 +16,39 @@ class Utils {
     return null;
   }
 
+  static String? checkIfDay(TextEditingController textEditingController) {
+    final text = textEditingController.text != ""
+        ? int.parse(textEditingController.text)
+        : 0;
+    if (text > 31) {
+      return 'Kein valider Tag.';
+    }
+    // return null if the text is valid
+    return null;
+  }
+
+  static String? checkIfMonth(TextEditingController textEditingController) {
+    final text = textEditingController.text != ""
+        ? int.parse(textEditingController.text)
+        : 0;
+    if (text > 12) {
+      return 'Kein valider Monat.';
+    }
+    // return null if the text is valid
+    return null;
+  }
+
+  static String? checkIfYear(TextEditingController textEditingController) {
+    final text = textEditingController.text != ""
+        ? int.parse(textEditingController.text)
+        : 0;
+    if (text > DateTime.now().year) {
+      return 'Keine Zeitreise bitte.';
+    }
+    // return null if the text is valid
+    return null;
+  }
+
   static String? checkIfLongerThan(
       TextEditingController textEditingController, int minLength) {
     final text = textEditingController.text;

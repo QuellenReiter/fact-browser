@@ -22,42 +22,58 @@ class DateContainer extends StatelessWidget {
       padding: const EdgeInsets.all(5),
       child: Row(children: [
         Flexible(
-          child: TextField(
-            maxLength: 2,
-            controller: dayController,
-            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-            decoration: InputDecoration(
-              counterText: "",
-              labelText: "Tag",
-              border: const OutlineInputBorder(),
-              // errorText: Utils.checkIfEmpty(dayController),
-            ),
+          child: ValueListenableBuilder(
+            valueListenable: dayController,
+            builder: (context, TextEditingValue value, __) {
+              return TextField(
+                maxLength: 2,
+                maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                controller: dayController,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                decoration: InputDecoration(
+                  counterText: "",
+                  labelText: "Tag",
+                  border: const OutlineInputBorder(),
+                  errorText: Utils.checkIfDay(dayController),
+                ),
+              );
+            },
           ),
         ),
         Flexible(
-          child: TextField(
-            maxLength: 2,
-            controller: monthController,
-            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-            decoration: InputDecoration(
-              counterText: "",
-              labelText: "Monat",
-              border: const OutlineInputBorder(),
-              // errorText: Utils.checkIfEmpty(monthController),
-            ),
+          child: ValueListenableBuilder(
+            valueListenable: monthController,
+            builder: (context, TextEditingValue value, __) {
+              return TextField(
+                maxLength: 2,
+                controller: monthController,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                decoration: InputDecoration(
+                  counterText: "",
+                  labelText: "Monat",
+                  border: const OutlineInputBorder(),
+                  errorText: Utils.checkIfMonth(monthController),
+                ),
+              );
+            },
           ),
         ),
         Flexible(
-          child: TextField(
-            maxLength: 4,
-            controller: yearController,
-            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-            decoration: InputDecoration(
-              counterText: "",
-              labelText: "Jahr",
-              border: const OutlineInputBorder(),
-              // errorText: Utils.checkIfEmpty(yearController),
-            ),
+          child: ValueListenableBuilder(
+            valueListenable: yearController,
+            builder: (context, TextEditingValue value, __) {
+              return TextField(
+                maxLength: 4,
+                controller: yearController,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                decoration: InputDecoration(
+                  counterText: "",
+                  labelText: "Jahr",
+                  border: const OutlineInputBorder(),
+                  errorText: Utils.checkIfYear(yearController),
+                ),
+              );
+            },
           ),
         ),
       ]),
