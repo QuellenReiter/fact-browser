@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:statementmanager/consonents.dart';
 import 'package:statementmanager/screens/home_screen.dart';
 
@@ -30,7 +31,9 @@ class MyApp extends StatelessWidget {
 
     // check if signed in
 
-    return MaterialApp(
+    return MaterialApp.router(
+      routeInformationParser: ENTERSOMETHING,
+      routerDelegate: ENTERSOMETHING,
       theme: ThemeData(
         brightness: Brightness.dark,
         primarySwatch: Colors.blueGrey,
@@ -48,7 +51,7 @@ class MyApp extends StatelessWidget {
       ),
       home: GraphQLProvider(
         child: const HomeScreen(
-          title: "Home",
+          title: "Suche",
         ),
         client: client,
       ),
