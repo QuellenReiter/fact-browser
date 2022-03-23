@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:statementmanager/consonents.dart';
-import 'package:statementmanager/models/statement.dart';
 import 'package:statementmanager/navigation/fact_browser_rout_information_parser.dart';
 import 'package:statementmanager/navigation/fact_browser_router_delegate.dart';
-import 'package:statementmanager/screens/detail_screen.dart';
-import 'package:statementmanager/screens/home_screen.dart';
 
 void main() async {
   runApp(const FactBrowser());

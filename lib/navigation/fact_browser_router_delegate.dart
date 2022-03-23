@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:statementmanager/models/statement.dart';
 import 'package:statementmanager/navigation/fact_browser_routes.dart';
 import 'package:statementmanager/provider/database_utils.dart';
+import 'package:statementmanager/screens/detail_screen.dart';
 
-import '../screens/detail_screen.dart';
+import '../screens/edit_screen.dart';
 import '../screens/home_screen.dart';
 import '../screens/login_screen.dart';
 
@@ -130,7 +131,7 @@ class FactBrowserRouterDelegate extends RouterDelegate<FactBrowserRoutePath>
         else if (_statement != null && loggedIn)
           MaterialPage(
             key: const ValueKey('EditPage'),
-            child: DetailScreen(
+            child: EditScreen(
               title: "Eingeloggt. Bearbeitungsmodus.",
               onLogin: _onLogin,
               statement: _statement!,
@@ -139,7 +140,7 @@ class FactBrowserRouterDelegate extends RouterDelegate<FactBrowserRoutePath>
         else if (_emptyStatement != null && loggedIn)
           MaterialPage(
             key: const ValueKey('CreatePage'),
-            child: DetailScreen(
+            child: EditScreen(
               title: "Neues Statement erstellen.",
               onLogin: _onLogin,
               statement: _emptyStatement!,
