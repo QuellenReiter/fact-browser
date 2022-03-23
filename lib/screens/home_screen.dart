@@ -6,7 +6,7 @@ import 'package:statementmanager/utilities/utilities.dart';
 import 'package:statementmanager/widgets/statement_card.dart';
 
 import '../consonents.dart';
-import 'detail_screen.dart';
+import 'edit_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen(
