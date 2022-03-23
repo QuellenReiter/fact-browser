@@ -325,6 +325,33 @@ $statementFactcheckIDs: {
     return ret;
   }
 
+  static String login(String username, String password) {
+    String ret = '''
+mutation LogIn{
+  logIn(input: {
+    username: "$username"
+    password: "$password"
+  }){
+    viewer{
+      sessionToken
+    }
+  }
+}
+''';
+    return ret;
+  }
+
+  static String getCurrentUser() {
+    String ret = '''
+query GetCurrentUser{
+  viewer{
+    sessionToken
+  }
+}
+''';
+    return ret;
+  }
+
   static String getStatement(String? statementID) {
     String ret = '''
 query getStatement{

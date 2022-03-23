@@ -18,6 +18,8 @@ class FactBrowserRouteInformationParser
         return FactBrowserRoutePath.unknown();
       }
       var remaining = uri.pathSegments[1];
+      // check if logged in
+      // try to login, if usccess return edit page
       return FactBrowserRoutePath.details(remaining);
     }
     // Handle unknown routes

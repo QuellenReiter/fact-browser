@@ -1,6 +1,5 @@
-import 'dart:io';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http_parser/http_parser.dart';
-import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:http/http.dart';
 import 'package:statementmanager/models/statement.dart';
@@ -9,44 +8,14 @@ import 'package:statementmanager/provider/queries.dart';
 import '../consonents.dart';
 
 class DatabaseUtils {
-  final String langName, saveFormat, objectId;
+  final safeStorage = const FlutterSecureStorage();
 
-  DatabaseUtils({this.langName = "", this.saveFormat = "", this.objectId = ""});
-
-  // String delete='''
-  // mutation DELETE_LANGUAGES(\$id: ID!){
-  //   deleteLanguage(input: {id:\$id}){
-  //     language{
-  //       name,
-  //       id
-  //     }
-  //   }
-  // }
-  // ''';
-
-  // String addData='''
-  // mutation CREATE_LANGUAGES(\$input: CreateLanguageFieldsInput){
-  //   createLanguage(input: {fields: \$input}){
-  //     language{
-  //       name,
-  //       saveFormat
-  //     }
-  //   }
-  // }
-  // ''';
-  // String update='''
-  // mutation UPDATE_LANGUAGES(\$id: ID!,\$input: UpdateLanguageFieldsInput){
-  //   updateLanguage(input: {id:\$id, fields:\$input}){
-  //     language{
-  //       name,
-  //       id
-  //     }
-  //   }
-  // }
-  // ''';
-
-  Future<QueryResult> sendData(
+  Future<QueryResult?> sendData(
       Statement statement, Function reloadDetailScreen) async {
+    String? token = await safeStorage.read(key: "token");
+    if (token == null) {
+      return null;
+    }
     // prepare the picture
     MultipartFile multipartFile = MultipartFile.fromBytes(
       Queries.statementPicture,
@@ -58,7 +27,7 @@ class DatabaseUtils {
     final HttpLink httpLink = HttpLink(kUrl, defaultHeaders: {
       'X-Parse-Application-Id': kParseApplicationId,
       'X-Parse-Client-Key': kParseClientKey,
-      //'X-Parse-REST-API-Key' : kParseRestApiKey,
+      'X-Parse-Session-Token': token,
     });
     // create the data provider
     GraphQLClient client = GraphQLClient(
@@ -108,13 +77,17 @@ class DatabaseUtils {
     return queryResult;
   }
 
-  Future<QueryResult> updateData(Statement statement, List<String> oldFactIds,
+  Future<QueryResult?> updateData(Statement statement, List<String> oldFactIds,
       Function reloadDetailScreen) async {
+    String? token = await safeStorage.read(key: "token");
+    if (token == null) {
+      return null;
+    }
     // Setup Client
     final HttpLink httpLink = HttpLink(kUrl, defaultHeaders: {
       'X-Parse-Application-Id': kParseApplicationId,
       'X-Parse-Client-Key': kParseClientKey,
-      //'X-Parse-REST-API-Key' : kParseRestApiKey,
+      'X-Parse-Session-Token': token,
     });
     // create the data provider
     GraphQLClient client = GraphQLClient(
@@ -205,11 +178,76 @@ class DatabaseUtils {
     return queryResult;
   }
 
-  Future<Statement?> getStatement(String? statementID) async {
+  void login(String username, String password, Function loginCallback) async {
+    const safeStorage = FlutterSecureStorage();
+
     final HttpLink httpLink = HttpLink(kUrl, defaultHeaders: {
       'X-Parse-Application-Id': kParseApplicationId,
       'X-Parse-Client-Key': kParseClientKey,
       //'X-Parse-REST-API-Key' : kParseRestApiKey,
+    });
+    // create the data provider
+    GraphQLClient client = GraphQLClient(
+      cache: GraphQLCache(),
+      link: httpLink,
+    );
+
+    var loginResult = await client.mutate(
+      MutationOptions(
+        document: gql(Queries.login(username, password)),
+      ),
+    );
+    if (loginResult.hasException) {
+      loginCallback(false);
+    }
+    //safe token
+
+    safeStorage.write(
+        key: "token",
+        value: loginResult.data?["logIn"]["viewer"]["sessionToken"]);
+    loginCallback(true);
+  }
+
+  Future<void> logout() async {
+    const safeStorage = FlutterSecureStorage();
+    await safeStorage.delete(key: "token");
+  }
+
+  Future<bool> checkToken() async {
+    const safeStorage = FlutterSecureStorage();
+    String? token = await safeStorage.read(key: "token");
+
+    if (token != null) {
+      final HttpLink httpLink = HttpLink(kUrl, defaultHeaders: {
+        'X-Parse-Application-Id': kParseApplicationId,
+        'X-Parse-Client-Key': kParseClientKey,
+        'X-Parse-Session-Token': token,
+      });
+      // create the data provider
+      GraphQLClient client = GraphQLClient(
+        cache: GraphQLCache(),
+        link: httpLink,
+      );
+
+      var queryResult = await client.mutate(
+        MutationOptions(
+          document: gql(Queries.getCurrentUser()),
+        ),
+      );
+      if (queryResult.hasException) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+    // no token, return false
+    return false;
+  }
+
+  Future<Statement?> getStatement(String? statementID) async {
+    final HttpLink httpLink = HttpLink(kUrl, defaultHeaders: {
+      'X-Parse-Application-Id': kParseApplicationId,
+      'X-Parse-Client-Key': kParseClientKey,
     });
     // create the data provider
     GraphQLClient client = GraphQLClient(
@@ -224,30 +262,6 @@ class DatabaseUtils {
     if (queryResult.hasException) {
       return null;
     }
-
     return Statement.fromMap(queryResult.data?["statement"]);
   }
-
-  // Future<QueryResult> deleteData() async {
-  //   final variable = {
-  //     "id": objectId,
-  //   };
-
-  //   final HttpLink httpLink = HttpLink(kUrl, defaultHeaders: {
-  //     'X-Parse-Application-Id': kParseApplicationId,
-  //     'X-Parse-Client-Key': kParseClientKey,
-  //     //'X-Parse-REST-API-Key' : kParseRestApiKey,
-  //   });
-  //   // create the data provider
-  //   GraphQLClient client = GraphQLClient(
-  //     cache: GraphQLCache(),
-  //     link: httpLink,
-  //   );
-
-  //   QueryResult queryResult = await client.query(
-  //     QueryOptions(document: gql(delete), variables: variable),
-  //   );
-
-  //   return queryResult;
-  // }
 }

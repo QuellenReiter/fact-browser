@@ -9,18 +9,24 @@ import '../consonents.dart';
 import 'detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({
-    Key? key,
-    required this.title,
-    required this.onSelectStatement,
-    required this.onQueryChanged,
-    required this.query,
-  }) : super(key: key);
+  const HomeScreen(
+      {Key? key,
+      required this.title,
+      required this.onSelectStatement,
+      required this.onQueryChanged,
+      required this.query,
+      required this.onLogin,
+      required this.isLoggedIn,
+      required this.createStatement})
+      : super(key: key);
 
   final ValueChanged<Statement> onSelectStatement;
   final ValueChanged<String> onQueryChanged;
+  final Function createStatement;
+  final Function onLogin;
   final String title;
   final String? query;
+  final bool isLoggedIn;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -65,22 +71,24 @@ class _HomeScreenState extends State<HomeScreen> {
       client: client,
       child: Scaffold(
         appBar: AppBar(
+          actions: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50),
+              child: GestureDetector(
+                child: const Icon(Icons.login),
+                onTap: () => widget.onLogin(),
+              ),
+            )
+          ],
           title: Text(widget.title),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
-        floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.add),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => DetailScreen(
-                  statement: Statement.empty(),
-                ),
-              ),
-            );
-          },
-        ),
+        floatingActionButton: widget.isLoggedIn
+            ? FloatingActionButton(
+                child: const Icon(Icons.add),
+                onPressed: () => widget.createStatement(),
+              )
+            : null,
         body: ValueListenableBuilder(
             valueListenable: searchController,
             builder: (context, TextEditingValue value, __) {
