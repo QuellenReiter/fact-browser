@@ -52,17 +52,20 @@ class StatementController {
     yearController =
         TextEditingController(text: statement.statementYear.toString());
     yearController.addListener(() {
-      statement.statementYear = int.parse(yearController.text);
+      statement.statementYear =
+          yearController.text == "" ? 0 : int.parse(yearController.text);
     });
     monthController =
         TextEditingController(text: statement.statementMonth.toString());
     monthController.addListener(() {
-      statement.statementMonth = int.parse(monthController.text);
+      statement.statementMonth =
+          monthController.text == "" ? 0 : int.parse(monthController.text);
     });
     dayController =
         TextEditingController(text: statement.statementDay.toString());
     dayController.addListener(() {
-      statement.statementDay = int.parse(dayController.text);
+      statement.statementDay =
+          dayController.text == "" ? 0 : int.parse(dayController.text);
     });
     mediaTypeController =
         TextEditingController(text: statement.statementMediatype);

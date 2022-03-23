@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class TextFieldContainer extends StatelessWidget {
-  const TextFieldContainer(
-      {Key? key,
-      required this.textController,
-      required this.label,
-      required this.errorCallback,
-      this.inputFormatter})
-      : super(key: key);
+  const TextFieldContainer({
+    Key? key,
+    required this.textController,
+    required this.label,
+    required this.errorCallback,
+    this.inputFormatter,
+  }) : super(key: key);
 
   final TextEditingController textController;
   final String label;

@@ -3,21 +3,15 @@ import 'package:statementmanager/models/statement.dart';
 import 'package:statementmanager/screens/detail_screen.dart';
 
 class StatementCard extends StatelessWidget {
-  const StatementCard({Key? key, required this.statement}) : super(key: key);
+  const StatementCard(
+      {Key? key, required this.statement, required this.onTapped})
+      : super(key: key);
   final Statement statement;
+  final ValueChanged<Statement> onTapped;
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DetailScreen(
-              statement: statement,
-            ),
-          ),
-        );
-      },
+      onTap: () => onTapped(statement),
       child: Container(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -27,7 +21,10 @@ class StatementCard extends StatelessWidget {
               style: const TextStyle(fontSize: 20.0),
             ),
             Column(
-              children: [Text(statement.statementAuthor), Text(statement.statementMedia)],
+              children: [
+                Text(statement.statementAuthor),
+                Text(statement.statementMedia)
+              ],
             ),
           ],
         ),
