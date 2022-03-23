@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:statementmanager/models/fact.dart';
-import 'package:statementmanager/widgets/date_container.dart';
-import 'package:statementmanager/widgets/text_field_container.dart';
-
-import '../utilities/utilities.dart';
+import 'package:statementmanager/utilities/utilities.dart';
+import 'package:statementmanager/widgets/editable/date_container.dart';
+import 'package:statementmanager/widgets/editable/text_field_container.dart';
 
 //ignore: must_be_immutable
 class FactContainer extends StatefulWidget {
