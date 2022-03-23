@@ -2,38 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:statementmanager/consonents.dart';
+import 'package:statementmanager/models/statement.dart';
+import 'package:statementmanager/navigation/fact_browser_rout_information_parser.dart';
+import 'package:statementmanager/navigation/fact_browser_router_delegate.dart';
+import 'package:statementmanager/screens/detail_screen.dart';
 import 'package:statementmanager/screens/home_screen.dart';
 
 void main() async {
-  runApp(const MyApp());
+  runApp(const FactBrowser());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class FactBrowser extends StatefulWidget {
+  const FactBrowser({Key? key}) : super(key: key);
+
+  @override
+  State<FactBrowser> createState() => _FactBrowserState();
+}
+
+class _FactBrowserState extends State<FactBrowser> {
+  final FactBrowserRouterDelegate _routerDelegate = FactBrowserRouterDelegate();
+  final FactBrowserRouteInformationParser _routeInformationParser =
+      FactBrowserRouteInformationParser();
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     // link to the API
 
-    final HttpLink httpLink = HttpLink(kUrl, defaultHeaders: {
-      'X-Parse-Application-Id': kParseApplicationId,
-      'X-Parse-Client-Key': kParseClientKey,
-      //'X-Parse-REST-API-Key' : kParseRestApiKey,
-    });
-    // create the data provider
-    ValueNotifier<GraphQLClient> client = ValueNotifier(
-      GraphQLClient(
-        cache: GraphQLCache(),
-        link: httpLink,
-      ),
-    );
-
-    // check if signed in
-
     return MaterialApp.router(
-      routeInformationParser: ENTERSOMETHING,
-      routerDelegate: ENTERSOMETHING,
+      routeInformationParser: _routeInformationParser,
+      routerDelegate: _routerDelegate,
       theme: ThemeData(
         brightness: Brightness.dark,
         primarySwatch: Colors.blueGrey,
@@ -49,12 +47,10 @@ class MyApp extends StatelessWidget {
           isDense: true,
         ),
       ),
-      home: GraphQLProvider(
-        child: const HomeScreen(
-          title: "Suche",
-        ),
-        client: client,
-      ),
+      // home: GraphQLProvider(
+
+      //   client: client,
+      // ),
     );
   }
 }
