@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:statementmanager/provider/database_utils.dart';
 import 'package:statementmanager/utilities/utilities.dart';
-import 'package:statementmanager/widgets/text_field_container.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key, required this.loginCallback}) : super(key: key);
@@ -41,20 +40,28 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Einloggen"),
-        ),
-        body: Align(
-          alignment: Alignment.center,
+      appBar: AppBar(
+        title: const Text("Einloggen"),
+      ),
+      body: Align(
+        alignment: Alignment.center,
+        child: Container(
+          constraints: const BoxConstraints(maxWidth: 500, maxHeight: 400),
           child: Column(children: [
             Flexible(
               child: ValueListenableBuilder(
                 valueListenable: usernameController,
                 builder: (context, TextEditingValue value, __) {
-                  return TextFieldContainer(
-                    textController: usernameController,
-                    label: "Nutzername",
-                    errorCallback: Utils.checkIfEmpty,
+                  return Container(
+                    padding: const EdgeInsets.all(5),
+                    child: TextField(
+                      controller: usernameController,
+                      decoration: InputDecoration(
+                        labelText: "Nutzername",
+                        border: const OutlineInputBorder(),
+                        errorText: Utils.checkIfEmpty(usernameController),
+                      ),
+                    ),
                   );
                 },
               ),
@@ -63,10 +70,17 @@ class _LoginScreenState extends State<LoginScreen> {
               child: ValueListenableBuilder(
                 valueListenable: passwordController,
                 builder: (context, TextEditingValue value, __) {
-                  return TextFieldContainer(
-                    textController: passwordController,
-                    label: "Passwort",
-                    errorCallback: Utils.checkIfEmpty,
+                  return Container(
+                    padding: const EdgeInsets.all(5),
+                    child: TextField(
+                      obscureText: true,
+                      controller: passwordController,
+                      decoration: InputDecoration(
+                        labelText: "Passwort",
+                        border: const OutlineInputBorder(),
+                        errorText: Utils.checkIfEmpty(passwordController),
+                      ),
+                    ),
                   );
                 },
               ),
@@ -83,6 +97,8 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ]),
-        ));
+        ),
+      ),
+    );
   }
 }

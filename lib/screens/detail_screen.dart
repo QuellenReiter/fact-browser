@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:statementmanager/models/statement.dart';
 import 'package:statementmanager/provider/device_type_provider.dart';
 import 'package:statementmanager/utilities/utilities.dart';
-import '../widgets/fact_display_container.dart';
+import 'package:statementmanager/widgets/display/display_text_sizable.dart';
+import '../widgets/display/fact_display_container.dart';
 
 //ignore: must_be_immutable
 class DetailScreen extends StatelessWidget {
@@ -62,30 +63,34 @@ class DetailScreen extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Flexible(
-                      child: Text(statement.statementText),
+                      child: SizableDisplayText(
+                          size: 40, text: statement.statementText),
                     ),
                     Flexible(
                       child: Row(children: [
                         Flexible(
-                          child: Text(statement.statementAuthor),
+                          child: SizableDisplayText(
+                              text: statement.statementAuthor),
                         ),
                         Flexible(
-                          child: Text(statement.statementMedia),
+                          child: SizableDisplayText(
+                              text: statement.statementMedia),
                         )
                       ]),
                     ),
                     Flexible(
                       child: Row(children: [
                         Flexible(
-                          child: Text(statement.statementLanguage),
+                          child: SizableDisplayText(
+                              text: statement.statementLanguage),
                         )
                       ]),
                     ),
                     Flexible(
                       child: Row(children: [
                         Flexible(
-                          child: Text(
-                            statement.statementDay.toString() +
+                          child: SizableDisplayText(
+                            text: statement.statementDay.toString() +
                                 "." +
                                 statement.statementMonth.toString() +
                                 "." +
@@ -93,7 +98,8 @@ class DetailScreen extends StatelessWidget {
                           ),
                         ),
                         Flexible(
-                          child: Text(statement.statementLink),
+                          child:
+                              SizableDisplayText(text: statement.statementLink),
                         )
                       ]),
                     ),
@@ -118,7 +124,8 @@ class DetailScreen extends StatelessWidget {
                                         statement.statementPictureURL),
                                   ),
                                 ),
-                                Text(statement.samplePictureCopyright),
+                                SizableDisplayText(
+                                    text: statement.samplePictureCopyright),
                               ],
                             ),
                           ),
@@ -132,8 +139,8 @@ class DetailScreen extends StatelessWidget {
                                   flex: 2,
                                   child: Padding(
                                       padding: const EdgeInsets.all(5),
-                                      child: Text(
-                                        "Kategorie: " +
+                                      child: SizableDisplayText(
+                                        text: "Kategorie: " +
                                             statement.statementCategory,
                                       )),
                                 ),
@@ -141,8 +148,8 @@ class DetailScreen extends StatelessWidget {
                                   flex: 2,
                                   child: Padding(
                                       padding: const EdgeInsets.all(5),
-                                      child: Text(
-                                        "Kategorie: " +
+                                      child: SizableDisplayText(
+                                        text: "Kategorie: " +
                                             statement.statementMediatype,
                                       )),
                                 ),
@@ -150,8 +157,8 @@ class DetailScreen extends StatelessWidget {
                                   flex: 2,
                                   child: Padding(
                                     padding: const EdgeInsets.all(5),
-                                    child: Text(
-                                      "Einordung der Aussage: " +
+                                    child: SizableDisplayText(
+                                      text: "Einordung der Aussage: " +
                                           statement.statementCorrectness,
                                     ),
                                   ),
@@ -161,8 +168,8 @@ class DetailScreen extends StatelessWidget {
                                     flex: 2,
                                     child: Padding(
                                       padding: EdgeInsets.all(5),
-                                      child: Text(
-                                        "Die Aussage wurde korrigiert.",
+                                      child: SizableDisplayText(
+                                        text: "Die Aussage wurde korrigiert.",
                                       ),
                                     ),
                                   )
@@ -171,8 +178,9 @@ class DetailScreen extends StatelessWidget {
                                     flex: 2,
                                     child: Padding(
                                       padding: EdgeInsets.all(5),
-                                      child: Text(
-                                        "Die Aussage wurde nicht korrigiert.",
+                                      child: SizableDisplayText(
+                                        text:
+                                            "Die Aussage wurde nicht korrigiert.",
                                       ),
                                     ),
                                   ),

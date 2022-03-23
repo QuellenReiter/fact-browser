@@ -6,10 +6,9 @@ import 'package:statementmanager/provider/database_utils.dart';
 import 'package:statementmanager/provider/device_type_provider.dart';
 import 'package:statementmanager/provider/queries.dart';
 import 'package:statementmanager/utilities/utilities.dart';
-
-import '../widgets/date_container.dart';
-import '../widgets/fact_container.dart';
-import '../widgets/text_field_container.dart';
+import 'package:statementmanager/widgets/editable/date_container.dart';
+import 'package:statementmanager/widgets/editable/fact_container.dart';
+import 'package:statementmanager/widgets/editable/text_field_container.dart';
 
 //ignore: must_be_immutable
 class EditScreen extends StatefulWidget {
