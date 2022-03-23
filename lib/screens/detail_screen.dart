@@ -13,10 +13,16 @@ import '../widgets/text_field_container.dart';
 
 //ignore: must_be_immutable
 class DetailScreen extends StatefulWidget {
-  DetailScreen({Key? key, required this.statement}) : super(key: key);
+  DetailScreen(
+      {Key? key,
+      required this.statement,
+      required this.onLogin,
+      required this.title})
+      : super(key: key);
 
   Statement statement;
-
+  final String title;
+  final Function onLogin;
   @override
   State<DetailScreen> createState() => _DetailScreenState();
 }
@@ -137,8 +143,17 @@ class _DetailScreenState extends State<DetailScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 50),
+            child: GestureDetector(
+              child: const Icon(Icons.login),
+              onTap: () => widget.onLogin(),
+            ),
+          )
+        ],
         title: Text(
-          widget.statement.statementText,
+          widget.title,
         ),
       ),
       backgroundColor:

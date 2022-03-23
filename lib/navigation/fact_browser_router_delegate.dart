@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:statementmanager/models/statement.dart';
 import 'package:statementmanager/navigation/fact_browser_routes.dart';
@@ -7,20 +5,33 @@ import 'package:statementmanager/provider/database_utils.dart';
 
 import '../screens/detail_screen.dart';
 import '../screens/home_screen.dart';
+import '../screens/login_screen.dart';
 
 class FactBrowserRouterDelegate extends RouterDelegate<FactBrowserRoutePath>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin<FactBrowserRoutePath> {
   final GlobalKey<NavigatorState> navigatorKey;
 
   Statement? _statement;
+  Statement? _emptyStatement;
   String? _query;
-  bool show404 = false;
+  bool _show404 = false;
+  bool _showLogIn = false;
+  bool _isLoggedIn = false;
+  bool get loggedIn => _isLoggedIn;
+  set loggedIn(value) {
+    _isLoggedIn = value;
+    notifyListeners();
+  }
 
   FactBrowserRouterDelegate() : navigatorKey = GlobalKey<NavigatorState>();
 
   FactBrowserRoutePath get currentConfiguration {
-    if (show404) {
+    if (_show404) {
       return FactBrowserRoutePath.unknown();
+    } else if (_showLogIn)
+      return FactBrowserRoutePath.login();
+    else if (_emptyStatement != null) {
+      return FactBrowserRoutePath.create(_emptyStatement);
     }
 
     return _statement == null
@@ -38,6 +49,39 @@ class FactBrowserRouterDelegate extends RouterDelegate<FactBrowserRoutePath>
     notifyListeners();
   }
 
+  void _onLogin() async {
+    final db = DatabaseUtils();
+    // logout if user is logged in
+    if (_isLoggedIn) {
+      await db.logout();
+      _isLoggedIn = false;
+      notifyListeners();
+      return;
+    }
+    // implement properly !!!
+    _isLoggedIn = await db.checkToken();
+
+    if (!_isLoggedIn) {
+      //show login page
+      _showLogIn = true;
+    }
+
+    notifyListeners();
+  }
+
+  void _loginPageCallback(bool success) async {
+    if (success) {
+      _isLoggedIn = true;
+      _showLogIn = false;
+    }
+    notifyListeners();
+  }
+
+  void _createStatement() {
+    _emptyStatement = Statement.empty();
+    notifyListeners();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Navigator(
@@ -48,10 +92,20 @@ class FactBrowserRouterDelegate extends RouterDelegate<FactBrowserRoutePath>
             title: "Search",
             onSelectStatement: _onSelectStatement,
             onQueryChanged: _onQueryChanged,
+            onLogin: _onLogin,
             query: null,
+            isLoggedIn: loggedIn,
+            createStatement: _createStatement,
           ),
         ),
-        if (show404)
+        if (_showLogIn)
+          MaterialPage(
+            key: const ValueKey('LoginPage'),
+            child: LoginScreen(
+              loginCallback: _loginPageCallback,
+            ),
+          )
+        else if (_show404)
           MaterialPage(
             key: const ValueKey('Unknown Page'),
             child: HomeScreen(
@@ -59,13 +113,36 @@ class FactBrowserRouterDelegate extends RouterDelegate<FactBrowserRoutePath>
               onSelectStatement: _onSelectStatement,
               onQueryChanged: _onQueryChanged,
               query: _query,
+              onLogin: _onLogin,
+              isLoggedIn: loggedIn,
+              createStatement: _createStatement,
             ),
           )
-        else if (_statement != null)
+        else if (_statement != null && !loggedIn)
           MaterialPage(
             key: const ValueKey('DetailPage'),
             child: DetailScreen(
+              title: "Detailansicht. Zum bearbeiten einloggen.",
+              onLogin: _onLogin,
               statement: _statement!,
+            ),
+          )
+        else if (_statement != null && loggedIn)
+          MaterialPage(
+            key: const ValueKey('EditPage'),
+            child: DetailScreen(
+              title: "Eingeloggt. Bearbeitungsmodus.",
+              onLogin: _onLogin,
+              statement: _statement!,
+            ),
+          )
+        else if (_emptyStatement != null && loggedIn)
+          MaterialPage(
+            key: const ValueKey('CreatePage'),
+            child: DetailScreen(
+              title: "Neues Statement erstellen.",
+              onLogin: _onLogin,
+              statement: _emptyStatement!,
             ),
           ),
       ],
@@ -75,6 +152,8 @@ class FactBrowserRouterDelegate extends RouterDelegate<FactBrowserRoutePath>
         }
         _query = null;
         _statement = null;
+        _emptyStatement = null;
+        _showLogIn = false;
 
         notifyListeners();
         return true;
@@ -87,14 +166,14 @@ class FactBrowserRouterDelegate extends RouterDelegate<FactBrowserRoutePath>
     var db = DatabaseUtils();
     if (configuration.isUnknown) {
       _statement = null;
-      show404 = true;
+      _show404 = true;
       return;
     }
     Statement? statement = await db.getStatement(configuration.statementID);
     if (configuration.isDetailsPage) {
       // check if statement exists here
       if (statement == null) {
-        show404 = true;
+        _show404 = true;
         return;
       }
       // fetch statement from DB here
@@ -103,6 +182,6 @@ class FactBrowserRouterDelegate extends RouterDelegate<FactBrowserRoutePath>
       _statement = null;
     }
 
-    show404 = false;
+    _show404 = false;
   }
 }
