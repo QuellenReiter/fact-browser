@@ -205,6 +205,29 @@ class DatabaseUtils {
     return queryResult;
   }
 
+  Future<Statement?> getStatement(String? statementID) async {
+    final HttpLink httpLink = HttpLink(kUrl, defaultHeaders: {
+      'X-Parse-Application-Id': kParseApplicationId,
+      'X-Parse-Client-Key': kParseClientKey,
+      //'X-Parse-REST-API-Key' : kParseRestApiKey,
+    });
+    // create the data provider
+    GraphQLClient client = GraphQLClient(
+      cache: GraphQLCache(),
+      link: httpLink,
+    );
+    var queryResult = await client.query(
+      QueryOptions(
+        document: gql(Queries.getStatement(statementID)),
+      ),
+    );
+    if (queryResult.hasException) {
+      return null;
+    }
+
+    return Statement.fromMap(queryResult.data?["statement"]);
+  }
+
   // Future<QueryResult> deleteData() async {
   //   final variable = {
   //     "id": objectId,

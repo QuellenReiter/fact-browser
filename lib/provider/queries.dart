@@ -324,4 +324,46 @@ $statementFactcheckIDs: {
   ''';
     return ret;
   }
+
+  static String getStatement(String? statementID) {
+    String ret = '''
+query getStatement{
+  statement(
+    	id: "$statementID"
+  ){
+    objectId
+    $statementText
+    $statementPicture
+    $statementYear
+    $statementMonth
+    $statementDay
+    $statementCorrectness
+    $statementMedia
+    $statementLanguage
+    $statementCategory
+    $statementMediatype
+    $statementAuthor
+    $statementLink
+    $statementRectification
+    $statementPictureCopyright
+    $statementFactcheckIDs{
+      edges{
+        node{
+          objectId
+            $factText
+            $factAuthor
+            $factYear
+            $factMonth
+            $factDay
+            $factLanguage
+            $factMedia
+            $factLink
+        }
+      }
+    }
+  }
+}
+''';
+    return ret;
+  }
 }
