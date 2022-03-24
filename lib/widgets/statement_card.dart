@@ -15,9 +15,11 @@ class StatementCard extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              statement.statementText,
-              style: const TextStyle(fontSize: 20.0),
+            Flexible(
+              child: Text(
+                statement.statementText,
+                style: const TextStyle(fontSize: 20.0),
+              ),
             ),
             Column(
               children: [
