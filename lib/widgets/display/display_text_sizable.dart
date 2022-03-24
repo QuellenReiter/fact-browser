@@ -19,7 +19,7 @@ class SizableDisplayText extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(10)),
           border:
-              Border.all(color: Color.fromARGB(255, 65, 65, 65), width: 1.5),
+              Border.all(color: Color.fromARGB(183, 230, 230, 230), width: 1),
         ),
         padding: const EdgeInsets.all(15),
         child: Row(
