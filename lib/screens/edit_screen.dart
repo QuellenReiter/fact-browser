@@ -9,6 +9,7 @@ import 'package:statementmanager/utilities/utilities.dart';
 import 'package:statementmanager/widgets/editable/date_container.dart';
 import 'package:statementmanager/widgets/editable/fact_container.dart';
 import 'package:statementmanager/widgets/editable/text_field_container.dart';
+import 'package:statementmanager/widgets/main_app_bar.dart';
 
 //ignore: must_be_immutable
 class EditScreen extends StatefulWidget {
@@ -141,19 +142,9 @@ class _EditScreenState extends State<EditScreen> {
     );
 
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 50),
-            child: GestureDetector(
-              child: const Icon(Icons.login),
-              onTap: () => widget.onLogin(),
-            ),
-          )
-        ],
-        title: Text(
-          widget.title,
-        ),
+      appBar: MainAppBar(
+        title: widget.title,
+        onLogin: widget.onLogin,
       ),
       backgroundColor:
           widget.statement.statementCorrectness != CorrectnessCategory.correct

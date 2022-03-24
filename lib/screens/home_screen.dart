@@ -3,7 +3,9 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:statementmanager/models/statement.dart';
 import 'package:statementmanager/provider/queries.dart';
 import 'package:statementmanager/utilities/utilities.dart';
+import 'package:statementmanager/widgets/main_app_bar.dart';
 import 'package:statementmanager/widgets/statement_card.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../consonents.dart';
 import 'edit_screen.dart';
@@ -70,17 +72,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return GraphQLProvider(
       client: client,
       child: Scaffold(
-        appBar: AppBar(
-          actions: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 50),
-              child: GestureDetector(
-                child: const Icon(Icons.login),
-                onTap: () => widget.onLogin(),
-              ),
-            )
-          ],
-          title: Text(widget.title),
+        appBar: MainAppBar(
+          title: "Suche",
+          onLogin: widget.onLogin,
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
         floatingActionButton: widget.isLoggedIn
