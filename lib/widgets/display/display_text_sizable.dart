@@ -1,26 +1,44 @@
 import 'package:flutter/material.dart';
 
 class SizableDisplayText extends StatelessWidget {
-  const SizableDisplayText({Key? key, required this.text, this.size = 14})
-      : super(key: key);
-
+  const SizableDisplayText({
+    Key? key,
+    required this.text,
+    this.icon = null,
+    this.size = 14,
+  }) : super(key: key);
+  final IconData? icon;
   final String text;
   final int size;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.black),
-      ),
-      padding: const EdgeInsets.all(15),
-      child: Text(
-        text,
-        textAlign: TextAlign.start,
-        style: TextStyle(
-            fontSize: size.toDouble(),
-            color: Colors.white,
-            fontWeight: FontWeight.bold),
+    return Padding(
+      padding: const EdgeInsets.all(5),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
+          border:
+              Border.all(color: Color.fromARGB(255, 65, 65, 65), width: 1.5),
+        ),
+        padding: const EdgeInsets.all(15),
+        child: Row(
+          children: [
+            if (icon != null)
+              Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: Icon(icon, size: size.toDouble() + 4),
+              ),
+            Text(
+              text,
+              textAlign: TextAlign.start,
+              style: TextStyle(
+                  fontSize: size.toDouble(),
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
       ),
     );
   }

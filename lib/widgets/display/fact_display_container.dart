@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:statementmanager/models/fact.dart';
+import 'package:statementmanager/widgets/display/display_text_sizable.dart';
 
 //ignore: must_be_immutable
 class FactDisplayContainer extends StatelessWidget {
@@ -18,29 +19,41 @@ class FactDisplayContainer extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text(fact.factText),
+          SizableDisplayText(
+            text: fact.factText,
+            size: 20,
+            icon: Icons.chat,
+          ),
           Flexible(
             child: Row(children: [
               Flexible(
-                child: Text(fact.factAuthor),
+                child: SizableDisplayText(
+                  text: fact.factAuthor,
+                  icon: Icons.person,
+                ),
               ),
               Flexible(
-                child: Text(fact.factMedia),
+                child: SizableDisplayText(
+                    text: fact.factMedia, icon: Icons.newspaper),
               ),
             ]),
           ),
           Flexible(
             child: Row(children: [
               Flexible(
-                child: Text(fact.factLanguage),
+                child: SizableDisplayText(
+                  text: fact.factLanguage,
+                  icon: Icons.language,
+                ),
               ),
               Flexible(
-                child: Text(
-                  fact.factDay.toString() +
+                child: SizableDisplayText(
+                  text: fact.factDay.toString() +
                       "." +
                       fact.factMonth.toString() +
                       "." +
                       fact.factYear.toString(),
+                  icon: Icons.calendar_month_outlined,
                 ),
               ),
             ]),
@@ -48,7 +61,10 @@ class FactDisplayContainer extends StatelessWidget {
           Flexible(
             child: Row(children: [
               Flexible(
-                child: Text(fact.factLink),
+                child: SizableDisplayText(
+                  text: fact.factLink,
+                  icon: Icons.link,
+                ),
               ),
             ]),
           ),
