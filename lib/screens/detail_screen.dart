@@ -51,48 +51,68 @@ class DetailScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Flexible(
                       child: SizableDisplayText(
-                          size: 40, text: statement.statementText),
+                        size: 40,
+                        text: statement.statementText,
+                        icon: Icons.speaker_notes,
+                      ),
                     ),
                     Flexible(
-                      child: Row(children: [
-                        Flexible(
-                          child: SizableDisplayText(
-                              text: statement.statementAuthor),
-                        ),
-                        Flexible(
-                          child: SizableDisplayText(
-                              text: statement.statementMedia),
-                        )
-                      ]),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Flexible(
+                              child: SizableDisplayText(
+                                text: statement.statementAuthor,
+                                icon: Icons.person,
+                              ),
+                            ),
+                            Flexible(
+                              child: SizableDisplayText(
+                                  text: statement.statementMedia,
+                                  icon: Icons.newspaper),
+                            )
+                          ]),
                     ),
                     Flexible(
-                      child: Row(children: [
-                        Flexible(
-                          child: SizableDisplayText(
-                              text: statement.statementLanguage),
-                        )
-                      ]),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Flexible(
+                              child: SizableDisplayText(
+                                  text: statement.statementLanguage,
+                                  icon: Icons.language),
+                            )
+                          ]),
                     ),
                     Flexible(
-                      child: Row(children: [
-                        Flexible(
-                          child: SizableDisplayText(
-                            text: statement.statementDay.toString() +
-                                "." +
-                                statement.statementMonth.toString() +
-                                "." +
-                                statement.statementYear.toString(),
-                          ),
-                        ),
-                        Flexible(
-                          child:
-                              SizableDisplayText(text: statement.statementLink),
-                        )
-                      ]),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Flexible(
+                              child: SizableDisplayText(
+                                text: statement.statementDay.toString() +
+                                    "." +
+                                    statement.statementMonth.toString() +
+                                    "." +
+                                    statement.statementYear.toString(),
+                                icon: Icons.calendar_month_outlined,
+                              ),
+                            ),
+                            Flexible(
+                              child: SizableDisplayText(
+                                text: statement.statementLink,
+                                icon: Icons.link,
+                              ),
+                            )
+                          ]),
                     ),
                     Flexible(
                       flex: 5,
@@ -111,12 +131,17 @@ class DetailScreen extends StatelessWidget {
                                 Flexible(
                                   child: Padding(
                                     padding: const EdgeInsets.all(5),
-                                    child: Image.network(
-                                        statement.statementPictureURL),
+                                    child: Image.network(statement
+                                                .statementPictureURL !=
+                                            ""
+                                        ? statement.statementPictureURL
+                                        : "https://quellenreiter.app/assets/logo-pink.png"),
                                   ),
                                 ),
                                 SizableDisplayText(
-                                    text: statement.samplePictureCopyright),
+                                  text: statement.samplePictureCopyright,
+                                  icon: Icons.copyright,
+                                ),
                               ],
                             ),
                           ),
@@ -124,6 +149,7 @@ class DetailScreen extends StatelessWidget {
                             flex: 2,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Flexible(
@@ -140,7 +166,7 @@ class DetailScreen extends StatelessWidget {
                                   child: Padding(
                                       padding: const EdgeInsets.all(5),
                                       child: SizableDisplayText(
-                                        text: "Kategorie: " +
+                                        text: "Art des Mediums: " +
                                             statement.statementMediatype,
                                       )),
                                 ),
