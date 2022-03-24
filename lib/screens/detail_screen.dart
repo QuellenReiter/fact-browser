@@ -3,6 +3,7 @@ import 'package:statementmanager/models/statement.dart';
 import 'package:statementmanager/provider/device_type_provider.dart';
 import 'package:statementmanager/utilities/utilities.dart';
 import 'package:statementmanager/widgets/display/display_text_sizable.dart';
+import 'package:statementmanager/widgets/main_app_bar.dart';
 import '../widgets/display/fact_display_container.dart';
 
 //ignore: must_be_immutable
@@ -28,19 +29,9 @@ class DetailScreen extends StatelessWidget {
     );
 
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 50),
-            child: GestureDetector(
-              child: const Icon(Icons.login),
-              onTap: () => onLogin(),
-            ),
-          )
-        ],
-        title: Text(
-          title,
-        ),
+      appBar: MainAppBar(
+        title: title,
+        onLogin: onLogin,
       ),
       backgroundColor:
           statement.statementCorrectness != CorrectnessCategory.correct

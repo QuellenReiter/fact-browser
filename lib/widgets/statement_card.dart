@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:statementmanager/models/statement.dart';
-import 'package:statementmanager/screens/detail_screen.dart';
 
 class StatementCard extends StatelessWidget {
   const StatementCard(
