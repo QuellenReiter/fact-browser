@@ -199,6 +199,7 @@ class DatabaseUtils {
     );
     if (loginResult.hasException) {
       loginCallback(false);
+      return;
     }
     //safe token
 
