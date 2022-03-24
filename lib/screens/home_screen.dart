@@ -97,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       TextField(
                         controller: searchController,
                         decoration: InputDecoration(
-                          labelText: "Search by subject, e.g. Covid",
+                          labelText: "Suche nach Themen, z.B. Covid",
                           border: const OutlineInputBorder(),
                           errorText: Utils.checkIfEmpty(searchController),
                         ),
