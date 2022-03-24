@@ -131,16 +131,23 @@ class DetailScreen extends StatelessWidget {
                                 Flexible(
                                   child: Padding(
                                     padding: const EdgeInsets.all(5),
-                                    child: Image.network(statement
-                                                .statementPictureURL !=
-                                            ""
-                                        ? statement.statementPictureURL
-                                        : "https://quellenreiter.app/assets/logo-pink.png"),
+                                    child: Stack(
+                                      children: [
+                                        Image.network(
+                                          statement.statementPictureURL != ""
+                                              ? statement.statementPictureURL
+                                              : "https://quellenreiter.app/assets/logo-pink.png",
+                                        ),
+                                        Container(
+                                          padding: const EdgeInsets.all(10),
+                                          color:
+                                              const Color.fromARGB(61, 0, 0, 0),
+                                          child: Text(
+                                              statement.samplePictureCopyright),
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                SizableDisplayText(
-                                  text: statement.samplePictureCopyright,
-                                  icon: Icons.copyright,
                                 ),
                               ],
                             ),

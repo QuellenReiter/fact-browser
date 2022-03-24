@@ -80,7 +80,14 @@ class _FactContainerState extends State<FactContainer> {
               Flexible(
                 child: TextFieldContainer(
                     textController: widget.controllers!.linkController,
-                    label: "Der Link zur Aussage (Wayback machine etc).",
+                    label: "Der originale Link zum Faktencheck.",
+                    errorCallback: Utils.checkIfEmpty),
+              ),
+              Flexible(
+                child: TextFieldContainer(
+                    textController: widget.controllers!.archivedLinkController,
+                    label:
+                        "Der archivierte Link zum Faktencheck (Wayback machine etc).",
                     errorCallback: Utils.checkIfEmpty),
               ),
             ]),

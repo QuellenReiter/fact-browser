@@ -66,6 +66,12 @@ class FactDisplayContainer extends StatelessWidget {
                   icon: Icons.link,
                 ),
               ),
+              Flexible(
+                child: SizableDisplayText(
+                  text: fact.factArchivedLink!,
+                  icon: Icons.link,
+                ),
+              ),
             ]),
           ),
           const Divider(
