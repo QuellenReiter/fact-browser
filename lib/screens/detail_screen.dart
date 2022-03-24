@@ -99,9 +99,9 @@ class DetailScreen extends StatelessWidget {
                             Flexible(
                               child: SizableDisplayText(
                                 text: statement.statementDay.toString() +
-                                    "." +
+                                    "/" +
                                     statement.statementMonth.toString() +
-                                    "." +
+                                    "/" +
                                     statement.statementYear.toString(),
                                 icon: Icons.calendar_month_outlined,
                               ),

@@ -49,9 +49,9 @@ class FactDisplayContainer extends StatelessWidget {
               Flexible(
                 child: SizableDisplayText(
                   text: fact.factDay.toString() +
-                      "." +
+                      "/" +
                       fact.factMonth.toString() +
-                      "." +
+                      "/" +
                       fact.factYear.toString(),
                   icon: Icons.calendar_month_outlined,
                 ),

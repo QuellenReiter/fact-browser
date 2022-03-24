@@ -23,19 +23,22 @@ class SizableDisplayText extends StatelessWidget {
         ),
         padding: const EdgeInsets.all(15),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (icon != null)
               Padding(
                 padding: const EdgeInsets.only(right: 8),
                 child: Icon(icon, size: size.toDouble() + 4),
               ),
-            Text(
-              text,
-              textAlign: TextAlign.start,
-              style: TextStyle(
-                  fontSize: size.toDouble(),
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold),
+            Flexible(
+              child: Text(
+                text,
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                    fontSize: size.toDouble(),
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
           ],
         ),
