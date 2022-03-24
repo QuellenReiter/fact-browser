@@ -1,7 +1,6 @@
 import 'package:statementmanager/models/statement.dart';
 
 import '../models/fact.dart';
-import '../utilities/utilities.dart';
 
 class Queries {
   static String statementText = "statement";
@@ -26,6 +25,7 @@ class Queries {
   static String factDay = "day";
   static String factLanguage = "language";
   static String factLink = "link";
+  static String factArchivedLink = "archivedLink";
   static String factAuthor = "author";
   static String factMedia = "media";
 
@@ -103,6 +103,7 @@ class Queries {
                 $factLanguage
                 $factMedia
                 $factLink
+                $factArchivedLink
               }
             }
         }
@@ -150,6 +151,7 @@ $statementFactcheckIDs: {
               $factLanguage:"${fact.factLanguage}",
               $factMedia:"${fact.factMedia}",
               $factLink:"${fact.factLink}"
+              ${fact.factArchivedLink == null || fact.factArchivedLink == "" ? "" : factArchivedLink + ":" + "\"" + fact.factArchivedLink! + "\""}
               },
 ''';
       }
@@ -207,6 +209,7 @@ $statementFactcheckIDs: {
             $factLanguage
             $factMedia
             $factLink
+            $factArchivedLink
           }
         }
       }
@@ -237,6 +240,7 @@ $statementFactcheckIDs: {
               $factLanguage:"${fact.factLanguage}",
               $factMedia:"${fact.factMedia}",
               $factLink:"${fact.factLink}"
+              ${fact.factArchivedLink == null || fact.factArchivedLink == "" ? "" : factArchivedLink + ":" + "\"" + fact.factArchivedLink! + "\""}
               },
 ''';
       }
@@ -295,6 +299,7 @@ $statementFactcheckIDs: {
               $factLanguage
               $factMedia
               $factLink
+              $factArchivedLink
           }
         }
       }
@@ -385,6 +390,7 @@ query getStatement{
             $factLanguage
             $factMedia
             $factLink
+            $factArchivedLink
         }
       }
     }

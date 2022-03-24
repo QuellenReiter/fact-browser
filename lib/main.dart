@@ -32,7 +32,6 @@ class _FactBrowserState extends State<FactBrowser> {
         textTheme: const TextTheme(
           bodyText2: TextStyle(
               // default all text widget
-              color: Color(0xFFF5DE5B),
               fontSize: 16.0,
               fontFamily: 'Iranian'),
         ),

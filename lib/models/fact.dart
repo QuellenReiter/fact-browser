@@ -9,6 +9,7 @@ class FactController {
   late TextEditingController monthController;
   late TextEditingController dayController;
   late TextEditingController linkController;
+  late TextEditingController archivedLinkController;
   late TextEditingController authorController;
   late TextEditingController mediaController;
   late TextEditingController languageController;
@@ -19,6 +20,8 @@ class FactController {
     monthController = TextEditingController(text: fact["month"]);
     dayController = TextEditingController(text: fact["day"]);
     linkController = TextEditingController(text: fact["factLink"]);
+    archivedLinkController =
+        TextEditingController(text: fact["factArchivedLink"]);
     authorController = TextEditingController(text: fact["author"]);
     mediaController = TextEditingController(text: fact["medium"]);
   }
@@ -48,6 +51,10 @@ class FactController {
     linkController.addListener(() {
       fact.factLink = linkController.text;
     });
+    archivedLinkController = TextEditingController(text: fact.factArchivedLink);
+    archivedLinkController.addListener(() {
+      fact.factArchivedLink = archivedLinkController.text;
+    });
     authorController = TextEditingController(text: fact.factAuthor);
     authorController.addListener(() {
       fact.factAuthor = authorController.text;
@@ -68,6 +75,7 @@ class FactController {
     monthController.dispose();
     dayController.dispose();
     linkController.dispose();
+    archivedLinkController.dispose();
     authorController.dispose();
     mediaController.dispose();
   }
@@ -100,6 +108,7 @@ class Fact {
   late int factDay;
   late String factLanguage;
   late String factLink;
+  String? factArchivedLink;
   late String factAuthor;
   late String factMedia;
   String? objectId;
@@ -113,7 +122,8 @@ class Fact {
       this.factLanguage,
       this.factLink,
       this.factMedia,
-      this.objectId);
+      this.objectId,
+      this.factArchivedLink);
 
   Fact.fromMap(Map<String, dynamic>? map)
       : factText = map?[Queries.factText],
@@ -124,7 +134,8 @@ class Fact {
         factDay = map?[Queries.factDay],
         factLink = map?[Queries.factLink],
         factLanguage = map?[Queries.factLanguage],
-        objectId = map?["objectId"];
+        objectId = map?["objectId"],
+        factArchivedLink = map?[Queries.factArchivedLink] ?? "";
 
   Fact.empty() {
     factText = "";
@@ -134,6 +145,7 @@ class Fact {
     factMonth = 0;
     factDay = 0;
     factLink = "";
+    factArchivedLink = "";
     factLanguage = "";
   }
 }
