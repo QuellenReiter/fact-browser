@@ -222,7 +222,7 @@ class Statement {
   }
 
   Map<String, dynamic> toMap() {
-    final Map<String, dynamic> vars = {
+    Map<String, dynamic> vars = {
       "fields": {
         Queries.statementText: statementText,
         Queries.statementPicture: statementPictureURL,
@@ -237,15 +237,17 @@ class Statement {
         Queries.statementAuthor: statementAuthor,
         Queries.statementLink: statementLink,
         Queries.statementRectification: statementRectification,
-        Queries.statementPictureCopyright: samplePictureCopyright,
+        Queries.statementPictureCopyright: samplePictureCopyright
       }
     };
 
-    Map<String, dynamic> factMap = {};
+    //add factchecks if not empty
     if (statementFactchecks.facts.isNotEmpty) {
-      factMap[Queries.statementFactcheckIDs] = statementFactchecks.toMap();
-      vars["fields"].addAll(factMap);
+      vars["fields"][Queries.statementFactcheckIDs] = {};
+      vars["fields"][Queries.statementFactcheckIDs]["createAndAdd"] =
+          statementFactchecks.toMap();
     }
+    //add object id if we want to update statements
     if (objectId != null) {
       vars["id"] = objectId;
     }
