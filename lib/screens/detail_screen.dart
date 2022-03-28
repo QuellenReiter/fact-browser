@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:statementmanager/models/statement.dart';
 import 'package:statementmanager/provider/device_type_provider.dart';
 import 'package:statementmanager/utilities/utilities.dart';

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:statementmanager/models/statement.dart';
 import 'package:statementmanager/provider/queries.dart';
@@ -68,7 +69,6 @@ class _HomeScreenState extends State<HomeScreen> {
         link: httpLink,
       ),
     );
-
     return GraphQLProvider(
       client: client,
       child: Scaffold(

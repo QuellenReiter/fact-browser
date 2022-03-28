@@ -1,5 +1,5 @@
 name: statementmanager
-description: A new Flutter project.
+description: Die Fake-News Datenbank des QuellenReiter:in Projekts
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -32,9 +32,10 @@ dependencies:
   graphql_flutter:  ^5.0.1
   file_picker: ^4.5.1
   http: ^0.13.4
-  shared_preferences: ^2.0.13
   flutter_secure_storage: ^5.0.2
   url_launcher: ^6.0.20
+  flutter_native_splash: ^2.1.1
+  animated_splash_screen: ^1.2.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
