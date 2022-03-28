@@ -148,6 +148,21 @@ class Fact {
     factArchivedLink = "";
     factLanguage = "";
   }
+
+  Map<String, dynamic> toMap() {
+    final vars = {
+      Queries.factText: factText,
+      Queries.factLanguage: factLanguage,
+      Queries.factYear: factYear,
+      Queries.factMonth: factMonth,
+      Queries.factDay: factDay,
+      Queries.factLink: factLink,
+      Queries.factAuthor: factAuthor,
+      Queries.factArchivedLink: factArchivedLink,
+      Queries.factMedia: factMedia
+    };
+    return vars;
+  }
 }
 
 class Facts {
@@ -159,5 +174,12 @@ class Facts {
   }
   Facts() {
     facts.add(Fact.empty());
+  }
+  List<Map<String, dynamic>> toMap() {
+    List<Map<String, dynamic>> ret = [];
+    for (var fact in facts) {
+      ret.add(fact.toMap());
+    }
+    return ret;
   }
 }

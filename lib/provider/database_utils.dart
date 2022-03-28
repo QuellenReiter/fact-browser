@@ -60,7 +60,10 @@ class DatabaseUtils {
 
     var queryResult = await client.mutate(
       MutationOptions(
-        document: gql(Queries.createStatement(statement)),
+        document: gql(Queries.createStatement()),
+        variables: {
+          "input": statement.toMap(),
+        },
       ),
     );
     print(queryResult.toString());
@@ -161,7 +164,10 @@ class DatabaseUtils {
 
     var queryResult = await client.mutate(
       MutationOptions(
-        document: gql(Queries.updateStatement(statement)),
+        document: gql(Queries.updateStatement()),
+        variables: {
+          "input": statement.toMap(),
+        },
       ),
     );
     print(queryResult.toString());

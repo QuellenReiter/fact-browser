@@ -133,53 +133,11 @@ class Queries {
     return ret;
   }
 
-  static String createStatement(Statement statement) {
-    String factString = "";
-    if (statement.statementFactchecks.facts.isNotEmpty) {
-      factString = '''
-$statementFactcheckIDs: {
-          createAndAdd: [
-''';
-      for (Fact fact in statement.statementFactchecks.facts) {
-        factString += '''
-            {
-              $factText: "${fact.factText}",
-              $factAuthor:"${fact.factAuthor}",
-              $factYear: ${fact.factYear},
-              $factMonth: ${fact.factMonth},
-              $factDay: ${fact.factDay},
-              $factLanguage:"${fact.factLanguage}",
-              $factMedia:"${fact.factMedia}",
-              $factLink:"${fact.factLink}"
-              ${fact.factArchivedLink == null || fact.factArchivedLink == "" ? "" : factArchivedLink + ":" + "\"" + fact.factArchivedLink! + "\""}
-              },
-''';
-      }
-      factString += "]}";
-    }
-
+  static String createStatement() {
     String ret = '''
-  mutation createAStatement{
+  mutation createAStatement(\$input: CreateStatementInput!){
   createStatement(
-    input:{
-      fields:{
-        $statementText: "${statement.statementText}",
-        $statementPicture: "${statement.statementPictureURL}",
-        $statementYear: ${statement.statementYear},
-        $statementMonth: ${statement.statementMonth},
-        $statementDay: ${statement.statementDay},
-        $statementCorrectness: "${statement.statementCorrectness}",
-        $statementMedia: "${statement.statementMedia}",
-        $statementLanguage: "${statement.statementLanguage}",
-        $statementCategory: "${statement.statementCategory}",
-        $statementMediatype: "${statement.statementMediatype}",
-        $statementAuthor: "${statement.statementAuthor}",
-        $statementLink: "${statement.statementLink}",
-        $statementRectification: ${statement.statementRectification},
-        $statementPictureCopyright: "${statement.samplePictureCopyright}",
-        $factString
-      }
-    }
+       input: \$input
     ){
   statement{
     objectId
@@ -220,56 +178,11 @@ $statementFactcheckIDs: {
     return ret;
   }
 
-  static String updateStatement(Statement statement) {
-    // how to ensure that facts are not duplicated but changes
-    //are still updated..??
-    String factString = "";
-    if (statement.statementFactchecks.facts.isNotEmpty) {
-      factString = '''
-$statementFactcheckIDs: {
-          createAndAdd: [
-''';
-      for (Fact fact in statement.statementFactchecks.facts) {
-        factString += '''
-            {
-              $factText: "${fact.factText}",
-              $factAuthor:"${fact.factAuthor}",
-              $factYear: ${fact.factYear},
-              $factMonth: ${fact.factMonth},
-              $factDay: ${fact.factDay},
-              $factLanguage:"${fact.factLanguage}",
-              $factMedia:"${fact.factMedia}",
-              $factLink:"${fact.factLink}"
-              ${fact.factArchivedLink == null || fact.factArchivedLink == "" ? "" : factArchivedLink + ":" + "\"" + fact.factArchivedLink! + "\""}
-              },
-''';
-      }
-      factString += "]}";
-    }
-
+  static String updateStatement() {
     String ret = '''
-  mutation updateAStatement{
+  mutation updateAStatement(\$input: UpdateStatementInput!){
   updateStatement(
-    input:{
-      id: "${statement.objectId}"
-      fields:{
-        $statementText: "${statement.statementText}",
-        $statementPicture: "${statement.statementPictureURL}"
-        $statementYear: ${statement.statementYear},
-        $statementMonth: ${statement.statementMonth},
-        $statementDay: ${statement.statementDay},
-        $statementCorrectness: "${statement.statementCorrectness}",
-        $statementMedia: "${statement.statementMedia}",
-        $statementLanguage: "${statement.statementLanguage}",
-        $statementCategory: "${statement.statementCategory}",
-        $statementMediatype: "${statement.statementMediatype}",
-        $statementAuthor: "${statement.statementAuthor}",
-        $statementLink: "${statement.statementLink}",
-        $statementRectification: ${statement.statementRectification},
-        $statementPictureCopyright: "${statement.samplePictureCopyright}",
-        $factString
-      }
-    }
+       input: \$input
     ){
   statement{
     objectId

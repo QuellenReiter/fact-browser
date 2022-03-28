@@ -220,6 +220,37 @@ class Statement {
     }
     return true;
   }
+
+  Map<String, dynamic> toMap() {
+    final Map<String, dynamic> vars = {
+      "fields": {
+        Queries.statementText: statementText,
+        Queries.statementPicture: statementPictureURL,
+        Queries.statementYear: statementYear,
+        Queries.statementMonth: statementMonth,
+        Queries.statementDay: statementDay,
+        Queries.statementCorrectness: statementCorrectness,
+        Queries.statementMedia: statementMedia,
+        Queries.statementLanguage: statementLanguage,
+        Queries.statementCategory: statementCategory,
+        Queries.statementMediatype: statementMediatype,
+        Queries.statementAuthor: statementAuthor,
+        Queries.statementLink: statementLink,
+        Queries.statementRectification: statementRectification,
+        Queries.statementPictureCopyright: samplePictureCopyright,
+      }
+    };
+
+    Map<String, dynamic> factMap = {};
+    if (statementFactchecks.facts.isNotEmpty) {
+      factMap[Queries.statementFactcheckIDs] = statementFactchecks.toMap();
+      vars["fields"].addAll(factMap);
+    }
+    if (objectId != null) {
+      vars["id"] = objectId;
+    }
+    return vars;
+  }
 }
 
 class Statements {
