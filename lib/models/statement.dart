@@ -237,7 +237,8 @@ class Statement {
         Queries.statementAuthor: statementAuthor,
         Queries.statementLink: statementLink,
         Queries.statementRectification: statementRectification,
-        Queries.statementPictureCopyright: samplePictureCopyright
+        Queries.statementPictureCopyright: samplePictureCopyright,
+        Queries.statementPictureFile: {"file": statementPictureURL}
       }
     };
 
