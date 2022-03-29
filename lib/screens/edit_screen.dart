@@ -70,7 +70,7 @@ class _EditScreenState extends State<EditScreen> {
     });
   }
 
-  void uploadStatement() {
+  void uploadStatement() async {
     // show loading indicator
     showModalBottomSheet<void>(
         context: context,
@@ -97,11 +97,27 @@ class _EditScreenState extends State<EditScreen> {
     if (widget.statement.objectId == null) {
       // create new statement
       DatabaseUtils db = DatabaseUtils();
-      db.sendData(widget.statement, reloadAndPopLoading);
+      var queryResult =
+          await db.sendData(widget.statement, reloadAndPopLoading);
+      if (queryResult == null || queryResult.hasException) {
+        Navigator.pop(context);
+        setState(() {
+          errorText = "Erstellen des Statements fehlgeschlagen!";
+        });
+        return;
+      }
     } else {
       // update existing statement
       DatabaseUtils db = DatabaseUtils();
-      db.updateData(widget.statement, factsToBeDeleted, reloadAndPopLoading);
+      var queryResult = await db.updateData(
+          widget.statement, factsToBeDeleted, reloadAndPopLoading);
+      if (queryResult == null || queryResult.hasException) {
+        Navigator.pop(context);
+        setState(() {
+          errorText = "Update des Statements fehlgeschlagen!";
+        });
+        return;
+      }
     }
   }
 
@@ -166,7 +182,18 @@ class _EditScreenState extends State<EditScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    errorText == null ? const Text("") : Text(errorText!),
+                    errorText == null
+                        ? const Text("")
+                        : Container(
+                            padding: const EdgeInsets.all(10),
+                            color: Colors.red,
+                            child: Text(
+                              errorText!,
+                              style: const TextStyle(
+                                fontSize: 40,
+                              ),
+                            ),
+                          ),
                     Flexible(
                       child: TextFieldContainer(
                         textController: statementController.textController,

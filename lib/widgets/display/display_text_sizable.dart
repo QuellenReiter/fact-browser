@@ -16,12 +16,13 @@ class SizableDisplayText extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(5),
       child: Container(
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
-          border:
-              Border.all(color: Color.fromARGB(183, 230, 230, 230), width: 1),
-        ),
+        // decoration: BoxDecoration(
+        //   borderRadius: const BorderRadius.all(Radius.circular(10)),
+        //   border:
+        //       Border.all(color: Color.fromARGB(183, 230, 230, 230), width: 1),
+        // ),
         padding: const EdgeInsets.all(15),
+        color: const Color(0x45383838),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
