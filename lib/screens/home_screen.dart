@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
+// import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:statementmanager/models/statement.dart';
 import 'package:statementmanager/provider/queries.dart';
@@ -122,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                   );
                                 } else {
-                                  print(result.data.toString());
+                                  // print(result.data.toString());
                                   statements = Statements.fromMap(result.data);
                                   return Flexible(
                                     child: ListView.builder(

@@ -18,6 +18,7 @@ class Queries {
   static String statementAuthor = "author";
   static String statementMedia = "media";
   static String statementFactcheckIDs = "factcheckIDs";
+  static String statementPictureFile = "PictureFile";
 
   static String factText = "fact";
   static String factYear = "year";
