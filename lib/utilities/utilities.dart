@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image/image.dart' as img;
 
 class Utils {
   static String? checkIfEmpty(TextEditingController textEditingController) {
@@ -70,12 +71,18 @@ class Utils {
   static void pickFile(Function callback) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result != null) {
-      Uint8List? file = (await FilePicker.platform
-              .pickFiles(type: FileType.image, allowMultiple: false))
-          ?.files
-          .single
-          .bytes;
-      callback(file);
+      var temp = await FilePicker.platform
+          .pickFiles(type: FileType.image, allowMultiple: false);
+      Uint8List? file = temp?.files.single.bytes;
+      // resize the image to max 800 pix on largest side.
+      img.Image tempFile = img.decodeImage(List.from(file!))!;
+      tempFile = img.copyResize(
+        tempFile,
+        width: tempFile.height > tempFile.width ? -1 : 800,
+        height: tempFile.height > tempFile.width ? 800 : -1,
+      );
+      // convert back to bytes
+      callback(img.encodeJpg(tempFile, quality: 50));
     } else {
       return;
     }
