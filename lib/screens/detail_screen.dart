@@ -58,7 +58,7 @@ class DetailScreen extends StatelessWidget {
                   children: [
                     Flexible(
                       child: SizableDisplayText(
-                        size: 40,
+                        size: 24,
                         text: statement.statementText,
                         icon: Icons.speaker_notes,
                       ),
@@ -217,6 +217,13 @@ class DetailScreen extends StatelessWidget {
                         ],
                       ),
                     ),
+                    factContainers.isNotEmpty
+                        ? const SizableDisplayText(
+                            text: "Faktenchecks und Quellen",
+                            size: 24,
+                            icon: Icons.fact_check,
+                          )
+                        : const SizedBox.shrink(),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: factContainers,
