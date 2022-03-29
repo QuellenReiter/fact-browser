@@ -30,9 +30,9 @@ class FactBrowserRouterDelegate extends RouterDelegate<FactBrowserRoutePath>
   FactBrowserRoutePath get currentConfiguration {
     if (_show404) {
       return FactBrowserRoutePath.unknown();
-    } else if (_showLogIn)
+    } else if (_showLogIn) {
       return FactBrowserRoutePath.login();
-    else if (_emptyStatement != null) {
+    } else if (_emptyStatement != null) {
       return FactBrowserRoutePath.create(_emptyStatement);
     }
 
@@ -127,6 +127,7 @@ class FactBrowserRouterDelegate extends RouterDelegate<FactBrowserRoutePath>
               title: "Detailansicht. Zum bearbeiten einloggen.",
               onLogin: _onLogin,
               statement: _statement!,
+              isLoggedIn: _isLoggedIn,
             ),
           )
         else if (_statement != null && loggedIn)
@@ -136,6 +137,7 @@ class FactBrowserRouterDelegate extends RouterDelegate<FactBrowserRoutePath>
               title: "Eingeloggt. Bearbeitungsmodus.",
               onLogin: _onLogin,
               statement: _statement!,
+              isLoggedIn: _isLoggedIn,
             ),
           )
         else if (_emptyStatement != null && loggedIn)
@@ -145,6 +147,7 @@ class FactBrowserRouterDelegate extends RouterDelegate<FactBrowserRoutePath>
               title: "Neues Statement erstellen.",
               onLogin: _onLogin,
               statement: _emptyStatement!,
+              isLoggedIn: _isLoggedIn,
             ),
           ),
       ],

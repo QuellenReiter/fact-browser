@@ -6,9 +6,11 @@ class MainAppBar extends StatelessWidget with PreferredSizeWidget {
     Key? key,
     required this.title,
     required this.onLogin,
+    required this.loggedIn,
   }) : super(key: key);
 
   final String title;
+  final bool loggedIn;
   final Function onLogin;
 
   @override
@@ -21,7 +23,21 @@ class MainAppBar extends StatelessWidget with PreferredSizeWidget {
         Padding(
           padding: const EdgeInsets.only(right: 20),
           child: InkWell(
-            child: const Icon(Icons.login),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.login),
+                loggedIn
+                    ? const Text(
+                        "Logout",
+                        style: TextStyle(fontSize: 10),
+                      )
+                    : const Text(
+                        "Login",
+                        style: TextStyle(fontSize: 10),
+                      ),
+              ],
+            ),
             onTap: () => onLogin(),
           ),
         ),

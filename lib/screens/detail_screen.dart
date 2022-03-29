@@ -13,9 +13,10 @@ class DetailScreen extends StatelessWidget {
       {Key? key,
       required this.statement,
       required this.onLogin,
-      required this.title})
+      required this.title,
+      required this.isLoggedIn})
       : super(key: key);
-
+  final bool isLoggedIn;
   Statement statement;
   final String title;
   final Function onLogin;
@@ -33,6 +34,7 @@ class DetailScreen extends StatelessWidget {
       appBar: MainAppBar(
         title: title,
         onLogin: onLogin,
+        loggedIn: isLoggedIn,
       ),
       backgroundColor:
           statement.statementCorrectness != CorrectnessCategory.correct

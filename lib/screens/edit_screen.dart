@@ -17,10 +17,12 @@ class EditScreen extends StatefulWidget {
       {Key? key,
       required this.statement,
       required this.onLogin,
-      required this.title})
+      required this.title,
+      required this.isLoggedIn})
       : super(key: key);
 
   Statement statement;
+  final bool isLoggedIn;
   final String title;
   final Function onLogin;
   @override
@@ -161,6 +163,7 @@ class _EditScreenState extends State<EditScreen> {
       appBar: MainAppBar(
         title: widget.title,
         onLogin: widget.onLogin,
+        loggedIn: widget.isLoggedIn,
       ),
       backgroundColor:
           widget.statement.statementCorrectness != CorrectnessCategory.correct

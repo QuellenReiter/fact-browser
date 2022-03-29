@@ -75,6 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: MainAppBar(
           title: "Suche",
           onLogin: widget.onLogin,
+          loggedIn: widget.isLoggedIn,
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
         floatingActionButton: widget.isLoggedIn
