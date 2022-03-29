@@ -126,6 +126,7 @@ class CorrectnessCategory {
   static String misleading = "irreführend";
   static String fabricatedContent = "frei erfunden";
   static String falseInformation = "Fehlinformation";
+  static String satire = "Satire";
 }
 
 // Source: https://stackoverflow.com/questions/47403758/flutter-inputformatter-for-date
