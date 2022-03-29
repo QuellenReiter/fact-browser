@@ -150,7 +150,7 @@ class Fact {
   }
 
   Map<String, dynamic> toMap() {
-    final vars = {
+    final Map<String, dynamic> vars = {
       Queries.factText: factText,
       Queries.factLanguage: factLanguage,
       Queries.factYear: factYear,

@@ -53,7 +53,7 @@ class _EditScreenState extends State<EditScreen> {
     super.dispose();
   }
 
-  void safeFile(Uint8List? img) {
+  void safeFile(Uint8List img) {
     setState(() {
       // whaaaat to do here?
       widget.statement.uploadImage = img;

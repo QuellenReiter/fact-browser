@@ -35,7 +35,7 @@ class DatabaseUtils {
       link: httpLink,
     );
 
-    print('sendingFile');
+    // print('sendingFile');
 
     var uploadResult = await client.mutate(
       MutationOptions(
@@ -45,14 +45,14 @@ class DatabaseUtils {
         },
       ),
     );
-    print(uploadResult.toString());
+    // print(uploadResult.toString());
 
     if (uploadResult.hasException) {
       reloadDetailScreen(null, "Upload fehlgeschlagen.");
       return uploadResult;
     }
 
-    print("Image uplaoded");
+    // print("Image uplaoded");
 
     //update picture url
     statement.statementPictureURL =
@@ -66,13 +66,13 @@ class DatabaseUtils {
         },
       ),
     );
-    print(queryResult.toString());
+    // print(queryResult.toString());
     if (queryResult.hasException) {
       // show some warning
       reloadDetailScreen(null, "Upload fehlgeschlagen.");
       return uploadResult;
     } else {
-      print("Statement added.");
+      // print("Statement added.");
     }
     reloadDetailScreen(
         Statement.fromMap(queryResult.data?["createStatement"]["statement"]),
@@ -106,7 +106,7 @@ class DatabaseUtils {
         filename: '${DateTime.now().second}.jpg',
         contentType: MediaType("image", "jpg"),
       );
-      print('sendingFile');
+      // print('sendingFile');
 
       var uploadResult = await client.mutate(
         MutationOptions(
@@ -116,14 +116,14 @@ class DatabaseUtils {
           },
         ),
       );
-      print(uploadResult.toString());
+      // print(uploadResult.toString());
 
       if (uploadResult.hasException) {
         reloadDetailScreen(null, "Upload fehlgeschlagen.");
         return uploadResult;
       }
 
-      print("Image uploaded");
+      // print("Image uploaded");
 
       //update the pictureURL
       statement.statementPictureURL =
@@ -170,13 +170,13 @@ class DatabaseUtils {
         },
       ),
     );
-    print(queryResult.toString());
+    // print(queryResult.toString());
     if (queryResult.hasException) {
       reloadDetailScreen(null, "Upload fehlgeschlagen.");
       return queryResult;
     } else {
-      print("RESULT:");
-      print(queryResult.data.toString());
+      // print("RESULT:");
+      // print(queryResult.data.toString());
     }
     reloadDetailScreen(
         Statement.fromMap(queryResult.data?["updateStatement"]["statement"]),

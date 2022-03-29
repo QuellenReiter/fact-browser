@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
+// import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:statementmanager/models/statement.dart';
 import 'package:statementmanager/navigation/fact_browser_routes.dart';
 import 'package:statementmanager/provider/database_utils.dart';
