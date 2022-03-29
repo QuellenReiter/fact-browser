@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:statementmanager/navigation/fact_browser_rout_information_parser.dart';
 import 'package:statementmanager/navigation/fact_browser_router_delegate.dart';
-// import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() async {
-  // WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(const FactBrowser());
 }
 
@@ -20,11 +17,10 @@ class _FactBrowserState extends State<FactBrowser> {
   final FactBrowserRouterDelegate _routerDelegate = FactBrowserRouterDelegate();
   final FactBrowserRouteInformationParser _routeInformationParser =
       FactBrowserRouteInformationParser();
+
   @override
   void initState() {
     super.initState();
-    // remove the splashscreen
-    // FlutterNativeSplash.remove();
   }
 
   // This widget is the root of your application.
