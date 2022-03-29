@@ -122,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                   );
                                 } else {
-                                  print(result.data.toString());
+                                  // print(result.data.toString());
                                   statements = Statements.fromMap(result.data);
                                   return Flexible(
                                     child: ListView.builder(
