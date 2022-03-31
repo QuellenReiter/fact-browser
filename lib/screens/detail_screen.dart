@@ -36,10 +36,6 @@ class DetailScreen extends StatelessWidget {
         onLogin: onLogin,
         loggedIn: isLoggedIn,
       ),
-      backgroundColor:
-          statement.statementCorrectness != CorrectnessCategory.correct
-              ? const Color(0xFFff3a93)
-              : const Color(0xFF0999bc),
       body: Align(
         alignment: Alignment.topCenter,
         child: SingleChildScrollView(
@@ -185,6 +181,11 @@ class DetailScreen extends StatelessWidget {
                                   child: Padding(
                                     padding: const EdgeInsets.all(5),
                                     child: SizableDisplayText(
+                                      color: statement.statementCorrectness !=
+                                              CorrectnessCategory.correct
+                                          ? const Color.fromARGB(157, 255, 0, 0)
+                                          : const Color.fromARGB(
+                                              202, 46, 196, 0),
                                       text: "Einordung der Aussage: " +
                                           statement.statementCorrectness,
                                     ),
@@ -223,7 +224,7 @@ class DetailScreen extends StatelessWidget {
                         ? const SizableDisplayText(
                             text: "Faktenchecks und Quellen",
                             size: 24,
-                            icon: Icons.fact_check,
+                            color: Colors.white12,
                           )
                         : const SizedBox.shrink(),
                     Column(

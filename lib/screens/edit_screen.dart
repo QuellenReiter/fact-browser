@@ -165,10 +165,6 @@ class _EditScreenState extends State<EditScreen> {
         onLogin: widget.onLogin,
         loggedIn: widget.isLoggedIn,
       ),
-      backgroundColor:
-          widget.statement.statementCorrectness != CorrectnessCategory.correct
-              ? const Color(0xFFff3a93)
-              : const Color(0xFF0999bc),
       body: Align(
         alignment: Alignment.topCenter,
         child: SingleChildScrollView(
@@ -208,17 +204,20 @@ class _EditScreenState extends State<EditScreen> {
                       child: Row(children: [
                         Flexible(
                           child: TextFieldContainer(
-                              textController:
-                                  statementController.authorController,
-                              label: "Gebe den Author ein.",
-                              errorCallback: Utils.checkIfEmpty),
+                            textController:
+                                statementController.authorController,
+                            label: "Gebe den Author ein.",
+                            errorCallback: Utils.checkIfEmpty,
+                            autoCompleteList: Queries.authorSuggestions,
+                          ),
                         ),
                         Flexible(
                           child: TextFieldContainer(
-                              textController:
-                                  statementController.mediaController,
-                              label: "Gebe das Medium ein.",
-                              errorCallback: Utils.checkIfEmpty),
+                            textController: statementController.mediaController,
+                            label: "Gebe das Medium ein.",
+                            errorCallback: Utils.checkIfEmpty,
+                            autoCompleteList: Queries.mediaSuggestions,
+                          ),
                         ),
                       ]),
                     ),
@@ -226,10 +225,12 @@ class _EditScreenState extends State<EditScreen> {
                       child: Row(children: [
                         Flexible(
                           child: TextFieldContainer(
-                              textController:
-                                  statementController.languageController,
-                              label: "Gebe die Originalsprache ein.",
-                              errorCallback: Utils.checkIfEmpty),
+                            textController:
+                                statementController.languageController,
+                            label: "Gebe die Originalsprache ein.",
+                            errorCallback: Utils.checkIfEmpty,
+                            autoCompleteList: Queries.languageSuggestions,
+                          ),
                         ),
                       ]),
                     ),
@@ -384,7 +385,12 @@ class _EditScreenState extends State<EditScreen> {
                                 ),
                                 Flexible(
                                   flex: 2,
-                                  child: Padding(
+                                  child: Container(
+                                    color: widget.statement
+                                                .statementCorrectness !=
+                                            CorrectnessCategory.correct
+                                        ? const Color.fromARGB(157, 255, 0, 0)
+                                        : const Color.fromARGB(202, 46, 196, 0),
                                     padding: const EdgeInsets.all(5),
                                     child: Row(
                                       children: [
