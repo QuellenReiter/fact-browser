@@ -36,208 +36,141 @@ class DetailScreen extends StatelessWidget {
         onLogin: onLogin,
         loggedIn: isLoggedIn,
       ),
-      body: Align(
-        alignment: Alignment.topCenter,
-        child: SingleChildScrollView(
-          child: Container(
-            constraints: const BoxConstraints(
-              maxWidth: 1000,
-            ),
-            // this is a problem ? may case these squeezing effects.
-            height: DeviceType.height(context) * 2,
-            child: Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(
+      body: Center(
+        child: Container(
+          padding: const EdgeInsets.all(20),
+          constraints: const BoxConstraints(maxWidth: 1000),
+          height: DeviceType.height(context),
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+              SizableDisplayText(
+                size: 24,
+                text: statement.statementText,
+                icon: Icons.speaker_notes,
+              ),
+              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                Flexible(
+                  child: SizableDisplayText(
+                    text: statement.statementAuthor,
+                    icon: Icons.person,
+                  ),
+                ),
+                Flexible(
+                  child: SizableDisplayText(
+                      text: statement.statementMedia, icon: Icons.newspaper),
+                )
+              ]),
+              Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Flexible(
                       child: SizableDisplayText(
-                        size: 24,
-                        text: statement.statementText,
-                        icon: Icons.speaker_notes,
+                          text: statement.statementLanguage,
+                          icon: Icons.language),
+                    )
+                  ]),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Flexible(
+                      child: SizableDisplayText(
+                        text: statement.statementDay.toString() +
+                            "/" +
+                            statement.statementMonth.toString() +
+                            "/" +
+                            statement.statementYear.toString(),
+                        icon: Icons.calendar_month_outlined,
                       ),
                     ),
                     Flexible(
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Flexible(
-                              child: SizableDisplayText(
-                                text: statement.statementAuthor,
-                                icon: Icons.person,
-                              ),
-                            ),
-                            Flexible(
-                              child: SizableDisplayText(
-                                  text: statement.statementMedia,
-                                  icon: Icons.newspaper),
-                            )
-                          ]),
-                    ),
-                    Flexible(
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Flexible(
-                              child: SizableDisplayText(
-                                  text: statement.statementLanguage,
-                                  icon: Icons.language),
-                            )
-                          ]),
-                    ),
-                    Flexible(
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Flexible(
-                              child: SizableDisplayText(
-                                text: statement.statementDay.toString() +
-                                    "/" +
-                                    statement.statementMonth.toString() +
-                                    "/" +
-                                    statement.statementYear.toString(),
-                                icon: Icons.calendar_month_outlined,
-                              ),
-                            ),
-                            Flexible(
-                              child: SizableDisplayText(
-                                text: statement.statementLink,
-                                icon: Icons.link,
-                              ),
-                            )
-                          ]),
-                    ),
-                    Flexible(
-                      flex: 5,
-                      child: Flex(
-                        direction: DeviceType.oneColumn(context)
-                            ? Axis.vertical
-                            : Axis.horizontal,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
+                      child: SizableDisplayText(
+                        text: statement.statementLink,
+                        icon: Icons.link,
+                      ),
+                    )
+                  ]),
+              Row(
+                children: [
+                  Flexible(
+                    child: Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: Stack(
                         children: [
-                          Flexible(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Flexible(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5),
-                                    child: Stack(
-                                      children: [
-                                        Image.network(
-                                          statement.statementPictureURL != ""
-                                              ? statement.statementPictureURL
-                                                  .replaceAll(
-                                                      "https%3A%2F%2Fparsefiles.back4app.com%2FFeP6gb7k9R2K9OztjKWA1DgYhubqhW0yJMyrHbxH%2F",
-                                                      "")
-                                              : "https://quellenreiter.app/assets/logo-pink.png",
-                                        ),
-                                        Container(
-                                          padding: const EdgeInsets.all(10),
-                                          color:
-                                              const Color.fromARGB(61, 0, 0, 0),
-                                          child: Text(
-                                              statement.samplePictureCopyright),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                          Image.network(
+                            statement.statementPictureURL != ""
+                                ? statement.statementPictureURL.replaceAll(
+                                    "https%3A%2F%2Fparsefiles.back4app.com%2FFeP6gb7k9R2K9OztjKWA1DgYhubqhW0yJMyrHbxH%2F",
+                                    "")
+                                : "https://quellenreiter.app/assets/logo-pink.png",
                           ),
-                          Flexible(
-                            flex: 2,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Flexible(
-                                  flex: 2,
-                                  child: Padding(
-                                      padding: const EdgeInsets.all(5),
-                                      child: SizableDisplayText(
-                                        text: "Kategorie: " +
-                                            statement.statementCategory,
-                                      )),
-                                ),
-                                Flexible(
-                                  flex: 2,
-                                  child: Padding(
-                                      padding: const EdgeInsets.all(5),
-                                      child: SizableDisplayText(
-                                        text: "Art des Mediums: " +
-                                            statement.statementMediatype,
-                                      )),
-                                ),
-                                Flexible(
-                                  flex: 2,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5),
-                                    child: SizableDisplayText(
-                                      color: statement.statementCorrectness !=
-                                              CorrectnessCategory.correct
-                                          ? const Color.fromARGB(157, 255, 0, 0)
-                                          : const Color.fromARGB(
-                                              202, 46, 196, 0),
-                                      text: "Einordung der Aussage: " +
-                                          statement.statementCorrectness,
-                                    ),
-                                  ),
-                                ),
-                                if (statement.statementRectification)
-                                  const Flexible(
-                                    flex: 2,
-                                    child: Padding(
-                                      padding: EdgeInsets.all(5),
-                                      child: SizableDisplayText(
-                                        text: "Die Aussage wurde korrigiert.",
-                                      ),
-                                    ),
-                                  )
-                                else
-                                  const Flexible(
-                                    flex: 2,
-                                    child: Padding(
-                                      padding: EdgeInsets.all(5),
-                                      child: SizableDisplayText(
-                                        text:
-                                            "Die Aussage wurde nicht korrigiert.",
-                                      ),
-                                    ),
-                                  ),
-                              ],
-                            ),
-                          ),
-                          // fact in own screen or in third column
-                          // Builder(builder: builder)
+                          Container(
+                            padding: const EdgeInsets.all(10),
+                            color: const Color.fromARGB(61, 0, 0, 0),
+                            child: Text(statement.samplePictureCopyright),
+                          )
                         ],
                       ),
                     ),
-                    factContainers.isNotEmpty
-                        ? const SizableDisplayText(
-                            text: "Faktenchecks und Quellen",
-                            size: 24,
-                            color: Colors.white12,
+                  ),
+                  Flexible(
+                    child: Column(
+                      children: [
+                        Padding(
+                            padding: const EdgeInsets.all(5),
+                            child: SizableDisplayText(
+                              text: "Kategorie: " + statement.statementCategory,
+                            )),
+                        Padding(
+                            padding: const EdgeInsets.all(5),
+                            child: SizableDisplayText(
+                              text: "Art des Mediums: " +
+                                  statement.statementMediatype,
+                            )),
+                        Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: SizableDisplayText(
+                            color: statement.statementCorrectness !=
+                                    CorrectnessCategory.correct
+                                ? const Color.fromARGB(157, 255, 0, 0)
+                                : const Color.fromARGB(202, 46, 196, 0),
+                            text: "Einordung der Aussage: " +
+                                statement.statementCorrectness,
+                          ),
+                        ),
+                        if (statement.statementRectification)
+                          const Padding(
+                            padding: EdgeInsets.all(5),
+                            child: SizableDisplayText(
+                              text: "Die Aussage wurde korrigiert.",
+                            ),
                           )
-                        : const SizedBox.shrink(),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: factContainers,
+                        else
+                          const Padding(
+                            padding: EdgeInsets.all(5),
+                            child: SizableDisplayText(
+                              text: "Die Aussage wurde nicht korrigiert.",
+                            ),
+                          ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ),
+              factContainers.isNotEmpty
+                  ? const SizableDisplayText(
+                      text: "Faktenchecks und Quellen",
+                      size: 24,
+                      color: Colors.white12,
+                    )
+                  : const SizedBox.shrink(),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: factContainers,
+              ),
+            ],
           ),
         ),
       ),
