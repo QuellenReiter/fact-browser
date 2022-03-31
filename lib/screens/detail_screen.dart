@@ -135,6 +135,9 @@ class DetailScreen extends StatelessWidget {
                                         Image.network(
                                           statement.statementPictureURL != ""
                                               ? statement.statementPictureURL
+                                                  .replaceAll(
+                                                      "https%3A%2F%2Fparsefiles.back4app.com%2FFeP6gb7k9R2K9OztjKWA1DgYhubqhW0yJMyrHbxH%2F",
+                                                      "")
                                               : "https://quellenreiter.app/assets/logo-pink.png",
                                         ),
                                         Container(
