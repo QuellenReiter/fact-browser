@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:statementmanager/models/fact.dart';
+import 'package:statementmanager/provider/queries.dart';
 import 'package:statementmanager/utilities/utilities.dart';
 import 'package:statementmanager/widgets/editable/date_container.dart';
 import 'package:statementmanager/widgets/editable/text_field_container.dart';
@@ -45,15 +46,19 @@ class _FactContainerState extends State<FactContainer> {
             child: Row(children: [
               Flexible(
                 child: TextFieldContainer(
-                    textController: widget.controllers!.authorController,
-                    label: "Gebe den Author ein.",
-                    errorCallback: Utils.checkIfEmpty),
+                  textController: widget.controllers!.authorController,
+                  label: "Gebe den Author ein.",
+                  errorCallback: Utils.checkIfEmpty,
+                  autoCompleteList: Queries.authorSuggestions,
+                ),
               ),
               Flexible(
                 child: TextFieldContainer(
-                    textController: widget.controllers!.mediaController,
-                    label: "Gebe das Medium ein.",
-                    errorCallback: Utils.checkIfEmpty),
+                  textController: widget.controllers!.mediaController,
+                  label: "Gebe das Medium ein.",
+                  errorCallback: Utils.checkIfEmpty,
+                  autoCompleteList: Queries.mediaSuggestions,
+                ),
               ),
             ]),
           ),
@@ -61,9 +66,11 @@ class _FactContainerState extends State<FactContainer> {
             child: Row(children: [
               Flexible(
                 child: TextFieldContainer(
-                    textController: widget.controllers!.languageController,
-                    label: "Gebe die Originalsprache ein.",
-                    errorCallback: Utils.checkIfEmpty),
+                  textController: widget.controllers!.languageController,
+                  label: "Gebe die Originalsprache ein.",
+                  errorCallback: Utils.checkIfEmpty,
+                  autoCompleteList: Queries.languageSuggestions,
+                ),
               ),
               Flexible(
                 child: DateContainer(

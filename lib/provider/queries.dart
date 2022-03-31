@@ -63,6 +63,40 @@ class Queries {
     "Mythos"
   ];
 
+  static List<String> authorSuggestions = const [
+    "unbekannt",
+    "geteilt von mehreren User:innen",
+    "Donald Trump",
+  ];
+
+  static List<String> mediaSuggestions = const [
+    "Twitter",
+    "Facebook",
+    "Correctiv",
+    "Focus",
+    "Tagesschau",
+    "unbekannt",
+    "Spiegel",
+    "Deutsche Presse-Agentur",
+    "Zeit",
+    "Süddeutsche Zeitung",
+    "Reuters",
+    "Agence France-Presse",
+    "Mimikama",
+    "Deutsche Welle",
+    "Snopes",
+    "TikTok",
+    "Instagram"
+  ];
+
+  static List<String> languageSuggestions = const [
+    "deutsch",
+    "englisch",
+    "türkisch",
+    "spanisch",
+    "russisch"
+  ];
+
   // static String[4] categories = [];
 
   //

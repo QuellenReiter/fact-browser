@@ -6,23 +6,20 @@ class SizableDisplayText extends StatelessWidget {
     required this.text,
     this.icon = null,
     this.size = 14,
+    this.color = const Color(0x45383838),
   }) : super(key: key);
   final IconData? icon;
   final String text;
   final int size;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(5),
       child: Container(
-        // decoration: BoxDecoration(
-        //   borderRadius: const BorderRadius.all(Radius.circular(10)),
-        //   border:
-        //       Border.all(color: Color.fromARGB(183, 230, 230, 230), width: 1),
-        // ),
+        color: color,
         padding: const EdgeInsets.all(15),
-        color: const Color(0x45383838),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
