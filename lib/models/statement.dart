@@ -1,6 +1,8 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:statementmanager/models/fact.dart';
 import 'package:statementmanager/provider/queries.dart';
 import 'package:statementmanager/utilities/utilities.dart';
@@ -172,7 +174,7 @@ class Statement {
         statementMediatype = map?[Queries.statementMediatype],
         samplePictureCopyright = map?[Queries.statementPictureCopyright],
         statementRectification = map?[Queries.statementRectification],
-        statementPictureURL = map?[Queries.statementPicture],
+        statementPictureURL = map?[Queries.statementPictureFile]["url"],
         statementFactchecks =
             Facts.fromMap(map?[Queries.statementFactcheckIDs]),
         objectId = map?["objectId"];
@@ -190,7 +192,7 @@ class Statement {
     statementLink = "";
     statementMedia = "";
     statementMediatype = Queries.mediatypeValues.first;
-    statementPictureURL = "";
+    statementPictureURL = "test";
     samplePictureCopyright = "";
     statementRectification = false;
   }
@@ -238,9 +240,19 @@ class Statement {
         Queries.statementLink: statementLink,
         Queries.statementRectification: statementRectification,
         Queries.statementPictureCopyright: samplePictureCopyright,
-        Queries.statementPictureFile: {"file": statementPictureURL}
+        // Queries.statementPictureFile: {"file": statementPictureURL}
       }
     };
+
+    if (uploadImage != null) {
+      MultipartFile multipartFile = MultipartFile.fromBytes(
+        Queries.statementPicture,
+        uploadImage!.toList(),
+        filename: '${DateTime.now().second}.jpg',
+        contentType: MediaType("image", "jpg"),
+      );
+      vars["fields"][Queries.statementPictureFile] = {"upload": multipartFile};
+    }
 
     //add factchecks if not empty
     if (statementFactchecks.facts.isNotEmpty) {

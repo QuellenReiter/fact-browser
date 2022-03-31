@@ -108,14 +108,16 @@ class Queries {
     where:{
       OR:[
         { $statementText: { matchesRegex: "$query", options: "i"} }
+        { $statementMedia: { matchesRegex: "$query", options: "i"} }
         { $statementFactcheckIDs : { have:{ $factText:{ matchesRegex: "$query", options: "i" } } } }
+        { $statementFactcheckIDs : { have:{ $factMedia:{ matchesRegex: "$query", options: "i" } } } }
       ]
   }){
     edges{
       node{
         objectId
         $statementText
-        $statementPicture
+        $statementPictureFile{url}
         $statementYear
         $statementMonth
         $statementDay
@@ -152,24 +154,6 @@ class Queries {
     return ret;
   }
 
-  static String createFile() {
-    String ret = '''
-  mutation createAFile(\$file: Upload!){
-  createFile(
-    input:{
-      upload: \$file
-    }
-  ){
-    fileInfo{
-      name
-      url
-    }
-  }
-}
-  ''';
-    return ret;
-  }
-
   static String createStatement() {
     String ret = '''
   mutation createAStatement(\$input: CreateStatementInput!){
@@ -179,7 +163,7 @@ class Queries {
   statement{
     objectId
     $statementText
-    $statementPicture
+    $statementPictureFile{url}
     $statementYear
     $statementMonth
     $statementDay
@@ -215,6 +199,8 @@ class Queries {
     return ret;
   }
 
+  // https://parsefiles.back4app.com/FeP6gb7k9R2K9OztjKWA1DgYhubqhW0yJMyrHbxH/4ee6719b05be9a227fcc5ad38f6f660d_42.jpg
+  // https://parsefiles.back4app.com/FeP6gb7k9R2K9OztjKWA1DgYhubqhW0yJMyrHbxH/https%3A%2F%2Fparsefiles.back4app.com%2FFeP6gb7k9R2K9OztjKWA1DgYhubqhW0yJMyrHbxH%2F4ee6719b05be9a227fcc5ad38f6f660d_42.jpg
   static String updateStatement() {
     String ret = '''
   mutation updateAStatement(\$input: UpdateStatementInput!){
@@ -224,7 +210,7 @@ class Queries {
   statement{
     objectId
     $statementText
-    $statementPicture
+    $statementPictureFile{url}
     $statementYear
     $statementMonth
     $statementDay
@@ -315,7 +301,7 @@ query getStatement{
   ){
     objectId
     $statementText
-    $statementPicture
+    $statementPictureFile{url}
     $statementYear
     $statementMonth
     $statementDay

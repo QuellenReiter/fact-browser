@@ -16,13 +16,6 @@ class DatabaseUtils {
     if (token == null) {
       return null;
     }
-    // prepare the picture
-    MultipartFile multipartFile = MultipartFile.fromBytes(
-      Queries.statementPicture,
-      statement.uploadImage!.toList(),
-      filename: '${DateTime.now().second}.jpg',
-      contentType: MediaType("image", "jpg"),
-    );
 
     final HttpLink httpLink = HttpLink(kUrl, defaultHeaders: {
       'X-Parse-Application-Id': kParseApplicationId,
@@ -35,29 +28,6 @@ class DatabaseUtils {
       link: httpLink,
     );
 
-    // print('sendingFile');
-
-    var uploadResult = await client.mutate(
-      MutationOptions(
-        document: gql(Queries.createFile()),
-        variables: {
-          "file": multipartFile,
-        },
-      ),
-    );
-    // print(uploadResult.toString());
-
-    if (uploadResult.hasException) {
-      reloadDetailScreen(null, "Upload fehlgeschlagen.");
-      return uploadResult;
-    }
-
-    // print("Image uplaoded");
-
-    //update picture url
-    statement.statementPictureURL =
-        uploadResult.data?["createFile"]["fileInfo"]["url"];
-
     var queryResult = await client.mutate(
       MutationOptions(
         document: gql(Queries.createStatement()),
@@ -66,11 +36,11 @@ class DatabaseUtils {
         },
       ),
     );
-    // print(queryResult.toString());
+    print(queryResult.toString());
     if (queryResult.hasException) {
       // show some warning
       reloadDetailScreen(null, "Upload fehlgeschlagen.");
-      return uploadResult;
+      return queryResult;
     } else {
       // print("Statement added.");
     }
@@ -97,38 +67,6 @@ class DatabaseUtils {
       cache: GraphQLCache(),
       link: httpLink,
     );
-
-    // prepare the picture if updated
-    if (statement.uploadImage != null) {
-      MultipartFile multipartFile = MultipartFile.fromBytes(
-        Queries.statementPicture,
-        statement.uploadImage!.toList(),
-        filename: '${DateTime.now().second}.jpg',
-        contentType: MediaType("image", "jpg"),
-      );
-      // print('sendingFile');
-
-      var uploadResult = await client.mutate(
-        MutationOptions(
-          document: gql(Queries.createFile()),
-          variables: {
-            "file": multipartFile,
-          },
-        ),
-      );
-      // print(uploadResult.toString());
-
-      if (uploadResult.hasException) {
-        reloadDetailScreen(null, "Upload fehlgeschlagen.");
-        return uploadResult;
-      }
-
-      // print("Image uploaded");
-
-      //update the pictureURL
-      statement.statementPictureURL =
-          uploadResult.data?["createFile"]["fileInfo"]["url"];
-    }
 
     // delete all facts:
     for (var fact in statement.statementFactchecks.facts) {
