@@ -38,7 +38,8 @@ class Queries {
     "irreführend",
     "frei erfunden",
     "Fehlinformation",
-    "Satire"
+    "Satire",
+    "falsch"
   ];
 
   static List<String> categoryValues = [
