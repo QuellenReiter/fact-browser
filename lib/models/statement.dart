@@ -192,7 +192,7 @@ class Statement {
     statementLink = "";
     statementMedia = "";
     statementMediatype = Queries.mediatypeValues.first;
-    statementPictureURL = "test";
+    statementPictureURL = "emptyButNotEmpty";
     samplePictureCopyright = "";
     statementRectification = false;
   }
@@ -207,7 +207,7 @@ class Statement {
         statementLink.isEmpty ||
         statementMedia.isEmpty ||
         statementMediatype.isEmpty ||
-        (statementPictureURL.isEmpty && (uploadImage == null))) {
+        (statementPictureURL == "emptyButNotEmpty" && (uploadImage == null))) {
       return false;
     }
     //checl all facts
