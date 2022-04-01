@@ -92,7 +92,11 @@ class DetailScreen extends StatelessWidget {
                       ),
                     )
                   ]),
-              Row(
+              Flex(
+                mainAxisSize: MainAxisSize.min,
+                direction: DeviceType.width(context) < 600
+                    ? Axis.vertical
+                    : Axis.horizontal,
                 children: [
                   Flexible(
                     child: Padding(
