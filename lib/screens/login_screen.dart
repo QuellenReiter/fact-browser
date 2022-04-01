@@ -13,7 +13,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   late TextEditingController usernameController;
   late TextEditingController passwordController;
-
+  String? errorText;
   final db = DatabaseUtils();
 
   @override
@@ -31,9 +31,14 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  void loginCallback(bool success) {
+  void loginCallback(bool success, String? errorMsg) {
     if (success) {
-      Navigator.pop(context);
+      widget.loginCallback(true);
+    }
+    if (errorMsg != null) {
+      setState(() {
+        errorText = errorMsg;
+      });
     }
   }
 
@@ -85,12 +90,24 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
               ),
             ),
+            errorText == null
+                ? const SizedBox.shrink()
+                : Container(
+                    padding: const EdgeInsets.all(10),
+                    color: Colors.red,
+                    child: Text(
+                      errorText!,
+                      style: const TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
             Flexible(
               child: ElevatedButton.icon(
                 onPressed: () => db.login(
                   usernameController.text,
                   passwordController.text,
-                  widget.loginCallback,
+                  loginCallback,
                 ),
                 icon: const Icon(Icons.login),
                 label: const Text("Einloggen"),
