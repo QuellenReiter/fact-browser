@@ -165,319 +165,270 @@ class _EditScreenState extends State<EditScreen> {
         onLogin: widget.onLogin,
         loggedIn: widget.isLoggedIn,
       ),
-      body: Align(
-        alignment: Alignment.topCenter,
-        child: SingleChildScrollView(
-          child: Container(
-            constraints: const BoxConstraints(
-              maxWidth: 1000,
+      body: Center(
+        child: Container(
+          padding: const EdgeInsets.all(20),
+          constraints: const BoxConstraints(maxWidth: 1000),
+          height: DeviceType.height(context),
+          child: ListView(shrinkWrap: true, children: [
+            errorText == null
+                ? const Text("")
+                : Container(
+                    padding: const EdgeInsets.all(10),
+                    color: Colors.red,
+                    child: Text(
+                      errorText!,
+                      style: const TextStyle(
+                        fontSize: 40,
+                      ),
+                    ),
+                  ),
+            TextFieldContainer(
+              textController: statementController.textController,
+              label: "Gebe eine Aussage ein.",
+              errorCallback: Utils.checkIfEmpty,
             ),
-            // this is a problem ? may case these squeezing effects.
-            height: DeviceType.height(context) * 2,
-            child: Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    errorText == null
-                        ? const Text("")
-                        : Container(
-                            padding: const EdgeInsets.all(10),
-                            color: Colors.red,
-                            child: Text(
-                              errorText!,
-                              style: const TextStyle(
-                                fontSize: 40,
-                              ),
-                            ),
-                          ),
-                    Flexible(
-                      child: TextFieldContainer(
-                        textController: statementController.textController,
-                        label: "Gebe eine Aussage ein.",
-                        errorCallback: Utils.checkIfEmpty,
-                      ),
-                    ),
-                    Flexible(
-                      child: Row(children: [
-                        Flexible(
-                          child: TextFieldContainer(
-                            textController:
-                                statementController.authorController,
-                            label: "Gebe den Author ein.",
-                            errorCallback: Utils.checkIfEmpty,
-                            autoCompleteList: Queries.authorSuggestions,
-                          ),
-                        ),
-                        Flexible(
-                          child: TextFieldContainer(
-                            textController: statementController.mediaController,
-                            label: "Gebe das Medium ein.",
-                            errorCallback: Utils.checkIfEmpty,
-                            autoCompleteList: Queries.mediaSuggestions,
-                          ),
-                        ),
-                      ]),
-                    ),
-                    Flexible(
-                      child: Row(children: [
-                        Flexible(
-                          child: TextFieldContainer(
-                            textController:
-                                statementController.languageController,
-                            label: "Gebe die Originalsprache ein.",
-                            errorCallback: Utils.checkIfEmpty,
-                            autoCompleteList: Queries.languageSuggestions,
-                          ),
-                        ),
-                      ]),
-                    ),
-                    Flexible(
-                      child: Row(children: [
-                        Flexible(
-                          child: DateContainer(
-                            yearController: statementController.yearController,
-                            monthController:
-                                statementController.monthController,
-                            dayController: statementController.dayController,
-                            label: "Gebe das Ursprungsdatum ein(dd/mm/yyyy)",
-                          ),
-                        ),
-                        Flexible(
-                          child: TextFieldContainer(
-                              textController:
-                                  statementController.linkController,
-                              label:
-                                  "Der Link zur Aussage (Wayback machine etc).",
-                              errorCallback: Utils.checkIfEmpty),
-                        ),
-                      ]),
-                    ),
-                    Flexible(
-                      flex: 5,
-                      child: Flex(
-                        direction: DeviceType.oneColumn(context)
-                            ? Axis.vertical
-                            : Axis.horizontal,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Flexible(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Flexible(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5),
-                                    child: widget.statement.uploadImage == null
-                                        ? Image.network(widget
-                                            .statement.statementPictureURL
-                                            .replaceAll(
-                                                "https%3A%2F%2Fparsefiles.back4app.com%2FFeP6gb7k9R2K9OztjKWA1DgYhubqhW0yJMyrHbxH%2F",
-                                                ""))
-                                        : Image.memory(
-                                            widget.statement.uploadImage!),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Flexible(
-                            flex: 2,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Flexible(
-                                  flex: 2,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5),
-                                    child: Row(
-                                      children: [
-                                        const Text("Wähle eine Kategorie?"),
-                                        Padding(
-                                          padding: const EdgeInsets.all(5),
-                                          child: DropdownButton(
-                                            value: widget
-                                                .statement.statementCategory,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                widget.statement
-                                                        .statementCategory =
-                                                    value.toString();
-                                              });
-                                            },
-                                            items: Queries.categoryValues
-                                                .map<DropdownMenuItem<String>>(
-                                                    (String value) {
-                                              return DropdownMenuItem<String>(
-                                                value: value,
-                                                child: Text(value),
-                                              );
-                                            }).toList(),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Flexible(
-                                  flex: 2,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5),
-                                    child: Row(
-                                      children: [
-                                        const Text("Wähle einen Medientyp."),
-                                        Padding(
-                                          padding: const EdgeInsets.all(5),
-                                          child: DropdownButton(
-                                            value: widget
-                                                .statement.statementMediatype,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                widget.statement
-                                                        .statementMediatype =
-                                                    value.toString();
-                                              });
-                                            },
-                                            items: Queries.mediatypeValues
-                                                .map<DropdownMenuItem<String>>(
-                                                    (String value) {
-                                              return DropdownMenuItem<String>(
-                                                value: value,
-                                                child: Text(value),
-                                              );
-                                            }).toList(),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Flexible(
-                                  flex: 2,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5),
-                                    child: Row(
-                                      children: [
-                                        const Text("Wähle ein Foto aus."),
-                                        Padding(
-                                          padding: const EdgeInsets.all(5),
-                                          child: ElevatedButton(
-                                              onPressed: () =>
-                                                  Utils.pickFile(safeFile),
-                                              child: const Text("wählen")),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Flexible(
-                                  child: TextFieldContainer(
-                                    textController: statementController
-                                        .samplePictureCopyrightController,
-                                    label:
-                                        "Gebe ein Copyright für das Foto ein.",
-                                    errorCallback: (TextEditingController c) {
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                                Flexible(
-                                  flex: 2,
-                                  child: Container(
-                                    color: widget.statement
-                                                .statementCorrectness !=
-                                            CorrectnessCategory.correct
-                                        ? const Color.fromARGB(157, 255, 0, 0)
-                                        : const Color.fromARGB(202, 46, 196, 0),
-                                    padding: const EdgeInsets.all(5),
-                                    child: Row(
-                                      children: [
-                                        const Text(
-                                            "Wie ist die Aussage einzuordnen?"),
-                                        Padding(
-                                          padding: const EdgeInsets.all(5),
-                                          child: DropdownButton(
-                                            value: widget
-                                                .statement.statementCorrectness,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                widget.statement
-                                                        .statementCorrectness =
-                                                    value.toString();
-                                              });
-                                            },
-                                            items: Queries.correctnessValues
-                                                .map<DropdownMenuItem<String>>(
-                                                    (String value) {
-                                              return DropdownMenuItem<String>(
-                                                value: value,
-                                                child: Text(value),
-                                              );
-                                            }).toList(),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Flexible(
-                                  flex: 2,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5),
-                                    child: Row(
-                                      children: [
-                                        const Text(
-                                            "Wurde die Aussage Korrigiert?"),
-                                        Padding(
-                                          padding: const EdgeInsets.all(5),
-                                          child: Switch(
-                                              value: widget.statement
-                                                  .statementRectification,
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  widget.statement
-                                                          .statementRectification =
-                                                      value;
-                                                });
-                                              }),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          // fact in own screen or in third column
-                          // Builder(builder: builder)
-                        ],
-                      ),
-                    ),
-                    Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: factContainers
-                          ..add(ElevatedButton.icon(
-                            onPressed: addNewFact,
-                            icon: const Icon(Icons.add),
-                            label: const Text("Fakt"),
-                          ))),
-                    Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: ElevatedButton.icon(
-                          onPressed: () => uploadStatement(),
-                          icon: const Icon(Icons.upload_file),
-                          label: const Text("Diese Aussage speichern")),
-                    ),
-                  ],
+            Row(children: [
+              Flexible(
+                child: TextFieldContainer(
+                  textController: statementController.authorController,
+                  label: "Gebe den Author ein.",
+                  errorCallback: Utils.checkIfEmpty,
+                  autoCompleteList: Queries.authorSuggestions,
                 ),
               ),
+              Flexible(
+                child: TextFieldContainer(
+                  textController: statementController.mediaController,
+                  label: "Gebe das Medium ein.",
+                  errorCallback: Utils.checkIfEmpty,
+                  autoCompleteList: Queries.mediaSuggestions,
+                ),
+              ),
+            ]),
+            Row(children: [
+              Flexible(
+                child: TextFieldContainer(
+                  textController: statementController.languageController,
+                  label: "Gebe die Originalsprache ein.",
+                  errorCallback: Utils.checkIfEmpty,
+                  autoCompleteList: Queries.languageSuggestions,
+                ),
+              ),
+            ]),
+            Row(children: [
+              Flexible(
+                child: DateContainer(
+                  yearController: statementController.yearController,
+                  monthController: statementController.monthController,
+                  dayController: statementController.dayController,
+                  label: "Gebe das Ursprungsdatum ein(dd/mm/yyyy)",
+                ),
+              ),
+              Flexible(
+                child: TextFieldContainer(
+                    textController: statementController.linkController,
+                    label: "Der Link zur Aussage (Wayback machine etc).",
+                    errorCallback: Utils.checkIfEmpty),
+              ),
+            ]),
+            Flex(
+              direction: DeviceType.oneColumn(context)
+                  ? Axis.vertical
+                  : Axis.horizontal,
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Flexible(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Flexible(
+                        child: Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: widget.statement.uploadImage == null
+                              ? Image.network(widget
+                                  .statement.statementPictureURL
+                                  .replaceAll(
+                                      "https%3A%2F%2Fparsefiles.back4app.com%2FFeP6gb7k9R2K9OztjKWA1DgYhubqhW0yJMyrHbxH%2F",
+                                      ""))
+                              : Image.memory(widget.statement.uploadImage!),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Flexible(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Flexible(
+                        child: Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: Row(
+                            children: [
+                              const Text("Wähle eine Kategorie?"),
+                              Padding(
+                                padding: const EdgeInsets.all(5),
+                                child: DropdownButton(
+                                  value: widget.statement.statementCategory,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      widget.statement.statementCategory =
+                                          value.toString();
+                                    });
+                                  },
+                                  items: Queries.categoryValues
+                                      .map<DropdownMenuItem<String>>(
+                                          (String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                        child: Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: Row(
+                            children: [
+                              const Text("Wähle einen Medientyp."),
+                              Padding(
+                                padding: const EdgeInsets.all(5),
+                                child: DropdownButton(
+                                  value: widget.statement.statementMediatype,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      widget.statement.statementMediatype =
+                                          value.toString();
+                                    });
+                                  },
+                                  items: Queries.mediatypeValues
+                                      .map<DropdownMenuItem<String>>(
+                                          (String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                        child: Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: Row(
+                            children: [
+                              const Text("Wähle ein Foto aus."),
+                              Padding(
+                                padding: const EdgeInsets.all(5),
+                                child: ElevatedButton(
+                                    onPressed: () => Utils.pickFile(safeFile),
+                                    child: const Text("wählen")),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                        child: TextFieldContainer(
+                          textController: statementController
+                              .samplePictureCopyrightController,
+                          label: "Gebe ein Copyright für das Foto ein.",
+                          errorCallback: (TextEditingController c) {
+                            return null;
+                          },
+                        ),
+                      ),
+                      Flexible(
+                        child: Container(
+                          color: widget.statement.statementCorrectness !=
+                                  CorrectnessCategory.correct
+                              ? const Color.fromARGB(157, 255, 0, 0)
+                              : const Color.fromARGB(202, 46, 196, 0),
+                          padding: const EdgeInsets.all(5),
+                          child: Row(
+                            children: [
+                              const Text("Wie ist die Aussage einzuordnen?"),
+                              Padding(
+                                padding: const EdgeInsets.all(5),
+                                child: DropdownButton(
+                                  value: widget.statement.statementCorrectness,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      widget.statement.statementCorrectness =
+                                          value.toString();
+                                    });
+                                  },
+                                  items: Queries.correctnessValues
+                                      .map<DropdownMenuItem<String>>(
+                                          (String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                        child: Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: Row(
+                            children: [
+                              const Text("Wurde die Aussage Korrigiert?"),
+                              Padding(
+                                padding: const EdgeInsets.all(5),
+                                child: Switch(
+                                    value:
+                                        widget.statement.statementRectification,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        widget.statement
+                                            .statementRectification = value;
+                                      });
+                                    }),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                // fact in own screen or in third column
+                // Builder(builder: builder)
+              ],
             ),
-          ),
+            Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: factContainers
+                  ..add(ElevatedButton.icon(
+                    onPressed: addNewFact,
+                    icon: const Icon(Icons.add),
+                    label: const Text("Fakt"),
+                  ))),
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: ElevatedButton.icon(
+                  onPressed: () => uploadStatement(),
+                  icon: const Icon(Icons.upload_file),
+                  label: const Text("Diese Aussage speichern")),
+            ),
+          ]),
         ),
       ),
     );
