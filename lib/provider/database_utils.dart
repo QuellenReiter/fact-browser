@@ -142,15 +142,14 @@ class DatabaseUtils {
       ),
     );
     if (loginResult.hasException) {
-      loginCallback(false);
+      loginCallback(false, "Login fehlgeschlagen.");
       return;
     }
     //safe token
-
     safeStorage.write(
         key: "token",
         value: loginResult.data?["logIn"]["viewer"]["sessionToken"]);
-    loginCallback(true);
+    loginCallback(true, null);
   }
 
   Future<void> logout() async {
