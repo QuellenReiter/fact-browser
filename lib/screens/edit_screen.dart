@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'package:statementmanager/models/fact.dart';
 import 'package:statementmanager/models/statement.dart';
 import 'package:statementmanager/provider/database_utils.dart';
@@ -56,6 +57,7 @@ class _EditScreenState extends State<EditScreen> {
   }
 
   void safeFile(Uint8List img) {
+    Navigator.pop(context);
     setState(() {
       // whaaaat to do here?
       widget.statement.uploadImage = img;
@@ -324,20 +326,19 @@ class _EditScreenState extends State<EditScreen> {
                           ),
                         ),
                       ),
-                      Flexible(
-                        child: Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: Row(
-                            children: [
-                              const Text("Wähle ein Foto aus."),
-                              Padding(
-                                padding: const EdgeInsets.all(5),
-                                child: ElevatedButton(
-                                    onPressed: () => Utils.pickFile(safeFile),
-                                    child: const Text("wählen")),
-                              )
-                            ],
-                          ),
+                      Container(
+                        margin: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          color:
+                              highlightedDrop ? Colors.green : Colors.white12,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        height: 100,
+                        child: Stack(
+                          children: [
+                            buildDropZone(context),
+                            Center(child: Text(dropMsg)),
+                          ],
                         ),
                       ),
                       Flexible(
@@ -352,10 +353,14 @@ class _EditScreenState extends State<EditScreen> {
                       ),
                       Flexible(
                         child: Container(
-                          color: widget.statement.statementCorrectness !=
-                                  CorrectnessCategory.correct
-                              ? const Color.fromARGB(157, 255, 0, 0)
-                              : const Color.fromARGB(202, 46, 196, 0),
+                          margin: const EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            color: widget.statement.statementCorrectness !=
+                                    CorrectnessCategory.correct
+                                ? const Color.fromARGB(157, 255, 0, 0)
+                                : const Color.fromARGB(202, 46, 196, 0),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
                           padding: const EdgeInsets.all(5),
                           child: Row(
                             children: [
@@ -433,4 +438,44 @@ class _EditScreenState extends State<EditScreen> {
       ),
     );
   }
+
+  late DropzoneViewController dropController;
+  bool highlightedDrop = false;
+  String dropMsg = "Datei hierher ziehen";
+  Widget buildDropZone(BuildContext context) => Builder(
+        builder: (context) => DropzoneView(
+          operation: DragOperation.copy,
+          cursor: CursorType.grab,
+          onCreated: (ctrl) => dropController = ctrl,
+          // onLoaded: () => print('Zone 1 loaded'),
+          // onError: (ev) => print('Zone 1 error: $ev'),
+          onHover: () {
+            setState(() => highlightedDrop = true);
+            // print('Zone 1 hovered');
+          },
+          onLeave: () {
+            setState(() => highlightedDrop = false);
+            // print('Zone 1 left');
+          },
+          onDrop: (ev) async {
+            setState(() {
+              dropMsg = '${ev.name} dropped';
+              highlightedDrop = false;
+            });
+            showModalBottomSheet<void>(
+                context: context,
+                isDismissible: false,
+                builder: (BuildContext context) {
+                  return Container(
+                    height: DeviceType.height(context) / 2,
+                    child: const Center(
+                      child: Text("Bild wird geladen."),
+                    ),
+                  );
+                });
+            final bytes = await dropController.getFileData(ev);
+            Utils.compressImage(bytes, safeFile);
+          },
+        ),
+      );
 }
