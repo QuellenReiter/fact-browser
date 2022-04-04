@@ -226,10 +226,10 @@ class Statement {
   String dateAsString() {
     String ret = "";
     if (statementDay != 0) {
-      ret += statementDay.toString().padLeft(2) + '/';
+      ret += statementDay.toString().padLeft(2, "0") + '/';
     }
     if (statementMonth != 0) {
-      ret += statementMonth.toString().padLeft(2) + '/';
+      ret += statementMonth.toString().padLeft(2, "0") + '/';
     }
     if (statementYear != 0) {
       ret += statementYear.toString();
