@@ -38,7 +38,7 @@ class _MainAppBarState extends State<MainAppBar> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Padding(
-              padding: EdgeInsets.only(bottom: 50, top: 10),
+              padding: EdgeInsets.only(bottom: 60, top: 60),
               child: Image(
                 image: AssetImage('logo-pink.png'),
               ),
@@ -51,6 +51,7 @@ class _MainAppBarState extends State<MainAppBar> {
                   Flexible(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
                           'FACT BROWSER',

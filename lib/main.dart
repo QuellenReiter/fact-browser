@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:statementmanager/navigation/fact_browser_rout_information_parser.dart';
 import 'package:statementmanager/navigation/fact_browser_router_delegate.dart';
+import 'package:statementmanager/provider/device_type_provider.dart';
 
 void main() async {
   runApp(const FactBrowser());
@@ -37,7 +38,7 @@ class _FactBrowserState extends State<FactBrowser> {
         textTheme: const TextTheme(
           bodyText2: TextStyle(
             // default all text widget
-            fontSize: 16.0,
+            fontSize: 12.0,
             fontFamily: 'Oswald',
           ),
           bodyText1: TextStyle(
@@ -47,15 +48,15 @@ class _FactBrowserState extends State<FactBrowser> {
           ),
           headline1: TextStyle(
             fontFamily: 'Bangers',
-            fontSize: 60,
+            fontSize: 50,
             color: Color(0xFFc7ebeb),
           ),
           subtitle1: TextStyle(
             color: Color(0xFFc7ebeb),
-            fontSize: 20,
+            fontSize: 16,
           ),
           subtitle2: TextStyle(
-            fontSize: 20,
+            fontSize: 16,
           ),
         ),
         // fill back inside all TextFormField

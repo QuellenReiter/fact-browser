@@ -47,11 +47,9 @@ class StatementCard extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10),
-                  child: Flexible(
-                    child: Text(
-                      statement.statementText,
-                      style: Theme.of(context).textTheme.subtitle2,
-                    ),
+                  child: Text(
+                    statement.statementText,
+                    style: Theme.of(context).textTheme.subtitle2,
                   ),
                 ),
                 Padding(
