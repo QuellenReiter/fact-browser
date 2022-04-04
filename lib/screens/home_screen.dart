@@ -73,6 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
       client: client,
       child: Scaffold(
         appBar: MainAppBar(
+          searchController: searchController,
           title: "Suche",
           onLogin: widget.onLogin,
           loggedIn: widget.isLoggedIn,
@@ -95,14 +96,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       maxWidth: 1000,
                     ),
                     child: Column(children: [
-                      TextField(
-                        controller: searchController,
-                        decoration: InputDecoration(
-                          labelText: "Suche nach Themen, z.B. Covid",
-                          border: const OutlineInputBorder(),
-                          errorText: Utils.checkIfEmpty(searchController),
-                        ),
-                      ),
+                      // TextField(
+                      //   controller: searchController,
+                      //   decoration: InputDecoration(
+                      //     labelText: "Suche nach Themen, z.B. Covid",
+                      //     border: const OutlineInputBorder(),
+                      //     errorText: Utils.checkIfEmpty(searchController),
+                      //   ),
+                      // ),
                       Builder(
                         builder: (BuildContext context) {
                           if (Utils.checkIfEmpty(searchController) == null) {

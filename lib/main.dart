@@ -31,13 +31,29 @@ class _FactBrowserState extends State<FactBrowser> {
       routeInformationParser: _routeInformationParser,
       routerDelegate: _routerDelegate,
       theme: ThemeData(
-        brightness: Brightness.dark,
-        primarySwatch: Colors.blueGrey,
+        brightness: Brightness.light,
+        primarySwatch: Colors.grey,
+
         textTheme: const TextTheme(
           bodyText2: TextStyle(
-              // default all text widget
-              fontSize: 16.0,
-              fontFamily: 'Iranian'),
+            // default all text widget
+            fontSize: 16.0,
+            fontFamily: 'Oswald',
+          ),
+          bodyText1: TextStyle(
+            // default all text widget
+            fontSize: 12.0,
+            fontFamily: 'Oswald',
+          ),
+          headline1: TextStyle(
+            fontFamily: 'Bangers',
+            fontSize: 60,
+            color: Color(0xFFc7ebeb),
+          ),
+          subtitle1: TextStyle(
+            color: Color(0xFFc7ebeb),
+            fontSize: 20,
+          ),
         ),
         // fill back inside all TextFormField
         inputDecorationTheme: const InputDecorationTheme(
