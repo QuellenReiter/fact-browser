@@ -46,10 +46,11 @@ class _EditableFieldState extends State<EditableField> {
                       children: [
                         Text(
                           widget.fieldName,
+                          style: Theme.of(context).textTheme.headline2,
                           textAlign: TextAlign.left,
-                          style: const TextStyle(fontSize: 20.0),
                         ),
                         TextField(
+                          style: Theme.of(context).textTheme.headline2,
                           decoration: InputDecoration(
                             errorText: _errorText,
                           ),

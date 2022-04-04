@@ -36,29 +36,31 @@ class _FactBrowserState extends State<FactBrowser> {
         primarySwatch: Colors.grey,
 
         textTheme: const TextTheme(
-          bodyText2: TextStyle(
-            // default all text widget
-            fontSize: 12.0,
-            fontFamily: 'Oswald',
-          ),
-          bodyText1: TextStyle(
-            // default all text widget
-            fontSize: 12.0,
-            fontFamily: 'Oswald',
-          ),
-          headline1: TextStyle(
-            fontFamily: 'Bangers',
-            fontSize: 50,
-            color: Color(0xFFc7ebeb),
-          ),
-          subtitle1: TextStyle(
-            color: Color(0xFFc7ebeb),
-            fontSize: 16,
-          ),
-          subtitle2: TextStyle(
-            fontSize: 16,
-          ),
-        ),
+            bodyText2: TextStyle(
+              // default all text widget
+              fontSize: 12.0,
+              fontFamily: 'Oswald',
+            ),
+            bodyText1: TextStyle(
+              // default all text widget
+              fontSize: 12.0,
+              fontFamily: 'Oswald',
+            ),
+            headline1: TextStyle(
+              fontFamily: 'Bangers',
+              fontSize: 50,
+              color: Color(0xFFc7ebeb),
+            ),
+            subtitle1: TextStyle(
+              color: Color(0xFFc7ebeb),
+              fontSize: 16,
+            ),
+            subtitle2: TextStyle(
+              fontSize: 16,
+            ),
+            headline2: TextStyle(
+              fontSize: 16,
+            )),
         // fill back inside all TextFormField
         inputDecorationTheme: const InputDecorationTheme(
           isDense: true,
