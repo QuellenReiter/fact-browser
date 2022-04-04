@@ -34,12 +34,22 @@ class TextFieldContainer extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 5),
                     child: Text(
                       label,
-                      style: const TextStyle(color: Colors.white54),
+                      style: Theme.of(context).textTheme.headline2,
                     )),
                 Flexible(
                   child: Container(
                     padding: const EdgeInsets.all(5),
                     child: Autocomplete(
+                      fieldViewBuilder: (BuildContext context,
+                          TextEditingController fieldTextEditingController,
+                          FocusNode fieldFocusNode,
+                          VoidCallback onFieldSubmitted) {
+                        return TextField(
+                          controller: fieldTextEditingController,
+                          focusNode: fieldFocusNode,
+                          style: Theme.of(context).textTheme.headline2,
+                        );
+                      },
                       optionsBuilder: (TextEditingValue val) {
                         textController.text = val.text;
                         if (val.text == "") {
@@ -66,6 +76,7 @@ class TextFieldContainer extends StatelessWidget {
             color: color,
             padding: const EdgeInsets.all(5),
             child: TextField(
+              style: Theme.of(context).textTheme.headline2,
               maxLines: null,
               controller: textController,
               decoration: InputDecoration(
@@ -80,6 +91,7 @@ class TextFieldContainer extends StatelessWidget {
             color: color,
             padding: const EdgeInsets.all(5),
             child: TextField(
+              style: Theme.of(context).textTheme.headline2,
               maxLines: null,
               controller: textController,
               inputFormatters: [inputFormatter!],

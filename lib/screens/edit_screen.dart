@@ -287,7 +287,12 @@ class _EditScreenState extends State<EditScreen> {
                                           (String value) {
                                     return DropdownMenuItem<String>(
                                       value: value,
-                                      child: Text(value),
+                                      child: Text(
+                                        value,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline2,
+                                      ),
                                     );
                                   }).toList(),
                                 ),
@@ -317,7 +322,12 @@ class _EditScreenState extends State<EditScreen> {
                                           (String value) {
                                     return DropdownMenuItem<String>(
                                       value: value,
-                                      child: Text(value),
+                                      child: Text(
+                                        value,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline2,
+                                      ),
                                     );
                                   }).toList(),
                                 ),
@@ -380,7 +390,12 @@ class _EditScreenState extends State<EditScreen> {
                                           (String value) {
                                     return DropdownMenuItem<String>(
                                       value: value,
-                                      child: Text(value),
+                                      child: Text(
+                                        value,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline2,
+                                      ),
                                     );
                                   }).toList(),
                                 ),

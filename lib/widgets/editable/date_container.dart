@@ -26,6 +26,7 @@ class DateContainer extends StatelessWidget {
             valueListenable: dayController,
             builder: (context, TextEditingValue value, __) {
               return TextField(
+                style: Theme.of(context).textTheme.headline2,
                 maxLength: 2,
                 maxLengthEnforcement: MaxLengthEnforcement.enforced,
                 controller: dayController,
@@ -45,6 +46,7 @@ class DateContainer extends StatelessWidget {
             valueListenable: monthController,
             builder: (context, TextEditingValue value, __) {
               return TextField(
+                style: Theme.of(context).textTheme.headline2,
                 maxLength: 2,
                 controller: monthController,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -63,6 +65,7 @@ class DateContainer extends StatelessWidget {
             valueListenable: yearController,
             builder: (context, TextEditingValue value, __) {
               return TextField(
+                style: Theme.of(context).textTheme.headline2,
                 maxLength: 4,
                 controller: yearController,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
