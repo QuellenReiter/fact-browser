@@ -223,6 +223,20 @@ class Statement {
     return true;
   }
 
+  String dateAsString() {
+    String ret = "";
+    if (statementDay != 0) {
+      ret += statementDay.toString().padLeft(2) + '/';
+    }
+    if (statementMonth != 0) {
+      ret += statementMonth.toString().padLeft(2) + '/';
+    }
+    if (statementYear != 0) {
+      ret += statementYear.toString();
+    }
+    return ret;
+  }
+
   Map<String, dynamic> toMap() {
     Map<String, dynamic> vars = {
       "fields": {
