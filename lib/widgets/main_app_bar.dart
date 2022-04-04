@@ -27,7 +27,7 @@ class MainAppBar extends StatefulWidget with PreferredSizeWidget {
 class _MainAppBarState extends State<MainAppBar> {
   @override
   Widget build(BuildContext context) {
-    if (DeviceType.width(context) < 600) {
+    if (DeviceType.width(context) < 900) {
       return Container(
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(40)),
@@ -48,16 +48,18 @@ class _MainAppBarState extends State<MainAppBar> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'FACT BROWSER',
-                        style: Theme.of(context).textTheme.headline1,
-                      ),
-                      Text('Die "Fake News"-Datenbank',
-                          style: Theme.of(context).textTheme.subtitle1),
-                    ],
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'FACT BROWSER',
+                          style: Theme.of(context).textTheme.headline1,
+                        ),
+                        Text('Die "Fake News"-Datenbank',
+                            style: Theme.of(context).textTheme.subtitle1),
+                      ],
+                    ),
                   ),
                   widget.searchController != null
                       ? Container(

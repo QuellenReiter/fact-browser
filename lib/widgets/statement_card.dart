@@ -10,66 +10,93 @@ class StatementCard extends StatelessWidget {
   final ValueChanged<Statement> onTapped;
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => onTapped(statement),
-      child: Container(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Flexible(
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(2),
-                      child: Text(
-                        statement.statementText,
-                        style: const TextStyle(fontSize: 20.0),
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(2),
-                      color: statement.statementCorrectness ==
-                              CorrectnessCategory.correct
-                          ? Colors.green
-                          : Colors.red,
-                      child: Text("Einordnung: " +
-                          statement.statementCorrectness +
-                          "."),
-                    )
-                  ],
-                ),
-              ),
+    List<Widget> factcheckMediaList = List.generate(
+      statement.statementFactchecks.facts.length,
+      (int i) => Row(
+        children: [
+          const Icon(
+            Icons.fact_check,
+            color: Colors.black,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: Text(
+              statement.statementFactchecks.facts[i].factMedia,
+              style: Theme.of(context).textTheme.bodyText2,
             ),
-            Column(
+          ),
+        ],
+      ),
+    );
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20),
+      child: Material(
+        borderRadius: const BorderRadius.all(Radius.circular(15)),
+        color: Colors.grey[200],
+        child: InkWell(
+          hoverColor: Colors.grey[300],
+          highlightColor: Colors.grey[400],
+          splashColor: Colors.grey[600],
+          onTap: () => onTapped(statement),
+          borderRadius: const BorderRadius.all(Radius.circular(15)),
+          child: Padding(
+            padding: const EdgeInsets.all(15),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Icon(Icons.person),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Flexible(
+                    child: Text(
+                      statement.statementText,
+                      style: Theme.of(context).textTheme.subtitle2,
                     ),
-                    Text(statement.statementAuthor),
-                  ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: statement.statementCorrectness ==
+                                  CorrectnessCategory.correct
+                              ? const Color(0xFF009e73)
+                              : const Color(0xFFd55e00),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(5),
+                          ),
+                        ),
+                        padding: const EdgeInsets.all(4),
+                        child: Text(
+                          statement.statementCorrectness,
+                          style: Theme.of(context).textTheme.subtitle1,
+                        ),
+                      ),
+                      Text(
+                        statement.statementMedia +
+                            ', ' +
+                            statement.dateAsString(),
+                        style: Theme.of(context).textTheme.bodyText2,
+                      )
+                    ],
+                  ),
+                ),
+                const Divider(
+                  height: 20,
+                  thickness: 2,
                 ),
                 Row(
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Icon(Icons.newspaper),
-                    ),
-                    Text(statement.statementMedia),
-                  ],
-                ),
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: factcheckMediaList,
+                )
               ],
             ),
-          ],
+          ),
         ),
-        margin: const EdgeInsets.all(10),
-        padding: const EdgeInsets.all(10),
       ),
     );
   }

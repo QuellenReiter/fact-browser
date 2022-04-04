@@ -54,6 +54,9 @@ class _FactBrowserState extends State<FactBrowser> {
             color: Color(0xFFc7ebeb),
             fontSize: 20,
           ),
+          subtitle2: TextStyle(
+            fontSize: 20,
+          ),
         ),
         // fill back inside all TextFormField
         inputDecorationTheme: const InputDecorationTheme(
