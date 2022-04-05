@@ -38,131 +38,276 @@ class DetailScreen extends StatelessWidget {
       ),
       body: Center(
         child: Container(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           constraints: const BoxConstraints(maxWidth: 1000),
           height: DeviceType.height(context),
           child: ListView(
             shrinkWrap: true,
             children: [
-              SizableDisplayText(
-                size: 24,
-                text: statement.statementText,
-                icon: Icons.speaker_notes,
-              ),
-              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                Flexible(
-                  child: SizableDisplayText(
-                    text: statement.statementAuthor,
-                    icon: Icons.person,
-                  ),
+              Container(
+                alignment: Alignment.topLeft,
+                clipBehavior: Clip.none,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  color: Colors.grey[200],
                 ),
-                Flexible(
-                  child: SizableDisplayText(
-                      text: statement.statementMedia, icon: Icons.newspaper),
-                )
-              ]),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    Flexible(
-                      child: SizableDisplayText(
-                          text: statement.statementLanguage,
-                          icon: Icons.language),
-                    )
-                  ]),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Flexible(
-                      child: SizableDisplayText(
-                        text: statement.statementDay.toString() +
-                            "/" +
-                            statement.statementMonth.toString() +
-                            "/" +
-                            statement.statementYear.toString(),
-                        icon: Icons.calendar_month_outlined,
-                      ),
-                    ),
-                    Flexible(
-                      child: SizableDisplayText(
-                        text: statement.statementLink,
-                        icon: Icons.link,
-                      ),
-                    )
-                  ]),
-              Flex(
-                mainAxisSize: MainAxisSize.min,
-                direction: DeviceType.width(context) < 600
-                    ? Axis.vertical
-                    : Axis.horizontal,
-                children: [
-                  Flexible(
-                    child: Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: Stack(
-                        children: [
-                          Image.network(
-                            statement.statementPictureURL != ""
-                                ? statement.statementPictureURL.replaceAll(
-                                    "https%3A%2F%2Fparsefiles.back4app.com%2FFeP6gb7k9R2K9OztjKWA1DgYhubqhW0yJMyrHbxH%2F",
-                                    "")
-                                : "https://quellenreiter.app/assets/logo-pink.png",
+                    Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        Positioned(
+                          top: -20,
+                          left: -20,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Stack(
+                                children: [
+                                  FractionallySizedBox(
+                                    widthFactor: 0.5,
+                                    child: Container(
+                                      decoration: const BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10)),
+                                      ),
+                                      child: Image.network(
+                                        statement.statementPictureURL != ""
+                                            ? statement.statementPictureURL
+                                                .replaceAll(
+                                                    "https%3A%2F%2Fparsefiles.back4app.com%2FFeP6gb7k9R2K9OztjKWA1DgYhubqhW0yJMyrHbxH%2F",
+                                                    "")
+                                            : "https://quellenreiter.app/assets/logo-pink.png",
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: const EdgeInsets.all(2),
+                                    color: const Color.fromARGB(61, 0, 0, 0),
+                                    child:
+                                        Text(statement.samplePictureCopyright),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-                          Container(
-                            padding: const EdgeInsets.all(10),
-                            color: const Color.fromARGB(61, 0, 0, 0),
-                            child: Text(statement.samplePictureCopyright),
+                        ),
+                        Positioned(
+                          top: -20,
+                          left: -20,
+                          child: FractionallySizedBox(
+                            alignment: Alignment.topLeft,
+                            widthFactor: 0.7,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Flexible(
+                                  child: Container(
+                                    margin: const EdgeInsets.all(10),
+                                    padding: const EdgeInsets.all(10),
+                                    decoration: const BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(10)),
+                                      color: Color(0xFF0999bc),
+                                    ),
+                                    child: Text(
+                                      statement.statementText,
+                                      style:
+                                          Theme.of(context).textTheme.subtitle1,
+                                    ),
+                                  ),
+                                ),
+                                Flexible(
+                                  child: Container(
+                                    margin: const EdgeInsets.all(10),
+                                    padding: const EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(10)),
+                                      color: statement.statementCorrectness !=
+                                              CorrectnessCategory.correct
+                                          ? const Color(0xFFD55C00)
+                                          : const Color(0xFF009E74),
+                                    ),
+                                    child: Text(
+                                      statement.statementText,
+                                      style:
+                                          Theme.of(context).textTheme.subtitle1,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(Icons.person),
+                                  Text(statement.statementAuthor),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Icon(Icons.newspaper),
+                                  Text(statement.statementMedia +
+                                      ' | ' +
+                                      statement.statementMediatype),
+                                ],
+                              )
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(Icons.calendar_month),
+                                  Text(statement.dateAsString()),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Icon(Icons.language),
+                                  Text(statement.statementLanguage),
+                                ],
+                              )
+                            ],
                           )
                         ],
                       ),
-                    ),
-                  ),
-                  Flexible(
-                    child: Column(
-                      children: [
-                        Padding(
-                            padding: const EdgeInsets.all(5),
-                            child: SizableDisplayText(
-                              text: "Kategorie: " + statement.statementCategory,
-                            )),
-                        Padding(
-                            padding: const EdgeInsets.all(5),
-                            child: SizableDisplayText(
-                              text: "Art des Mediums: " +
-                                  statement.statementMediatype,
-                            )),
-                        Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: SizableDisplayText(
-                            color: statement.statementCorrectness !=
-                                    CorrectnessCategory.correct
-                                ? const Color.fromARGB(157, 255, 0, 0)
-                                : const Color.fromARGB(202, 46, 196, 0),
-                            text: "Einordung der Aussage: " +
-                                statement.statementCorrectness,
-                          ),
-                        ),
-                        if (statement.statementRectification)
-                          const Padding(
-                            padding: EdgeInsets.all(5),
-                            child: SizableDisplayText(
-                              text: "Die Aussage wurde korrigiert.",
-                            ),
-                          )
-                        else
-                          const Padding(
-                            padding: EdgeInsets.all(5),
-                            child: SizableDisplayText(
-                              text: "Die Aussage wurde nicht korrigiert.",
-                            ),
-                          ),
-                      ],
-                    ),
-                  ),
-                ],
+                    )
+                  ],
+                ),
               ),
+              // SizableDisplayText(
+              //   size: 24,
+              //   text: statement.statementText,
+              //   icon: Icons.speaker_notes,
+              // ),
+              // Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+              //   Flexible(
+              //     child: SizableDisplayText(
+              //       text: statement.statementAuthor,
+              //       icon: Icons.person,
+              //     ),
+              //   ),
+              //   Flexible(
+              //     child: SizableDisplayText(
+              //         text: statement.statementMedia, icon: Icons.newspaper),
+              //   )
+              // ]),
+              // Row(
+              //     mainAxisAlignment: MainAxisAlignment.start,
+              //     mainAxisSize: MainAxisSize.max,
+              //     children: [
+              //       Flexible(
+              //         child: SizableDisplayText(
+              //             text: statement.statementLanguage,
+              //             icon: Icons.language),
+              //       )
+              //     ]),
+              // Row(
+              //     mainAxisAlignment: MainAxisAlignment.start,
+              //     mainAxisSize: MainAxisSize.max,
+              //     children: [
+              //       Flexible(
+              //         child: SizableDisplayText(
+              //           text: statement.statementDay.toString() +
+              //               "/" +
+              //               statement.statementMonth.toString() +
+              //               "/" +
+              //               statement.statementYear.toString(),
+              //           icon: Icons.calendar_month_outlined,
+              //         ),
+              //       ),
+              //       Flexible(
+              //         child: SizableDisplayText(
+              //           text: statement.statementLink,
+              //           icon: Icons.link,
+              //         ),
+              //       )
+              //     ]),
+              // Flex(
+              //   mainAxisSize: MainAxisSize.min,
+              //   direction: DeviceType.width(context) < 600
+              //       ? Axis.vertical
+              //       : Axis.horizontal,
+              //   children: [
+              //     Flexible(
+              //       child: Padding(
+              //         padding: const EdgeInsets.all(5),
+              //         child: Stack(
+              //           children: [
+              //             Image.network(
+              //               statement.statementPictureURL != ""
+              //                   ? statement.statementPictureURL.replaceAll(
+              //                       "https%3A%2F%2Fparsefiles.back4app.com%2FFeP6gb7k9R2K9OztjKWA1DgYhubqhW0yJMyrHbxH%2F",
+              //                       "")
+              //                   : "https://quellenreiter.app/assets/logo-pink.png",
+              //             ),
+              //             Container(
+              //               padding: const EdgeInsets.all(10),
+              //               color: const Color.fromARGB(61, 0, 0, 0),
+              //               child: Text(statement.samplePictureCopyright),
+              //             )
+              //           ],
+              //         ),
+              //       ),
+              //     ),
+              //     Flexible(
+              //       child: Column(
+              //         children: [
+              //           Padding(
+              //               padding: const EdgeInsets.all(5),
+              //               child: SizableDisplayText(
+              //                 text: "Kategorie: " + statement.statementCategory,
+              //               )),
+              //           Padding(
+              //               padding: const EdgeInsets.all(5),
+              //               child: SizableDisplayText(
+              //                 text: "Art des Mediums: " +
+              //                     statement.statementMediatype,
+              //               )),
+              //           Padding(
+              //             padding: const EdgeInsets.all(5),
+              //             child: SizableDisplayText(
+              //               color: statement.statementCorrectness !=
+              //                       CorrectnessCategory.correct
+              //                   ? const Color.fromARGB(157, 255, 0, 0)
+              //                   : const Color.fromARGB(202, 46, 196, 0),
+              //               text: "Einordung der Aussage: " +
+              //                   statement.statementCorrectness,
+              //             ),
+              //           ),
+              //           if (statement.statementRectification)
+              //             const Padding(
+              //               padding: EdgeInsets.all(5),
+              //               child: SizableDisplayText(
+              //                 text: "Die Aussage wurde korrigiert.",
+              //               ),
+              //             )
+              //           else
+              //             const Padding(
+              //               padding: EdgeInsets.all(5),
+              //               child: SizableDisplayText(
+              //                 text: "Die Aussage wurde nicht korrigiert.",
+              //               ),
+              //             ),
+              //         ],
+              //       ),
+              //     ),
+              //   ],
+              // ),
               factContainers.isNotEmpty
                   ? const SizableDisplayText(
                       text: "Faktenchecks und Quellen",
