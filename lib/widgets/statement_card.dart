@@ -29,7 +29,7 @@ class StatementCard extends StatelessWidget {
       ),
     );
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20),
+      padding: const EdgeInsets.symmetric(vertical: 20),
       child: Material(
         borderRadius: const BorderRadius.all(Radius.circular(15)),
         color: Colors.grey[200],
@@ -40,7 +40,7 @@ class StatementCard extends StatelessWidget {
           onTap: () => onTapped(statement),
           borderRadius: const BorderRadius.all(Radius.circular(15)),
           child: Padding(
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.all(20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,

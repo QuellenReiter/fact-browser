@@ -15,7 +15,7 @@ class MainAppBar extends StatefulWidget with PreferredSizeWidget {
   final bool loggedIn;
   final Function onLogin;
   final TextEditingController? searchController;
-  double barHeight = 200;
+  double barHeight = 150;
 
   @override
   State<MainAppBar> createState() => _MainAppBarState();
@@ -37,10 +37,15 @@ class _MainAppBarState extends State<MainAppBar> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Padding(
-              padding: EdgeInsets.only(bottom: 60, top: 60),
-              child: Image(
-                image: AssetImage('assets/logo-pink.png'),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 70, top: 0),
+              child: InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: const Image(
+                  image: AssetImage('assets/logo-pink.png'),
+                ),
               ),
             ),
             Flexible(
@@ -143,10 +148,15 @@ class _MainAppBarState extends State<MainAppBar> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.only(bottom: 40),
-                    child: Image(
-                      image: AssetImage('logo-pink.png'),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 40),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Image(
+                        image: AssetImage('logo-pink.png'),
+                      ),
                     ),
                   ),
                   Column(

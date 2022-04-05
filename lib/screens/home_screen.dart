@@ -90,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
             builder: (context, TextEditingValue value, __) {
               return Center(
                 child: Padding(
-                  padding: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Container(
                     constraints: const BoxConstraints(
                       maxWidth: 1000,
