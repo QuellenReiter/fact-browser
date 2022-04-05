@@ -52,13 +52,16 @@ class _FactBrowserState extends State<FactBrowser> {
               color: Color(0xFFc7ebeb),
             ),
             subtitle1: TextStyle(
+              fontFamily: 'Oswald',
               color: Color(0xFFc7ebeb),
               fontSize: 16,
             ),
             subtitle2: TextStyle(
+              fontFamily: 'Oswald',
               fontSize: 16,
             ),
             headline2: TextStyle(
+              fontFamily: 'Oswald',
               fontSize: 16,
             )),
         // fill back inside all TextFormField
