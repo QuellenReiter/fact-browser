@@ -40,7 +40,7 @@ class _MainAppBarState extends State<MainAppBar> {
             const Padding(
               padding: EdgeInsets.only(bottom: 60, top: 60),
               child: Image(
-                image: AssetImage('logo-pink.png'),
+                image: AssetImage('assets/logo-pink.png'),
               ),
             ),
             Flexible(
