@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:statementmanager/models/statement.dart';
 import 'package:statementmanager/provider/device_type_provider.dart';
 import 'package:statementmanager/utilities/utilities.dart';
-import 'package:statementmanager/widgets/display/display_text_sizable.dart';
 import 'package:statementmanager/widgets/main_app_bar.dart';
 import '../widgets/display/fact_display_container.dart';
 
@@ -45,8 +44,29 @@ class DetailScreen extends StatelessWidget {
             clipBehavior: Clip.none,
             shrinkWrap: true,
             children: [
+              FractionallySizedBox(
+                widthFactor: 1.1,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 40, top: 20, bottom: 20),
+                  child: Wrap(
+                    children: [
+                      OutlinedButton.icon(
+                        onPressed: () => Navigator.pop(context),
+                        icon: const Icon(Icons.arrow_back_ios_new),
+                        label: Padding(
+                          padding: const EdgeInsets.all(7),
+                          child: Text(
+                            "zurück",
+                            style: Theme.of(context).textTheme.bodyText2,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               Padding(
-                padding: const EdgeInsets.all(40),
+                padding: const EdgeInsets.symmetric(horizontal: 40),
                 child: Container(
                   alignment: Alignment.topLeft,
                   clipBehavior: Clip.none,
@@ -119,7 +139,7 @@ class DetailScreen extends StatelessWidget {
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Container(
-                                        margin: const EdgeInsets.all(10),
+                                        margin: const EdgeInsets.only(top: 10),
                                         padding: const EdgeInsets.all(10),
                                         decoration: const BoxDecoration(
                                           borderRadius: BorderRadius.all(
@@ -130,11 +150,13 @@ class DetailScreen extends StatelessWidget {
                                           statement.statementText,
                                           style: Theme.of(context)
                                               .textTheme
-                                              .subtitle1,
+                                              .subtitle2
+                                              ?.copyWith(
+                                                  color: Colors.grey[200]),
                                         ),
                                       ),
                                       Container(
-                                        margin: const EdgeInsets.all(10),
+                                        margin: const EdgeInsets.only(top: 10),
                                         padding: const EdgeInsets.all(10),
                                         decoration: BoxDecoration(
                                           borderRadius: const BorderRadius.all(
@@ -149,7 +171,7 @@ class DetailScreen extends StatelessWidget {
                                           statement.statementCorrectness,
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline1,
+                                              .headline3,
                                         ),
                                       ),
                                     ],

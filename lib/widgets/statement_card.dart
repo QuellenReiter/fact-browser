@@ -71,7 +71,10 @@ class StatementCard extends StatelessWidget {
                         padding: const EdgeInsets.all(4),
                         child: Text(
                           statement.statementCorrectness,
-                          style: Theme.of(context).textTheme.subtitle1,
+                          style: Theme.of(context)
+                              .textTheme
+                              .subtitle1
+                              ?.copyWith(color: Colors.grey[200]),
                         ),
                       ),
                       Text(

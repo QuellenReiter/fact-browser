@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:statementmanager/models/fact.dart';
-import 'package:statementmanager/widgets/display/display_text_sizable.dart';
 
 import '../../provider/device_type_provider.dart';
 
@@ -39,7 +38,6 @@ class FactDisplayContainer extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: Container(
-                          margin: const EdgeInsets.all(10),
                           padding: const EdgeInsets.all(10),
                           decoration: const BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -47,7 +45,10 @@ class FactDisplayContainer extends StatelessWidget {
                           ),
                           child: Text(
                             fact.factText,
-                            style: Theme.of(context).textTheme.subtitle1,
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle2
+                                ?.copyWith(color: Colors.grey[200]),
                           ),
                         ),
                       ),
@@ -56,7 +57,6 @@ class FactDisplayContainer extends StatelessWidget {
                   Align(
                     alignment: Alignment.topRight,
                     child: Container(
-                      margin: const EdgeInsets.all(10),
                       padding: const EdgeInsets.all(10),
                       decoration: const BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -64,7 +64,7 @@ class FactDisplayContainer extends StatelessWidget {
                       ),
                       child: Text(
                         "Fakt",
-                        style: Theme.of(context).textTheme.headline1,
+                        style: Theme.of(context).textTheme.headline3,
                       ),
                     ),
                   ),

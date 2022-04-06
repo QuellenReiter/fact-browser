@@ -55,6 +55,11 @@ class _FactBrowserState extends State<FactBrowser> {
                     fontSize: DeviceType.width(ctx) < 600 ? 40 : 50,
                     color: Color(0xFFc7ebeb),
                   ),
+                  headline3: TextStyle(
+                    fontFamily: 'Bangers',
+                    fontSize: DeviceType.width(ctx) < 600 ? 24 : 50,
+                    color: Colors.grey[200],
+                  ),
                   subtitle1: TextStyle(
                     fontFamily: 'Oswald',
                     color: Color(0xFFc7ebeb),
@@ -62,7 +67,7 @@ class _FactBrowserState extends State<FactBrowser> {
                   ),
                   subtitle2: TextStyle(
                     fontFamily: 'Oswald',
-                    fontSize: DeviceType.width(ctx) < 600 ? 12 : 20,
+                    fontSize: DeviceType.width(ctx) < 600 ? 14 : 24,
                   ),
                   headline2: TextStyle(
                     fontFamily: 'Oswald',

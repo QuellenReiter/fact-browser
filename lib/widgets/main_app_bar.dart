@@ -96,11 +96,11 @@ class _MainAppBarState extends State<MainAppBar> {
                   child: widget.loggedIn
                       ? Text(
                           "Logout",
-                          style: Theme.of(context).textTheme.subtitle1,
+                          style: Theme.of(context).textTheme.subtitle2,
                         )
                       : Text(
                           "Login",
-                          style: Theme.of(context).textTheme.subtitle1,
+                          style: Theme.of(context).textTheme.subtitle2,
                         ),
                   value: 1,
                 ),
@@ -112,7 +112,7 @@ class _MainAppBarState extends State<MainAppBar> {
                   },
                   child: Text(
                     "Impressum",
-                    style: Theme.of(context).textTheme.subtitle1,
+                    style: Theme.of(context).textTheme.subtitle2,
                   ),
                   value: 2,
                 ),
@@ -125,7 +125,7 @@ class _MainAppBarState extends State<MainAppBar> {
                   },
                   child: Text(
                     "Datenschutz",
-                    style: Theme.of(context).textTheme.subtitle1,
+                    style: Theme.of(context).textTheme.subtitle2,
                   ),
                   value: 2,
                 )
