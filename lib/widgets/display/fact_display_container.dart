@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:statementmanager/models/fact.dart';
 import 'package:statementmanager/widgets/display/display_text_sizable.dart';
 
+import '../../provider/device_type_provider.dart';
+
 //ignore: must_be_immutable
 class FactDisplayContainer extends StatelessWidget {
   const FactDisplayContainer({
@@ -13,72 +15,121 @@ class FactDisplayContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(5),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SizableDisplayText(
-            text: fact.factText,
-            size: 20,
-            icon: Icons.chat,
-          ),
-          Flexible(
-            child: Row(children: [
-              Flexible(
-                child: SizableDisplayText(
-                  text: fact.factAuthor,
-                  icon: Icons.person,
+    return Padding(
+      padding: const EdgeInsets.all(40),
+      child: Container(
+        alignment: Alignment.topLeft,
+        clipBehavior: Clip.none,
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
+          color: Colors.grey[200],
+        ),
+        child: FractionallySizedBox(
+          widthFactor: 1.1,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: FractionallySizedBox(
+                      widthFactor: 0.6,
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Container(
+                          margin: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            color: Color(0xFF0999bc),
+                          ),
+                          child: Text(
+                            fact.factText,
+                            style: Theme.of(context).textTheme.subtitle1,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Container(
+                      margin: const EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        color: Color(0xFF009E74),
+                      ),
+                      child: Text(
+                        "Fakt",
+                        style: Theme.of(context).textTheme.headline1,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Flex(
+                  direction: DeviceType.width(context) < 400
+                      ? Axis.vertical
+                      : Axis.horizontal,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(Icons.person),
+                            Text(fact.factAuthor),
+                          ],
+                        ),
+                        DeviceType.width(context) < 400
+                            ? const SizedBox.shrink()
+                            : const Divider(
+                                height: 20,
+                              ),
+                        Row(
+                          children: [
+                            const Icon(Icons.newspaper),
+                            Text(fact.factMedia),
+                          ],
+                        )
+                      ],
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(Icons.calendar_month),
+                            Text(fact.dateAsString()),
+                          ],
+                        ),
+                        DeviceType.width(context) < 400
+                            ? const SizedBox.shrink()
+                            : const Divider(
+                                height: 20,
+                              ),
+                        Row(
+                          children: [
+                            const Icon(Icons.language),
+                            Text(fact.factLanguage),
+                          ],
+                        )
+                      ],
+                    )
+                  ],
                 ),
-              ),
-              Flexible(
-                child: SizableDisplayText(
-                    text: fact.factMedia, icon: Icons.newspaper),
-              ),
-            ]),
+              )
+            ],
           ),
-          Flexible(
-            child: Row(children: [
-              Flexible(
-                child: SizableDisplayText(
-                  text: fact.factLanguage,
-                  icon: Icons.language,
-                ),
-              ),
-              Flexible(
-                child: SizableDisplayText(
-                  text: fact.factDay.toString() +
-                      "/" +
-                      fact.factMonth.toString() +
-                      "/" +
-                      fact.factYear.toString(),
-                  icon: Icons.calendar_month_outlined,
-                ),
-              ),
-            ]),
-          ),
-          Flexible(
-            child: Row(children: [
-              Flexible(
-                child: SizableDisplayText(
-                  text: fact.factLink,
-                  icon: Icons.link,
-                ),
-              ),
-              Flexible(
-                child: SizableDisplayText(
-                  text: fact.factArchivedLink!,
-                  icon: Icons.link,
-                ),
-              ),
-            ]),
-          ),
-          const Divider(
-            height: 20,
-            thickness: 4,
-          ),
-        ],
+        ),
       ),
     );
   }

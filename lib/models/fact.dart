@@ -163,6 +163,20 @@ class Fact {
     };
     return vars;
   }
+
+  String dateAsString() {
+    String ret = "";
+    if (factDay != 0) {
+      ret += factDay.toString().padLeft(2, "0") + '/';
+    }
+    if (factMonth != 0) {
+      ret += factMonth.toString().padLeft(2, "0") + '/';
+    }
+    if (factYear != 0) {
+      ret += factYear.toString();
+    }
+    return ret;
+  }
 }
 
 class Facts {
