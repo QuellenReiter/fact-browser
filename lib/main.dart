@@ -29,50 +29,56 @@ class _FactBrowserState extends State<FactBrowser> {
   Widget build(BuildContext context) {
     // link to the API
     return MaterialApp.router(
-      routeInformationParser: _routeInformationParser,
-      routerDelegate: _routerDelegate,
-      theme: ThemeData(
-        brightness: Brightness.light,
-        primarySwatch: Colors.grey,
+        routeInformationParser: _routeInformationParser,
+        routerDelegate: _routerDelegate,
+        builder: (ctx, child) {
+          return Theme(
+            child: child!,
+            data: ThemeData(
+              brightness: Brightness.light,
+              primarySwatch: Colors.grey,
 
-        textTheme: const TextTheme(
-            bodyText2: TextStyle(
-              // default all text widget
-              fontSize: 12.0,
-              fontFamily: 'Oswald',
+              textTheme: TextTheme(
+                  bodyText2: TextStyle(
+                    // default all text widget
+                    fontSize: DeviceType.width(ctx) < 600 ? 10 : 14,
+                    fontFamily: 'Oswald',
+                  ),
+                  bodyText1: TextStyle(
+                    // default all text widget
+                    fontSize: DeviceType.width(ctx) < 600 ? 10 : 14,
+                    fontFamily: 'Oswald',
+                    color: Color(0xFFc7ebeb),
+                  ),
+                  headline1: TextStyle(
+                    fontFamily: 'Bangers',
+                    fontSize: DeviceType.width(ctx) < 600 ? 40 : 50,
+                    color: Color(0xFFc7ebeb),
+                  ),
+                  subtitle1: TextStyle(
+                    fontFamily: 'Oswald',
+                    color: Color(0xFFc7ebeb),
+                    fontSize: DeviceType.width(ctx) < 600 ? 12 : 20,
+                  ),
+                  subtitle2: TextStyle(
+                    fontFamily: 'Oswald',
+                    fontSize: DeviceType.width(ctx) < 600 ? 12 : 20,
+                  ),
+                  headline2: TextStyle(
+                    fontFamily: 'Oswald',
+                    fontSize: DeviceType.width(ctx) < 600 ? 12 : 20,
+                  )),
+              // fill back inside all TextFormField
+              inputDecorationTheme: const InputDecorationTheme(
+                isDense: true,
+              ),
             ),
-            bodyText1: TextStyle(
-              // default all text widget
-              fontSize: 12.0,
-              fontFamily: 'Oswald',
-            ),
-            headline1: TextStyle(
-              fontFamily: 'Bangers',
-              fontSize: 50,
-              color: Color(0xFFc7ebeb),
-            ),
-            subtitle1: TextStyle(
-              fontFamily: 'Oswald',
-              color: Color(0xFFc7ebeb),
-              fontSize: 16,
-            ),
-            subtitle2: TextStyle(
-              fontFamily: 'Oswald',
-              fontSize: 16,
-            ),
-            headline2: TextStyle(
-              fontFamily: 'Oswald',
-              fontSize: 16,
-            )),
-        // fill back inside all TextFormField
-        inputDecorationTheme: const InputDecorationTheme(
-          isDense: true,
-        ),
-      ),
-      // home: GraphQLProvider(
+          );
+        }
+        // home: GraphQLProvider(
 
-      //   client: client,
-      // ),
-    );
+        //   client: client,
+        // ),
+        );
   }
 }

@@ -38,7 +38,7 @@ class _MainAppBarState extends State<MainAppBar> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.only(bottom: 70, top: 0),
+              padding: const EdgeInsets.only(bottom: 40, top: 0),
               child: InkWell(
                 onTap: () {
                   Navigator.pop(context);
@@ -56,7 +56,7 @@ class _MainAppBarState extends State<MainAppBar> {
                   Flexible(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           'FACT BROWSER',
@@ -72,7 +72,7 @@ class _MainAppBarState extends State<MainAppBar> {
                           padding: const EdgeInsets.all(10),
                           child: TextField(
                             controller: widget.searchController,
-                            style: Theme.of(context).textTheme.bodyText1,
+                            style: Theme.of(context).textTheme.bodyText2,
                             decoration: const InputDecoration(
                               hintText: "Suche nach Themen, z.B. Corona",
                               border: OutlineInputBorder(
@@ -182,7 +182,7 @@ class _MainAppBarState extends State<MainAppBar> {
                               ),
                               child: TextField(
                                 controller: widget.searchController,
-                                style: Theme.of(context).textTheme.bodyText1,
+                                style: Theme.of(context).textTheme.bodyText2,
                                 decoration: const InputDecoration(
                                   hintText: "Suche nach Themen, z.B. Corona",
                                   border: OutlineInputBorder(
