@@ -13,6 +13,7 @@ class StatementCard extends StatelessWidget {
     List<Widget> factcheckMediaList = List.generate(
       statement.statementFactchecks.facts.length,
       (int i) => Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           const Icon(
             Icons.fact_check,
@@ -90,8 +91,7 @@ class StatementCard extends StatelessWidget {
                   height: 20,
                   thickness: 2,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                Wrap(
                   children: factcheckMediaList,
                 )
               ],

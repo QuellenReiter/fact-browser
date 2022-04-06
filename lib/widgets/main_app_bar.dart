@@ -184,7 +184,7 @@ class _MainAppBarState extends State<MainAppBar> {
                                 controller: widget.searchController,
                                 style: Theme.of(context).textTheme.bodyText2,
                                 decoration: const InputDecoration(
-                                  hintText: "Suche nach Themen, z.B. Corona",
+                                  hintText: "Suche nach Themen, z.B. Ukraine",
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.all(
                                         Radius.circular(10),

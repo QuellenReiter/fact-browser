@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:image/image.dart' as img;
 import 'package:statementmanager/models/statement.dart';
 import 'package:statementmanager/provider/device_type_provider.dart';
 import 'package:statementmanager/utilities/utilities.dart';
@@ -56,7 +55,7 @@ class DetailScreen extends StatelessWidget {
                         label: Padding(
                           padding: const EdgeInsets.all(7),
                           child: Text(
-                            "zurück",
+                            "zurück zur Suche",
                             style: Theme.of(context).textTheme.bodyText2,
                           ),
                         ),
