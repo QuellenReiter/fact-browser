@@ -155,7 +155,7 @@ class _MainAppBarState extends State<MainAppBar> {
                         Navigator.pop(context);
                       },
                       child: const Image(
-                        image: AssetImage('logo-pink.png'),
+                        image: AssetImage('assets/logo-pink.png'),
                       ),
                     ),
                   ),
