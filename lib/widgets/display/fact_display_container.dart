@@ -34,7 +34,7 @@ class FactDisplayContainer extends StatelessWidget {
                   Align(
                     alignment: Alignment.topLeft,
                     child: FractionallySizedBox(
-                      widthFactor: 0.6,
+                      widthFactor: 0.7,
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: Container(
