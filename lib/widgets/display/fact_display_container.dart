@@ -15,7 +15,7 @@ class FactDisplayContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(40),
+      padding: const EdgeInsets.only(top: 40, left: 40, right: 40),
       child: Container(
         alignment: Alignment.topLeft,
         clipBehavior: Clip.none,
