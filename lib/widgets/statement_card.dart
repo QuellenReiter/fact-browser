@@ -2,14 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:statementmanager/models/statement.dart';
 import 'package:statementmanager/utilities/utilities.dart';
 
+/// Brief information display of a single [Statement].
 class StatementCard extends StatelessWidget {
   const StatementCard(
       {Key? key, required this.statement, required this.onTapped})
       : super(key: key);
+
+  /// The [Statement] to be displayed.
   final Statement statement;
+
+  /// Stores if user tapped on this [StatementCard] and notifies the navigation.
   final ValueChanged<Statement> onTapped;
   @override
   Widget build(BuildContext context) {
+    // List of the Media publishing the [Facts] of this [Statement].
     List<Widget> factcheckMediaList = List.generate(
       statement.statementFactchecks.facts.length,
       (int i) => Row(
@@ -31,9 +37,11 @@ class StatementCard extends StatelessWidget {
     );
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
+      // The grey background box.
       child: Material(
         borderRadius: const BorderRadius.all(Radius.circular(15)),
         color: Colors.grey[200],
+        // Make it clickable.
         child: InkWell(
           hoverColor: Colors.grey[300],
           highlightColor: Colors.grey[400],
@@ -46,6 +54,7 @@ class StatementCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Display Statementtext.
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10),
                   child: Text(
@@ -53,12 +62,14 @@ class StatementCard extends StatelessWidget {
                     style: Theme.of(context).textTheme.subtitle2,
                   ),
                 ),
+
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      // Display correctness.
                       Container(
                         decoration: BoxDecoration(
                           color: statement.statementCorrectness ==
@@ -78,6 +89,7 @@ class StatementCard extends StatelessWidget {
                               ?.copyWith(color: Colors.grey[200]),
                         ),
                       ),
+                      // Display Media and date.
                       Text(
                         statement.statementMedia +
                             ', ' +
@@ -91,6 +103,7 @@ class StatementCard extends StatelessWidget {
                   height: 20,
                   thickness: 2,
                 ),
+                // Display list of Factcheck Media.
                 Wrap(
                   children: factcheckMediaList,
                 )

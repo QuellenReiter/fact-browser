@@ -3,6 +3,7 @@ import 'package:statementmanager/models/fact.dart';
 
 import '../../provider/device_type_provider.dart';
 
+/// Container to display a single [Fact] in detail.
 //ignore: must_be_immutable
 class FactDisplayContainer extends StatelessWidget {
   const FactDisplayContainer({
@@ -10,12 +11,14 @@ class FactDisplayContainer extends StatelessWidget {
     required this.fact,
   }) : super(key: key);
 
+  /// The fact to be displayed.
   final Fact fact;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 40, left: 40, right: 40),
+      // The grey background container.
       child: Container(
         alignment: Alignment.topLeft,
         clipBehavior: Clip.none,
@@ -28,6 +31,7 @@ class FactDisplayContainer extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              // Display [fact.factText] and a label "Fakt".
               Stack(
                 clipBehavior: Clip.none,
                 children: [
@@ -70,6 +74,7 @@ class FactDisplayContainer extends StatelessWidget {
                   ),
                 ],
               ),
+              // Display more information.
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: Flex(
@@ -82,6 +87,7 @@ class FactDisplayContainer extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        // Author.
                         Row(
                           children: [
                             const Icon(Icons.person),
@@ -93,6 +99,7 @@ class FactDisplayContainer extends StatelessWidget {
                             : const Divider(
                                 height: 20,
                               ),
+                        // Media.
                         Row(
                           children: [
                             const Icon(Icons.newspaper),
@@ -105,6 +112,7 @@ class FactDisplayContainer extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        // Date.
                         Row(
                           children: [
                             const Icon(Icons.calendar_month),
@@ -116,6 +124,7 @@ class FactDisplayContainer extends StatelessWidget {
                             : const Divider(
                                 height: 20,
                               ),
+                        // Language.
                         Row(
                           children: [
                             const Icon(Icons.language),

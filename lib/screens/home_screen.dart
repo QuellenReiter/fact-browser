@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:statementmanager/models/statement.dart';
 import 'package:statementmanager/provider/queries.dart';
 import 'package:statementmanager/utilities/utilities.dart';
 import 'package:statementmanager/widgets/main_app_bar.dart';
 import 'package:statementmanager/widgets/statement_card.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../consonents.dart';
-import 'edit_screen.dart';
 
+/// The Homescreen page with a searchbar.
 class HomeScreen extends StatefulWidget {
   const HomeScreen(
       {Key? key,
@@ -23,21 +21,42 @@ class HomeScreen extends StatefulWidget {
       required this.createStatement})
       : super(key: key);
 
+  /// Stores if a statement is selected.
   final ValueChanged<Statement> onSelectStatement;
+
+  /// Listens if the [query] changed
   final ValueChanged<String> onQueryChanged;
+
+  /// Callbackfunction that creates an empty statement.
   final Function createStatement;
+
+  /// Callbackfunction called after login is requested.
   final Function onLogin;
+
+  /// title of the page, currently not displayed in the appBar.
   final String title;
+
+  /// The search term inputted by the user.
   final String? query;
+
+  /// Stores if user is logged in.
   final bool isLoggedIn;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
+/// State of the [HomeScreen].
 class _HomeScreenState extends State<HomeScreen> {
+  /// Stores the query.
   late TextEditingController searchController;
+
+  /// Stores statements received from server after search.
   late Statements statements;
+
+  /// Initialize [searchController] to query value, if it exists. If not,
+  /// inittialize with default constructor.
+  /// Add listener [widget.onQueryChanged]
   @override
   void initState() {
     searchController = widget.query == null
@@ -49,6 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
+  /// Dispose [searchController]
   @override
   void dispose() {
     searchController.dispose();
@@ -57,18 +77,21 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Link to server.
     final HttpLink httpLink = HttpLink(kUrl, defaultHeaders: {
       'X-Parse-Application-Id': kParseApplicationId,
       'X-Parse-Client-Key': kParseClientKey,
       //'X-Parse-REST-API-Key' : kParseRestApiKey,
     });
-    // create the data provider
+
+    // Provides data from server and facilitates requests.
     ValueNotifier<GraphQLClient> client = ValueNotifier(
       GraphQLClient(
         cache: GraphQLCache(),
         link: httpLink,
       ),
     );
+    // Return the search page widget hierarchy.
     return GraphQLProvider(
       client: client,
       child: Scaffold(
@@ -86,24 +109,18 @@ class _HomeScreenState extends State<HomeScreen> {
               )
             : null,
         body: ValueListenableBuilder(
-            valueListenable: searchController,
-            builder: (context, TextEditingValue value, __) {
-              return Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Container(
-                    constraints: const BoxConstraints(
-                      maxWidth: 1000,
-                    ),
-                    child: Column(children: [
-                      // TextField(
-                      //   controller: searchController,
-                      //   decoration: InputDecoration(
-                      //     labelText: "Suche nach Themen, z.B. Covid",
-                      //     border: const OutlineInputBorder(),
-                      //     errorText: Utils.checkIfEmpty(searchController),
-                      //   ),
-                      // ),
+          valueListenable: searchController,
+          builder: (context, TextEditingValue value, __) {
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Container(
+                  constraints: const BoxConstraints(
+                    // Max width of the search results.
+                    maxWidth: 1000,
+                  ),
+                  child: Column(
+                    children: [
                       Builder(
                         builder: (BuildContext context) {
                           if (Utils.checkIfEmpty(searchController) == null) {
@@ -116,6 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 VoidCallback? refetch,
                                 FetchMore? fetchMore,
                               }) {
+                                // Show loading while requesting data.
                                 if (result.data == null) {
                                   return const Center(
                                     child: Text(
@@ -124,8 +142,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                   );
                                 } else {
-                                  // print(result.data.toString());
                                   statements = Statements.fromMap(result.data);
+                                  // Build search results.
                                   return Flexible(
                                     child: ListView.builder(
                                         itemCount: statements.statements.length,
@@ -146,11 +164,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           }
                         },
                       ),
-                    ]),
+                    ],
                   ),
                 ),
-              );
-            }),
+              ),
+            );
+          },
+        ),
       ),
     );
   }

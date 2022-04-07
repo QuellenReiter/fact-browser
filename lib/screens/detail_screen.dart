@@ -5,6 +5,7 @@ import 'package:statementmanager/utilities/utilities.dart';
 import 'package:statementmanager/widgets/main_app_bar.dart';
 import '../widgets/display/fact_display_container.dart';
 
+/// The page to display all details of a [Statement].
 //ignore: must_be_immutable
 class DetailScreen extends StatelessWidget {
   DetailScreen(
@@ -14,13 +15,22 @@ class DetailScreen extends StatelessWidget {
       required this.title,
       required this.isLoggedIn})
       : super(key: key);
+
+  /// Stores if user is logged in.
   final bool isLoggedIn;
+
+  /// The statement to be displayed.
   Statement statement;
+
+  /// The title for the appBar, currently not displayed.
   final String title;
+
+  /// Callback for login request. This function is passed to the appBar.
   final Function onLogin;
 
   @override
   Widget build(BuildContext context) {
+    // List of widgets displaying all factchecks.
     List<Widget> factContainers = List.generate(
       statement.statementFactchecks.facts.length,
       (int i) => FactDisplayContainer(
@@ -39,10 +49,12 @@ class DetailScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           constraints: const BoxConstraints(maxWidth: 1000),
           height: DeviceType.height(context),
+          // Scrollable container displaying all the information.
           child: ListView(
             clipBehavior: Clip.none,
             shrinkWrap: true,
             children: [
+              // The backbutton.
               FractionallySizedBox(
                 widthFactor: 1.1,
                 child: Padding(
@@ -66,6 +78,7 @@ class DetailScreen extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 40),
+                // Grey background box.
                 child: Container(
                   alignment: Alignment.topLeft,
                   clipBehavior: Clip.none,
@@ -89,6 +102,8 @@ class DetailScreen extends StatelessWidget {
                                 child: Stack(
                                   alignment: Alignment.bottomCenter,
                                   children: [
+                                    // The image with rounded edges and cropped
+                                    // to 4:3 ratio.
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(10),
                                       child: AspectRatio(
@@ -111,6 +126,7 @@ class DetailScreen extends StatelessWidget {
                                         )),
                                       ),
                                     ),
+                                    // Display [statement.samplePictureCopyright]
                                     Container(
                                       padding: const EdgeInsets.all(2),
                                       color: const Color.fromARGB(61, 0, 0, 0),
@@ -125,6 +141,8 @@ class DetailScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
+                            // Display [statement.statementText] and
+                            // [statement.statementCorrectness]
                             Align(
                               alignment: Alignment.centerRight,
                               child: FractionallySizedBox(
@@ -180,6 +198,7 @@ class DetailScreen extends StatelessWidget {
                             )
                           ],
                         ),
+                        // Display more information.
                         Padding(
                           padding: const EdgeInsets.all(20),
                           child: Flex(
@@ -193,6 +212,7 @@ class DetailScreen extends StatelessWidget {
                                     MainAxisAlignment.spaceEvenly,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  // Author
                                   Row(
                                     children: [
                                       const Icon(Icons.person),
@@ -204,6 +224,7 @@ class DetailScreen extends StatelessWidget {
                                       : const Divider(
                                           height: 20,
                                         ),
+                                  // Media and Mediatype
                                   Row(
                                     children: [
                                       const Icon(Icons.newspaper),
@@ -219,6 +240,7 @@ class DetailScreen extends StatelessWidget {
                                     MainAxisAlignment.spaceEvenly,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  // Date
                                   Row(
                                     children: [
                                       const Icon(Icons.calendar_month),
@@ -230,6 +252,7 @@ class DetailScreen extends StatelessWidget {
                                       : const Divider(
                                           height: 20,
                                         ),
+                                  // Language
                                   Row(
                                     children: [
                                       const Icon(Icons.language),
@@ -246,6 +269,7 @@ class DetailScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              // Display all [statement.factChecks]
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: factContainers,

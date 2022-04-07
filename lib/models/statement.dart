@@ -1,26 +1,50 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:statementmanager/models/fact.dart';
 import 'package:statementmanager/provider/queries.dart';
-import 'package:statementmanager/utilities/utilities.dart';
 
+/// This holds all [TextEditingController] to create and edit a [Statement].
 class StatementController {
+  /// [TextEditingController] for [Statement.statementText].
   late TextEditingController textController;
+
+  /// [TextEditingController] for [Statement.statementYear].
   late TextEditingController yearController;
+
+  /// [TextEditingController] for [Statement.statementMonth].
   late TextEditingController monthController;
+
+  /// [TextEditingController] for [Statement.statementDay].
   late TextEditingController dayController;
+
+  /// [TextEditingController] for [Statement.statementMedia].
   late TextEditingController mediaTypeController;
+
+  /// [TextEditingController] for [Statement.statementCorrectness].
   late TextEditingController correctnessController;
+
+  /// [TextEditingController] for [Statement.statementCategory].
   late TextEditingController categoryController;
+
+  /// [TextEditingController] for [Statement.samplePictureCopyright].
   late TextEditingController samplePictureCopyrightController;
+
+  /// [TextEditingController] for [Statement.statementLink].
   late TextEditingController linkController;
+
+  /// [TextEditingController] for [Statement.statementAuthor].
   late TextEditingController authorController;
+
+  /// [TextEditingController] for [Statement.statementMedia].
   late TextEditingController mediaController;
+
+  /// [TextEditingController] for [Statement.statementLanguage].
   late TextEditingController languageController;
 
+  /// Construct a [StatementController] given a [Map] containing all fields of a
+  /// [Statement] and its [Facts].
   StatementController.fromMap(Map<String, dynamic> statement) {
     textController =
         TextEditingController(text: statement[Queries.statementText]);
@@ -46,6 +70,7 @@ class StatementController {
         TextEditingController(text: statement[Queries.statementMedia]);
   }
 
+  /// Construct a [StatementController] given a [Statement].
   StatementController(Statement statement) {
     textController = TextEditingController(text: statement.statementText);
     textController.addListener(() {
@@ -108,6 +133,7 @@ class StatementController {
     });
   }
 
+  /// Dispose all [TextEditingController] at once.
   void dispose() {
     textController.dispose();
     yearController.dispose();
@@ -123,25 +149,60 @@ class StatementController {
   }
 }
 
+/// A class to hold information of a Statement.
 class Statement {
+  /// The claim of the statement.
   late String statementText;
+
+  /// The URL to a picture describing the statement.
   late String statementPictureURL;
+
+  /// The Year of the statement publication.
   late int statementYear;
+
+  /// The Month of the statement publication.
   late int statementMonth;
+
+  /// The Day of the statement publication.
   late int statementDay;
+
+  /// The Mediatype of the statement.
   late String statementMediatype;
+
+  /// The Language of the statement.
   late String statementLanguage;
+
+  /// The correctness of the statement. One of [Queries.correctnessValues].
   late String statementCorrectness;
+
+  /// The Link to the statement, mostly an archived link.
   late String statementLink;
+
+  /// Stores if the statement was corrected.
   late bool statementRectification;
+
+  /// The Category of the statement. One of [Queries.categoryValues].
   late String statementCategory;
+
+  /// The copyright text of the [Statement.statementPictureURL].
   late String samplePictureCopyright;
+
+  /// The Author of the statement.
   late String statementAuthor;
+
+  /// The Media publishing the statement.
   late String statementMedia;
+
+  /// The [Facts] of the statement.
   late Facts statementFactchecks;
+
+  /// An image to be uploaded stored as bytes.
   Uint8List? uploadImage;
+
+  /// The ID of the statement in the database.
   String? objectId;
 
+  /// Default constructor.
   Statement(
       this.statementText,
       this.statementAuthor,
@@ -160,6 +221,8 @@ class Statement {
       this.statementRectification,
       this.objectId);
 
+  /// Construct a [Statement] from a [Map] containing all fields of the
+  /// [Statement].
   Statement.fromMap(Map<String, dynamic>? map)
       : statementText = map?[Queries.statementText],
         statementAuthor = map?[Queries.statementAuthor],
@@ -179,6 +242,7 @@ class Statement {
             Facts.fromMap(map?[Queries.statementFactcheckIDs]),
         objectId = map?["objectId"];
 
+  /// Construct an empty [Statement].
   Statement.empty() {
     statementText = "";
     statementAuthor = "";
@@ -196,7 +260,8 @@ class Statement {
     samplePictureCopyright = "";
     statementRectification = false;
   }
-  // are all variables filled ?
+
+  /// Checks if all neccessary fields of the [Statement] are filled in.
   bool isComplete() {
     //check statement
     if (statementText.isEmpty ||
@@ -210,7 +275,7 @@ class Statement {
         (statementPictureURL == "emptyButNotEmpty" && (uploadImage == null))) {
       return false;
     }
-    //checl all facts
+    //check all facts
     for (var fact in statementFactchecks.facts) {
       if (fact.factAuthor.isEmpty ||
           fact.factLanguage.isEmpty ||
@@ -223,6 +288,11 @@ class Statement {
     return true;
   }
 
+  /// Return the [Statement.statementDay], [Statement.statementMonth] and
+  /// [Statement.statementYear] as [String] like so dd/mm/yyyy.
+  ///
+  /// If no [Statement.statementDay] and/or no [Statement.statementMonth] is
+  /// given, the returned [String] ommits these fields like so mm/yyyy or yyyy.
   String dateAsString() {
     String ret = "";
     if (statementDay != 0) {
@@ -237,6 +307,7 @@ class Statement {
     return ret;
   }
 
+  /// Convert a [Statement] back to its [Map] representation.
   Map<String, dynamic> toMap() {
     Map<String, dynamic> vars = {
       "fields": {
@@ -282,9 +353,12 @@ class Statement {
   }
 }
 
+/// A class containing a [List] of [Statement].
 class Statements {
+  /// The [List] of [Statement].
   List<Statement> statements = [];
 
+  /// Convert the [Statements] back to a [Map] containing all fields.
   Statements.fromMap(Map<String, dynamic>? map) {
     for (Map<String, dynamic>? statement in map?["statements"]["edges"]) {
       statements.add(Statement.fromMap(statement?["node"]));

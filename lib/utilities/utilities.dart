@@ -1,10 +1,12 @@
-import 'dart:math';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:image/image.dart' as img;
 
+/// Static Class containing various utility functions. Can be called without
+/// calling a constructor.
 class Utils {
+  /// Checks if the value of a given [TextEditingController] is empty. Used for
+  /// the errortext on [TextField].
   static String? checkIfEmpty(TextEditingController textEditingController) {
     final text = textEditingController.text;
     if (text.isEmpty) {
@@ -14,6 +16,8 @@ class Utils {
     return null;
   }
 
+  /// Checks if the Value of a [TextEditingController] is a number within
+  /// the interval [0, 31].
   static String? checkIfDay(TextEditingController textEditingController) {
     final text = textEditingController.text != ""
         ? int.parse(textEditingController.text)
@@ -25,6 +29,8 @@ class Utils {
     return null;
   }
 
+  /// Checks if the Value of a [TextEditingController] is a number within
+  /// the interval [0, 12].
   static String? checkIfMonth(TextEditingController textEditingController) {
     final text = textEditingController.text != ""
         ? int.parse(textEditingController.text)
@@ -36,6 +42,8 @@ class Utils {
     return null;
   }
 
+  /// Checks if the Value of a [TextEditingController] is a number within
+  /// smaller than the current year.
   static String? checkIfYear(TextEditingController textEditingController) {
     final text = textEditingController.text != ""
         ? int.parse(textEditingController.text)
@@ -47,6 +55,8 @@ class Utils {
     return null;
   }
 
+  /// Checks if the Value of a [TextEditingController] is longer than
+  /// [minLength].
   static String? checkIfLongerThan(
       TextEditingController textEditingController, int minLength) {
     final text = textEditingController.text;
@@ -57,6 +67,8 @@ class Utils {
     return null;
   }
 
+  /// Checks if the Value of a [TextEditingController] is empy or equal to a
+  /// given string [compareString].
   static String? checkIfEmptyOrEqualTo(
       TextEditingController textEditingController, String compareString) {
     final text = textEditingController.text;
@@ -67,6 +79,7 @@ class Utils {
     return null;
   }
 
+  /// compress an Image [pic] and pass it to a [callback].
   static void compressImage(Uint8List pic, Function callback) async {
     img.Image tempFile = img.decodeImage(List.from(pic))!;
     tempFile = img.copyResize(
@@ -77,37 +90,10 @@ class Utils {
     // convert back to bytes
     callback(img.encodeJpg(tempFile, quality: 50));
   }
-
-  static String formatDate(String? date) {
-    if (date == null) {
-      return "";
-    }
-    if (date.length < 10) {
-      return "";
-    }
-    return date.substring(8, 10) +
-        "/" +
-        date.substring(5, 7) +
-        "/" +
-        date.substring(0, 4);
-  }
-
-  static String? toUTCDateFormat(String? date) {
-    if (date == null) {
-      return null;
-    }
-    if (date.length < 10) {
-      return null;
-    }
-    var ret = DateTime.utc(
-      int.parse(date.substring(6, 10)),
-      int.parse(date.substring(3, 5)),
-      int.parse(date.substring(0, 2)),
-    );
-    return ret.toString();
-  }
 }
 
+/// static class containing all possible values of
+/// [Statement.statementCorrectness].
 class CorrectnessCategory {
   static String correct = "richtig";
   static String unverified = "unbelegt";
@@ -117,33 +103,4 @@ class CorrectnessCategory {
   static String fabricatedContent = "frei erfunden";
   static String falseInformation = "Fehlinformation";
   static String satire = "Satire";
-}
-
-// Source: https://stackoverflow.com/questions/47403758/flutter-inputformatter-for-date
-class DateTextFormatter extends TextInputFormatter {
-  static const _maxChars = 8;
-
-  @override
-  TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
-    var text = _format(newValue.text, '/');
-    return newValue.copyWith(text: text, selection: updateCursorPosition(text));
-  }
-
-  String _format(String value, String seperator) {
-    value = value.replaceAll(seperator, '');
-    var newString = '';
-    for (int i = 0; i < min(value.length, _maxChars); i++) {
-      newString += value[i];
-      if ((i == 1 || i == 3) && i != value.length - 1) {
-        newString += seperator;
-      }
-    }
-
-    return newString;
-  }
-
-  TextSelection updateCursorPosition(String text) {
-    return TextSelection.fromPosition(TextPosition(offset: text.length));
-  }
 }

@@ -2,6 +2,7 @@ import 'package:statementmanager/models/statement.dart';
 
 import '../models/fact.dart';
 
+/// Class containg various utilities for the database connection.
 class Queries {
   static String statementText = "statement";
   static String statementPicture = "pictureUrl";
@@ -30,6 +31,7 @@ class Queries {
   static String factAuthor = "author";
   static String factMedia = "media";
 
+  /// [List] of all possible values for [Statement.statementCorrectness].
   static List<String> correctnessValues = [
     "richtig",
     "unbelegt",
@@ -42,6 +44,7 @@ class Queries {
     "falsch"
   ];
 
+  /// [List] of all possible values for [Statement.statementCategory].
   static List<String> categoryValues = [
     "Politik",
     "Sport",
@@ -52,6 +55,7 @@ class Queries {
     "Geschichte"
   ];
 
+  /// [List] of all possible values for [Statement.statementMediatype].
   static List<String> mediatypeValues = [
     "Online-Artikel",
     "Print-Artikel",
@@ -64,12 +68,16 @@ class Queries {
     "Mythos"
   ];
 
+  /// [List] of all some suggestions for [Statement.statementAuthor] and
+  /// [Fact.factAuthor].
   static List<String> authorSuggestions = const [
     "unbekannt",
     "geteilt von mehreren User:innen",
     "Donald Trump",
   ];
 
+  /// [List] of all some suggestions for [Statement.statementMedia] and
+  /// [Fact.factMedia].
   static List<String> mediaSuggestions = const [
     "Twitter",
     "Facebook",
@@ -90,6 +98,8 @@ class Queries {
     "Instagram"
   ];
 
+  /// [List] of all some suggestions for [Statement.statementLanguage] and
+  /// [Fact.factLanguage].
   static List<String> languageSuggestions = const [
     "deutsch",
     "englisch",
@@ -98,9 +108,7 @@ class Queries {
     "russisch"
   ];
 
-  // static String[4] categories = [];
-
-  //
+  /// Returns the graphQL query to search for [Statements].
   static String searchStatements(String query) {
     String ret = '''
   query searchStatementsByWord{
@@ -154,6 +162,7 @@ class Queries {
     return ret;
   }
 
+  /// Returns the graphQL mutation to create a [Statement].
   static String createStatement() {
     String ret = '''
   mutation createAStatement(\$input: CreateStatementInput!){
@@ -199,8 +208,7 @@ class Queries {
     return ret;
   }
 
-  // https://parsefiles.back4app.com/FeP6gb7k9R2K9OztjKWA1DgYhubqhW0yJMyrHbxH/4ee6719b05be9a227fcc5ad38f6f660d_42.jpg
-  // https://parsefiles.back4app.com/FeP6gb7k9R2K9OztjKWA1DgYhubqhW0yJMyrHbxH/https%3A%2F%2Fparsefiles.back4app.com%2FFeP6gb7k9R2K9OztjKWA1DgYhubqhW0yJMyrHbxH%2F4ee6719b05be9a227fcc5ad38f6f660d_42.jpg
+  /// Returns the graphQL mutation to update a [Statement].
   static String updateStatement() {
     String ret = '''
   mutation updateAStatement(\$input: UpdateStatementInput!){
@@ -246,9 +254,10 @@ class Queries {
     return ret;
   }
 
+  /// Returns the graphQL mutation to delete a [Fact] by [Fact.objectId].
   static String deleteFact(String factId) {
     // how to ensure that facts are not duplicated but changes
-    //are still updated..??
+    // are still updated..??
 
     String ret = '''
   mutation deleteAFact{
@@ -266,6 +275,7 @@ class Queries {
     return ret;
   }
 
+  /// Returns the graphQL mutation to login.
   static String login(String username, String password) {
     String ret = '''
 mutation LogIn{
@@ -282,6 +292,7 @@ mutation LogIn{
     return ret;
   }
 
+  /// Returns the graphQL query to check the current user.
   static String getCurrentUser() {
     String ret = '''
 query GetCurrentUser{
@@ -293,6 +304,7 @@ query GetCurrentUser{
     return ret;
   }
 
+  /// Returns the graphQL query to get a [Statement] by [Statement.objectId].
   static String getStatement(String? statementID) {
     String ret = '''
 query getStatement{

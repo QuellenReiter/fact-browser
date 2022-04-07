@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:statementmanager/provider/device_type_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+/// The AppBar (top of the App) that contains searchbar and links to impressum, datenschutz and
+/// login/logout.
+/// TODO: Remove large if statement and do condition: popupmenu or row.
 class MainAppBar extends StatefulWidget with PreferredSizeWidget {
   MainAppBar({
     Key? key,
@@ -11,262 +14,218 @@ class MainAppBar extends StatefulWidget with PreferredSizeWidget {
     this.searchController,
   }) : super(key: key);
 
+  /// Page title, currently not displayed.
   final String title;
+
+  /// Stores if user is logged in.
   final bool loggedIn;
+
+  /// Callback, if user requests login.
   final Function onLogin;
+
+  /// The controller of the searchbar content and input.
   final TextEditingController? searchController;
+
+  /// The height of the appBar.
   double barHeight = 150;
 
   @override
   State<MainAppBar> createState() => _MainAppBarState();
 
+  /// The size of the appbar.
   @override
   Size get preferredSize => Size.fromHeight(barHeight);
 }
 
+/// State of the [MainAppBar].
 class _MainAppBarState extends State<MainAppBar> {
   @override
+  // Build the appBar
   Widget build(BuildContext context) {
-    if (DeviceType.width(context) < 900) {
-      return Container(
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.vertical(bottom: Radius.circular(40)),
-          color: Color(0xFF0999bc),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 40, top: 0),
-              child: InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: const Image(
-                  image: AssetImage('assets/logo-pink.png'),
-                ),
+    // If mobile or narrow desktop browser. Main difference:
+    // Narrow windows show a dropdown for login/impressum/datenschutz.
+    return Container(
+      // Set background color and rounded bottom corners.
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.vertical(bottom: Radius.circular(40)),
+        color: Color(0xFF0999bc),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 40, top: 0),
+            child:
+                // The app icon. If tabbed, returns to homescreen.
+                InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: const Image(
+                image: AssetImage('assets/logo-pink.png'),
               ),
             ),
-            Flexible(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Flexible(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'FACT BROWSER',
-                          style: Theme.of(context).textTheme.headline1,
-                        ),
-                        Text('Die "Fake News"-Datenbank',
-                            style: Theme.of(context).textTheme.subtitle1),
-                      ],
-                    ),
+          ),
+          Flexible(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // The Title and subtitle.
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'FACT BROWSER',
+                        style: Theme.of(context).textTheme.headline1,
+                      ),
+                      Text('Die "Fake News"-Datenbank',
+                          style: Theme.of(context).textTheme.subtitle1),
+                    ],
                   ),
-                  widget.searchController != null
-                      ? Container(
-                          padding: const EdgeInsets.all(10),
-                          child: TextField(
-                            controller: widget.searchController,
-                            style: Theme.of(context).textTheme.bodyText2,
-                            decoration: const InputDecoration(
-                              hintText: "Suche nach Themen, z.B. Corona",
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                  gapPadding: 2),
-                              filled: true,
-                              fillColor: Colors.white,
-                            ),
+                ),
+                // Display the searchbar, if [widget.searchController] exists.
+                widget.searchController != null
+                    ? Container(
+                        padding: const EdgeInsets.all(10),
+                        child: TextField(
+                          controller: widget.searchController,
+                          style: Theme.of(context).textTheme.bodyText2,
+                          decoration: const InputDecoration(
+                            hintText: "Suche nach Themen, z.B. Corona",
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
+                                gapPadding: 2),
+                            filled: true,
+                            fillColor: Colors.white,
                           ),
-                        )
-                      : const SizedBox.shrink(),
-                ],
-              ),
-            ),
-            PopupMenuButton(
-              itemBuilder: (context) => [
-                PopupMenuItem(
-                  onTap: () => widget.onLogin(),
-                  child: widget.loggedIn
-                      ? Text(
-                          "Logout",
-                          style: Theme.of(context).textTheme.subtitle2,
-                        )
-                      : Text(
-                          "Login",
-                          style: Theme.of(context).textTheme.subtitle2,
                         ),
-                  value: 1,
-                ),
-                PopupMenuItem(
-                  onTap: () async {
-                    if (!await launch("https://quellenreiter.app/Impressum/")) {
-                      throw 'could not launch';
-                    }
-                  },
-                  child: Text(
-                    "Impressum",
-                    style: Theme.of(context).textTheme.subtitle2,
-                  ),
-                  value: 2,
-                ),
-                PopupMenuItem(
-                  onTap: () async {
-                    if (!await launch(
-                        "https://quellenreiter.app/Datenschutz/")) {
-                      throw 'could not launch';
-                    }
-                  },
-                  child: Text(
-                    "Datenschutz",
-                    style: Theme.of(context).textTheme.subtitle2,
-                  ),
-                  value: 2,
-                )
+                      )
+                    : const SizedBox.shrink(),
               ],
             ),
-          ],
-        ),
-      );
-    } else {
-      return Container(
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.vertical(bottom: Radius.circular(40)),
-          color: Color(0xFF0999bc),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Flexible(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 40),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Image(
-                        image: AssetImage('assets/logo-pink.png'),
-                      ),
-                    ),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'FACT BROWSER',
-                            style: Theme.of(context).textTheme.headline1,
-                          ),
-                          Text('Die "Fake News"-Datenbank',
-                              style: Theme.of(context).textTheme.subtitle1),
-                        ],
-                      ),
-                      widget.searchController != null
-                          ? Container(
-                              padding: const EdgeInsets.all(10),
-                              constraints: const BoxConstraints(
-                                maxWidth: 500,
-                              ),
-                              child: TextField(
-                                controller: widget.searchController,
-                                style: Theme.of(context).textTheme.bodyText2,
-                                decoration: const InputDecoration(
-                                  hintText: "Suche nach Themen, z.B. Ukraine",
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                      gapPadding: 2),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                ),
-                              ),
+          ),
+          DeviceType.width(context) < 900
+              ?
+              // The dropdown menu for login, impressum and datenschutz.
+              PopupMenuButton(
+                  itemBuilder: (context) => [
+                    // Item: Login/Logout
+                    PopupMenuItem(
+                      onTap: () => widget.onLogin(),
+                      child: widget.loggedIn
+                          ? Text(
+                              "Logout",
+                              style: Theme.of(context).textTheme.subtitle2,
                             )
-                          : const SizedBox.shrink(),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20),
-                        child: InkWell(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Icon(
-                                Icons.login,
-                                color: Color(0xFFc7ebeb),
-                              ),
-                              widget.loggedIn
-                                  ? Text(
-                                      "Logout",
-                                      style:
-                                          Theme.of(context).textTheme.subtitle1,
-                                    )
-                                  : Text(
-                                      "Login",
-                                      style:
-                                          Theme.of(context).textTheme.subtitle1,
-                                    ),
-                            ],
-                          ),
-                          onTap: () => widget.onLogin(),
-                        ),
+                          : Text(
+                              "Login",
+                              style: Theme.of(context).textTheme.subtitle2,
+                            ),
+                      value: 1,
+                    ),
+                    // Item: Impressum
+                    PopupMenuItem(
+                      onTap: () async {
+                        if (!await launch(
+                            "https://quellenreiter.app/Impressum/")) {
+                          throw 'could not launch';
+                        }
+                      },
+                      child: Text(
+                        "Impressum",
+                        style: Theme.of(context).textTheme.subtitle2,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 50),
+                      value: 2,
+                    ),
+                    // Item: Datenschutz
+                    PopupMenuItem(
+                      onTap: () async {
+                        if (!await launch(
+                            "https://quellenreiter.app/Datenschutz/")) {
+                          throw 'could not launch';
+                        }
+                      },
+                      child: Text(
+                        "Datenschutz",
+                        style: Theme.of(context).textTheme.subtitle2,
+                      ),
+                      value: 2,
+                    )
+                  ],
+                )
+              : Row(
+                  children: [
+                    // Item: Login/Logout
+                    Padding(
+                      padding: const EdgeInsets.only(right: 20),
+                      child: InkWell(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            InkWell(
-                              onTap: () async {
-                                if (!await launch(
-                                    "https://quellenreiter.app/Impressum/")) {
-                                  throw 'could not launch';
-                                }
-                              },
-                              child: Text(
-                                "Impressum",
-                                style: Theme.of(context).textTheme.subtitle1,
-                              ),
+                            const Icon(
+                              Icons.login,
+                              color: Color(0xFFc7ebeb),
                             ),
-                            InkWell(
-                              onTap: () async {
-                                if (!await launch(
-                                    "https://quellenreiter.app/Datenschutz/")) {
-                                  throw 'could not launch';
-                                }
-                              },
-                              child: Text(
-                                "Datenschutz",
-                                style: Theme.of(context).textTheme.subtitle1,
-                              ),
-                            ),
+                            widget.loggedIn
+                                ? Text(
+                                    "Logout",
+                                    style:
+                                        Theme.of(context).textTheme.subtitle1,
+                                  )
+                                : Text(
+                                    "Login",
+                                    style:
+                                        Theme.of(context).textTheme.subtitle1,
+                                  ),
                           ],
                         ),
+                        onTap: () => widget.onLogin(),
                       ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      );
-    }
+                    ),
+                    // Item: Impressum and Datenschutz
+                    Padding(
+                      padding: const EdgeInsets.only(right: 50),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          InkWell(
+                            onTap: () async {
+                              if (!await launch(
+                                  "https://quellenreiter.app/Impressum/")) {
+                                throw 'could not launch';
+                              }
+                            },
+                            child: Text(
+                              "Impressum",
+                              style: Theme.of(context).textTheme.subtitle1,
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () async {
+                              if (!await launch(
+                                  "https://quellenreiter.app/Datenschutz/")) {
+                                throw 'could not launch';
+                              }
+                            },
+                            child: Text(
+                              "Datenschutz",
+                              style: Theme.of(context).textTheme.subtitle1,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+        ],
+      ),
+    );
   }
 }
