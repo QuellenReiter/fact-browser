@@ -1,0 +1,23 @@
+name: deployFactBrowser
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pushes to another repository
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          source-directory: 'build/web'
+          destination-github-username: 'QuellenReiter'
+          destination-repository-name: 'fact-browser-deployment'
+          user-name: simonsasse
+          user-email: simonsasse97@gmail.com
+          target-branch: main
+          commit-message: 'Automated deployment update.'
