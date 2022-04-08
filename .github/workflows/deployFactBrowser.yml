@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Pushes to another repository
+      - name: Push to Fact Browser Deployment
         uses: cpina/github-action-push-to-another-repository@main
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
@@ -21,3 +21,19 @@ jobs:
           user-email: simonsasse97@gmail.com
           target-branch: main
           commit-message: 'Automated deployment update.'
+      - name: Deploys Documentation
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          source-directory: 'doc/api'
+          destination-github-username: 'QuellenReiter'
+          destination-repository-name: 'fact-browser-documentation'
+          user-name: simonsasse
+          user-email: simonsasse97@gmail.com
+          target-branch: main
+          commit-message: 'Automated deployment update of documentation.'
+          
+          
+          
+          
