@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:statementmanager/navigation/fact_browser_routes.dart';
 
+/// Class to parse given links and direct users to the correct page.
 class FactBrowserRouteInformationParser
     extends RouteInformationParser<FactBrowserRoutePath> {
   @override
   Future<FactBrowserRoutePath> parseRouteInformation(
       RouteInformation routeInformation) async {
+    // Url to be parsed
     final uri = Uri.parse(routeInformation.location!);
     // Handle '/'
     if (uri.pathSegments.isEmpty) {
