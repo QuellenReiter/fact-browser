@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:statementmanager/constants/constants.dart';
 import 'package:statementmanager/models/statement.dart';
 import 'package:statementmanager/utilities/utilities.dart';
 
@@ -40,7 +41,7 @@ class StatementCard extends StatelessWidget {
       // The grey background box.
       child: Material(
         borderRadius: const BorderRadius.all(Radius.circular(15)),
-        color: Colors.grey[200],
+        color: DesignColors.lightGrey,
         // Make it clickable.
         child: InkWell(
           hoverColor: Colors.grey[300],
@@ -86,7 +87,7 @@ class StatementCard extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .subtitle1
-                              ?.copyWith(color: Colors.grey[200]),
+                              ?.copyWith(color: DesignColors.lightGrey),
                         ),
                       ),
                       // Display Media and date.

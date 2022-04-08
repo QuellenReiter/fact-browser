@@ -1,113 +1,9 @@
 import 'package:statementmanager/models/statement.dart';
-
+import '../constants/constants.dart';
 import '../models/fact.dart';
 
 /// Class containg various utilities for the database connection.
 class Queries {
-  static String statementText = "statement";
-  static String statementPicture = "pictureUrl";
-  static String statementYear = "year";
-  static String statementMonth = "month";
-  static String statementDay = "day";
-  static String statementMediatype = "mediatype";
-  static String statementLanguage = "language";
-  static String statementCorrectness = "correctness";
-  static String statementLink = "link";
-  static String statementRectification = "rectification";
-  static String statementCategory = "category";
-  static String statementPictureCopyright = "samplePictureCopyright";
-  static String statementAuthor = "author";
-  static String statementMedia = "media";
-  static String statementFactcheckIDs = "factcheckIDs";
-  static String statementPictureFile = "PictureFile";
-
-  static String factText = "fact";
-  static String factYear = "year";
-  static String factMonth = "month";
-  static String factDay = "day";
-  static String factLanguage = "language";
-  static String factLink = "link";
-  static String factArchivedLink = "archivedLink";
-  static String factAuthor = "author";
-  static String factMedia = "media";
-
-  /// [List] of all possible values for [Statement.statementCorrectness].
-  static List<String> correctnessValues = [
-    "richtig",
-    "unbelegt",
-    "falscher Kontext",
-    "manipuliert",
-    "irreführend",
-    "frei erfunden",
-    "Fehlinformation",
-    "Satire",
-    "falsch"
-  ];
-
-  /// [List] of all possible values for [Statement.statementCategory].
-  static List<String> categoryValues = [
-    "Politik",
-    "Sport",
-    "Wirtschaft",
-    "Gesellschaft",
-    "Wissenschaft",
-    "Kultur",
-    "Geschichte"
-  ];
-
-  /// [List] of all possible values for [Statement.statementMediatype].
-  static List<String> mediatypeValues = [
-    "Online-Artikel",
-    "Print-Artikel",
-    "Interview",
-    "Social Media Post",
-    "Werbung",
-    "Foto",
-    "Video",
-    "TV-Beitrag",
-    "Mythos"
-  ];
-
-  /// [List] of all some suggestions for [Statement.statementAuthor] and
-  /// [Fact.factAuthor].
-  static List<String> authorSuggestions = const [
-    "unbekannt",
-    "geteilt von mehreren User:innen",
-    "Donald Trump",
-  ];
-
-  /// [List] of all some suggestions for [Statement.statementMedia] and
-  /// [Fact.factMedia].
-  static List<String> mediaSuggestions = const [
-    "Twitter",
-    "Facebook",
-    "Correctiv",
-    "Focus",
-    "Tagesschau",
-    "unbekannt",
-    "Spiegel",
-    "Deutsche Presse-Agentur (dpa)",
-    "Zeit",
-    "Süddeutsche Zeitung (SZ)",
-    "Reuters",
-    "Agence France-Presse (AFP)",
-    "Mimikama",
-    "Deutsche Welle (DW)",
-    "Snopes",
-    "TikTok",
-    "Instagram"
-  ];
-
-  /// [List] of all some suggestions for [Statement.statementLanguage] and
-  /// [Fact.factLanguage].
-  static List<String> languageSuggestions = const [
-    "deutsch",
-    "englisch",
-    "türkisch",
-    "spanisch",
-    "russisch"
-  ];
-
   /// Returns the graphQL query to search for [Statements].
   static String searchStatements(String query) {
     String ret = '''
@@ -115,42 +11,42 @@ class Queries {
   statements(
     where:{
       OR:[
-        { $statementText: { matchesRegex: "$query", options: "i"} }
-        { $statementMedia: { matchesRegex: "$query", options: "i"} }
-        { $statementFactcheckIDs : { have:{ $factText:{ matchesRegex: "$query", options: "i" } } } }
-        { $statementFactcheckIDs : { have:{ $factMedia:{ matchesRegex: "$query", options: "i" } } } }
+        { ${DbFields.statementText}: { matchesRegex: "$query", options: "i"} }
+        { ${DbFields.statementMedia}: { matchesRegex: "$query", options: "i"} }
+        { ${DbFields.statementFactcheckIDs} : { have:{ ${DbFields.factText}:{ matchesRegex: "$query", options: "i" } } } }
+        { ${DbFields.statementFactcheckIDs} : { have:{ ${DbFields.factMedia}:{ matchesRegex: "$query", options: "i" } } } }
       ]
   }){
     edges{
       node{
         objectId
-        $statementText
-        $statementPictureFile{url}
-        $statementYear
-        $statementMonth
-        $statementDay
-        $statementCorrectness
-        $statementMedia
-        $statementLanguage
-        $statementCategory
-        $statementMediatype
-        $statementAuthor
-        $statementLink
-        $statementRectification
-        $statementPictureCopyright
-        $statementFactcheckIDs{
+        ${DbFields.statementText}
+        ${DbFields.statementPictureFile}{url}
+        ${DbFields.statementYear}
+        ${DbFields.statementMonth}
+        ${DbFields.statementDay}
+        ${DbFields.statementCorrectness}
+        ${DbFields.statementMedia}
+        ${DbFields.statementLanguage}
+        ${DbFields.statementCategory}
+        ${DbFields.statementMediatype}
+        ${DbFields.statementAuthor}
+        ${DbFields.statementLink}
+        ${DbFields.statementRectification}
+        ${DbFields.statementPictureCopyright}
+        ${DbFields.statementFactcheckIDs}{
             edges{
               node{
                 objectId
-                $factText
-                $factAuthor
-                $statementYear
-                $statementMonth
-                $statementDay
-                $factLanguage
-                $factMedia
-                $factLink
-                $factArchivedLink
+                ${DbFields.factText}
+                ${DbFields.factAuthor}
+                ${DbFields.statementYear}
+                ${DbFields.statementMonth}
+                ${DbFields.statementDay}
+                ${DbFields.factLanguage}
+                ${DbFields.factMedia}
+                ${DbFields.factLink}
+                ${DbFields.factArchivedLink}
               }
             }
         }
@@ -171,33 +67,33 @@ class Queries {
     ){
   statement{
     objectId
-    $statementText
-    $statementPictureFile{url}
-    $statementYear
-    $statementMonth
-    $statementDay
-    $statementCorrectness
-    $statementMedia
-    $statementLanguage
-    $statementCategory
-    $statementMediatype
-    $statementAuthor
-    $statementLink
-    $statementRectification
-    $statementPictureCopyright
-    $statementFactcheckIDs{
+    ${DbFields.statementText}
+    ${DbFields.statementPictureFile}{url}
+    ${DbFields.statementYear}
+    ${DbFields.statementMonth}
+    ${DbFields.statementDay}
+    ${DbFields.statementCorrectness}
+    ${DbFields.statementMedia}
+    ${DbFields.statementLanguage}
+    ${DbFields.statementCategory}
+    ${DbFields.statementMediatype}
+    ${DbFields.statementAuthor}
+    ${DbFields.statementLink}
+    ${DbFields.statementRectification}
+    ${DbFields.statementPictureCopyright}
+    ${DbFields.statementFactcheckIDs}{
         edges{
           node{
             objectId
-            $factText
-            $factAuthor
-            $factYear
-            $factMonth
-            $factDay
-            $factLanguage
-            $factMedia
-            $factLink
-            $factArchivedLink
+              ${DbFields.factText}
+              ${DbFields.factAuthor}
+              ${DbFields.factYear}
+              ${DbFields.factMonth}
+              ${DbFields.factDay}
+              ${DbFields.factLanguage}
+              ${DbFields.factMedia}
+              ${DbFields.factLink}
+              ${DbFields.factArchivedLink}
           }
         }
       }
@@ -217,33 +113,33 @@ class Queries {
     ){
   statement{
     objectId
-    $statementText
-    $statementPictureFile{url}
-    $statementYear
-    $statementMonth
-    $statementDay
-    $statementCorrectness
-    $statementMedia
-    $statementLanguage
-    $statementCategory
-    $statementMediatype
-    $statementAuthor
-    $statementLink
-    $statementRectification
-    $statementPictureCopyright
-    $statementFactcheckIDs{
+    ${DbFields.statementText}
+    ${DbFields.statementPictureFile}{url}
+    ${DbFields.statementYear}
+    ${DbFields.statementMonth}
+    ${DbFields.statementDay}
+    ${DbFields.statementCorrectness}
+    ${DbFields.statementMedia}
+    ${DbFields.statementLanguage}
+    ${DbFields.statementCategory}
+    ${DbFields.statementMediatype}
+    ${DbFields.statementAuthor}
+    ${DbFields.statementLink}
+    ${DbFields.statementRectification}
+    ${DbFields.statementPictureCopyright}
+    ${DbFields.statementFactcheckIDs}{
         edges{
           node{
             objectId
-              $factText
-              $factAuthor
-              $factYear
-              $factMonth
-              $factDay
-              $factLanguage
-              $factMedia
-              $factLink
-              $factArchivedLink
+              ${DbFields.factText}
+              ${DbFields.factAuthor}
+              ${DbFields.factYear}
+              ${DbFields.factMonth}
+              ${DbFields.factDay}
+              ${DbFields.factLanguage}
+              ${DbFields.factMedia}
+              ${DbFields.factLink}
+              ${DbFields.factArchivedLink}
           }
         }
       }
@@ -312,33 +208,33 @@ query getStatement{
     	id: "$statementID"
   ){
     objectId
-    $statementText
-    $statementPictureFile{url}
-    $statementYear
-    $statementMonth
-    $statementDay
-    $statementCorrectness
-    $statementMedia
-    $statementLanguage
-    $statementCategory
-    $statementMediatype
-    $statementAuthor
-    $statementLink
-    $statementRectification
-    $statementPictureCopyright
-    $statementFactcheckIDs{
+    ${DbFields.statementText}
+    ${DbFields.statementPictureFile}{url}
+    ${DbFields.statementYear}
+    ${DbFields.statementMonth}
+    ${DbFields.statementDay}
+    ${DbFields.statementCorrectness}
+    ${DbFields.statementMedia}
+    ${DbFields.statementLanguage}
+    ${DbFields.statementCategory}
+    ${DbFields.statementMediatype}
+    ${DbFields.statementAuthor}
+    ${DbFields.statementLink}
+    ${DbFields.statementRectification}
+    ${DbFields.statementPictureCopyright}
+    ${DbFields.statementFactcheckIDs}{
       edges{
         node{
           objectId
-            $factText
-            $factAuthor
-            $factYear
-            $factMonth
-            $factDay
-            $factLanguage
-            $factMedia
-            $factLink
-            $factArchivedLink
+            ${DbFields.factText}
+            ${DbFields.factAuthor}
+            ${DbFields.factYear}
+            ${DbFields.factMonth}
+            ${DbFields.factDay}
+            ${DbFields.factLanguage}
+            ${DbFields.factMedia}
+            ${DbFields.factLink}
+            ${DbFields.factArchivedLink}
         }
       }
     }

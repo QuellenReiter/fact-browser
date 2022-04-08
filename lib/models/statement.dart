@@ -5,6 +5,8 @@ import 'package:http_parser/http_parser.dart';
 import 'package:statementmanager/models/fact.dart';
 import 'package:statementmanager/provider/queries.dart';
 
+import '../constants/constants.dart';
+
 /// This holds all [TextEditingController] to create and edit a [Statement].
 class StatementController {
   /// [TextEditingController] for [Statement.statementText].
@@ -47,27 +49,27 @@ class StatementController {
   /// [Statement] and its [Facts].
   StatementController.fromMap(Map<String, dynamic> statement) {
     textController =
-        TextEditingController(text: statement[Queries.statementText]);
+        TextEditingController(text: statement[DbFields.statementText]);
     yearController =
-        TextEditingController(text: statement[Queries.statementYear]);
+        TextEditingController(text: statement[DbFields.statementYear]);
     monthController =
-        TextEditingController(text: statement[Queries.statementYear]);
+        TextEditingController(text: statement[DbFields.statementYear]);
     dayController =
-        TextEditingController(text: statement[Queries.statementYear]);
+        TextEditingController(text: statement[DbFields.statementYear]);
     mediaTypeController =
-        TextEditingController(text: statement[Queries.statementMediatype]);
+        TextEditingController(text: statement[DbFields.statementMediatype]);
     correctnessController =
-        TextEditingController(text: statement[Queries.statementCorrectness]);
+        TextEditingController(text: statement[DbFields.statementCorrectness]);
     categoryController =
-        TextEditingController(text: statement[Queries.statementCategory]);
+        TextEditingController(text: statement[DbFields.statementCategory]);
     samplePictureCopyrightController = TextEditingController(
-        text: statement[Queries.statementPictureCopyright]);
+        text: statement[DbFields.statementPictureCopyright]);
     linkController =
-        TextEditingController(text: statement[Queries.statementLink]);
+        TextEditingController(text: statement[DbFields.statementLink]);
     authorController =
-        TextEditingController(text: statement[Queries.statementAuthor]);
+        TextEditingController(text: statement[DbFields.statementAuthor]);
     mediaController =
-        TextEditingController(text: statement[Queries.statementMedia]);
+        TextEditingController(text: statement[DbFields.statementMedia]);
   }
 
   /// Construct a [StatementController] given a [Statement].
@@ -172,7 +174,7 @@ class Statement {
   /// The Language of the statement.
   late String statementLanguage;
 
-  /// The correctness of the statement. One of [Queries.correctnessValues].
+  /// The correctness of the statement. One of [DropdownValues.correctnessValues].
   late String statementCorrectness;
 
   /// The Link to the statement, mostly an archived link.
@@ -181,7 +183,7 @@ class Statement {
   /// Stores if the statement was corrected.
   late bool statementRectification;
 
-  /// The Category of the statement. One of [Queries.categoryValues].
+  /// The Category of the statement. One of [DropdownValues.categoryValues].
   late String statementCategory;
 
   /// The copyright text of the [Statement.statementPictureURL].
@@ -224,30 +226,30 @@ class Statement {
   /// Construct a [Statement] from a [Map] containing all fields of the
   /// [Statement].
   Statement.fromMap(Map<String, dynamic>? map)
-      : statementText = map?[Queries.statementText],
-        statementAuthor = map?[Queries.statementAuthor],
-        statementCorrectness = map?[Queries.statementCorrectness],
-        statementYear = map?[Queries.statementYear],
-        statementMonth = map?[Queries.statementMonth],
-        statementDay = map?[Queries.statementDay],
-        statementLanguage = map?[Queries.statementLanguage],
-        statementLink = map?[Queries.statementLink],
-        statementCategory = map?[Queries.statementCategory],
-        statementMedia = map?[Queries.statementMedia],
-        statementMediatype = map?[Queries.statementMediatype],
-        samplePictureCopyright = map?[Queries.statementPictureCopyright],
-        statementRectification = map?[Queries.statementRectification],
-        statementPictureURL = map?[Queries.statementPictureFile]["url"],
+      : statementText = map?[DbFields.statementText],
+        statementAuthor = map?[DbFields.statementAuthor],
+        statementCorrectness = map?[DbFields.statementCorrectness],
+        statementYear = map?[DbFields.statementYear],
+        statementMonth = map?[DbFields.statementMonth],
+        statementDay = map?[DbFields.statementDay],
+        statementLanguage = map?[DbFields.statementLanguage],
+        statementLink = map?[DbFields.statementLink],
+        statementCategory = map?[DbFields.statementCategory],
+        statementMedia = map?[DbFields.statementMedia],
+        statementMediatype = map?[DbFields.statementMediatype],
+        samplePictureCopyright = map?[DbFields.statementPictureCopyright],
+        statementRectification = map?[DbFields.statementRectification],
+        statementPictureURL = map?[DbFields.statementPictureFile]["url"],
         statementFactchecks =
-            Facts.fromMap(map?[Queries.statementFactcheckIDs]),
+            Facts.fromMap(map?[DbFields.statementFactcheckIDs]),
         objectId = map?["objectId"];
 
   /// Construct an empty [Statement].
   Statement.empty() {
     statementText = "";
     statementAuthor = "";
-    statementCategory = Queries.categoryValues.first;
-    statementCorrectness = Queries.correctnessValues.first;
+    statementCategory = DropdownValues.categoryValues.first;
+    statementCorrectness = DropdownValues.correctnessValues.first;
     statementYear = 0;
     statementMonth = 0;
     statementDay = 0;
@@ -255,7 +257,7 @@ class Statement {
     statementLanguage = "";
     statementLink = "";
     statementMedia = "";
-    statementMediatype = Queries.mediatypeValues.first;
+    statementMediatype = DropdownValues.mediatypeValues.first;
     statementPictureURL = "emptyButNotEmpty";
     samplePictureCopyright = "";
     statementRectification = false;
@@ -311,38 +313,38 @@ class Statement {
   Map<String, dynamic> toMap() {
     Map<String, dynamic> vars = {
       "fields": {
-        Queries.statementText: statementText,
-        Queries.statementPicture: statementPictureURL,
-        Queries.statementYear: statementYear,
-        Queries.statementMonth: statementMonth,
-        Queries.statementDay: statementDay,
-        Queries.statementCorrectness: statementCorrectness,
-        Queries.statementMedia: statementMedia,
-        Queries.statementLanguage: statementLanguage,
-        Queries.statementCategory: statementCategory,
-        Queries.statementMediatype: statementMediatype,
-        Queries.statementAuthor: statementAuthor,
-        Queries.statementLink: statementLink,
-        Queries.statementRectification: statementRectification,
-        Queries.statementPictureCopyright: samplePictureCopyright,
-        // Queries.statementPictureFile: {"file": statementPictureURL}
+        DbFields.statementText: statementText,
+        DbFields.statementPicture: statementPictureURL,
+        DbFields.statementYear: statementYear,
+        DbFields.statementMonth: statementMonth,
+        DbFields.statementDay: statementDay,
+        DbFields.statementCorrectness: statementCorrectness,
+        DbFields.statementMedia: statementMedia,
+        DbFields.statementLanguage: statementLanguage,
+        DbFields.statementCategory: statementCategory,
+        DbFields.statementMediatype: statementMediatype,
+        DbFields.statementAuthor: statementAuthor,
+        DbFields.statementLink: statementLink,
+        DbFields.statementRectification: statementRectification,
+        DbFields.statementPictureCopyright: samplePictureCopyright,
+        // DbFields.statementPictureFile: {"file": statementPictureURL}
       }
     };
 
     if (uploadImage != null) {
       MultipartFile multipartFile = MultipartFile.fromBytes(
-        Queries.statementPicture,
+        DbFields.statementPicture,
         uploadImage!.toList(),
         filename: '${DateTime.now().second}.jpg',
         contentType: MediaType("image", "jpg"),
       );
-      vars["fields"][Queries.statementPictureFile] = {"upload": multipartFile};
+      vars["fields"][DbFields.statementPictureFile] = {"upload": multipartFile};
     }
 
     //add factchecks if not empty
     if (statementFactchecks.facts.isNotEmpty) {
-      vars["fields"][Queries.statementFactcheckIDs] = {};
-      vars["fields"][Queries.statementFactcheckIDs]["createAndAdd"] =
+      vars["fields"][DbFields.statementFactcheckIDs] = {};
+      vars["fields"][DbFields.statementFactcheckIDs]["createAndAdd"] =
           statementFactchecks.toMap();
     }
     //add object id if we want to update statements

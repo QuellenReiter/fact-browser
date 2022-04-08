@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:statementmanager/constants/constants.dart';
 import 'package:statementmanager/models/fact.dart';
-import 'package:statementmanager/provider/queries.dart';
 import 'package:statementmanager/utilities/utilities.dart';
 import 'package:statementmanager/widgets/editable/date_container.dart';
 import 'package:statementmanager/widgets/editable/text_field_container.dart';
@@ -49,7 +49,7 @@ class _FactContainerState extends State<FactContainer> {
                   textController: widget.controllers!.authorController,
                   label: "Gebe den Author ein.",
                   errorCallback: Utils.checkIfEmpty,
-                  autoCompleteList: Queries.authorSuggestions,
+                  autoCompleteList: Suggestions.authorSuggestions,
                 ),
               ),
               Flexible(
@@ -57,7 +57,7 @@ class _FactContainerState extends State<FactContainer> {
                   textController: widget.controllers!.mediaController,
                   label: "Gebe das Medium ein.",
                   errorCallback: Utils.checkIfEmpty,
-                  autoCompleteList: Queries.mediaSuggestions,
+                  autoCompleteList: Suggestions.mediaSuggestions,
                 ),
               ),
             ]),
@@ -69,7 +69,7 @@ class _FactContainerState extends State<FactContainer> {
                   textController: widget.controllers!.languageController,
                   label: "Gebe die Originalsprache ein.",
                   errorCallback: Utils.checkIfEmpty,
-                  autoCompleteList: Queries.languageSuggestions,
+                  autoCompleteList: Suggestions.languageSuggestions,
                 ),
               ),
               Flexible(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:statementmanager/constants/constants.dart';
 import 'package:statementmanager/navigation/fact_browser_rout_information_parser.dart';
 import 'package:statementmanager/navigation/fact_browser_router_delegate.dart';
 import 'package:statementmanager/provider/device_type_provider.dart';
@@ -53,27 +54,27 @@ class _FactBrowserState extends State<FactBrowser> {
                   // default all text widget
                   fontSize: DeviceType.width(ctx) < 600 ? 10 : 14,
                   fontFamily: 'Oswald',
-                  color: const Color(0xFFc7ebeb),
+                  color: DesignColors.lightBlue,
                 ),
 
                 // Title in for appBar.
                 headline1: TextStyle(
                   fontFamily: 'Bangers',
                   fontSize: DeviceType.width(ctx) < 600 ? 40 : 50,
-                  color: const Color(0xFFc7ebeb),
+                  color: DesignColors.lightBlue,
                 ),
 
                 // Huge text in bangers font.
                 headline3: TextStyle(
                   fontFamily: 'Bangers',
                   fontSize: DeviceType.width(ctx) < 600 ? 24 : 50,
-                  color: Colors.grey[200],
+                  color: DesignColors.lightGrey,
                 ),
 
                 // Large font for subtitles on blue backgrounds.
                 subtitle1: TextStyle(
                   fontFamily: 'Oswald',
-                  color: const Color(0xFFc7ebeb),
+                  color: DesignColors.lightBlue,
                   fontSize: DeviceType.width(ctx) < 600 ? 12 : 20,
                 ),
 

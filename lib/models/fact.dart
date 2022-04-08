@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../provider/queries.dart';
+import 'package:statementmanager/constants/constants.dart';
 
 /// This holds all [TextEditingController] to create and edit a [Fact].
 class FactController {
@@ -175,16 +175,16 @@ class Fact {
 
   /// Construct a [Fact] from a [Map] containing all fields of the [Fact].
   Fact.fromMap(Map<String, dynamic>? map)
-      : factText = map?[Queries.factText],
-        factAuthor = map?[Queries.factAuthor],
-        factMedia = map?[Queries.factMedia],
-        factYear = map?[Queries.factYear],
-        factMonth = map?[Queries.factMonth],
-        factDay = map?[Queries.factDay],
-        factLink = map?[Queries.factLink],
-        factLanguage = map?[Queries.factLanguage],
+      : factText = map?[DbFields.factText],
+        factAuthor = map?[DbFields.factAuthor],
+        factMedia = map?[DbFields.factMedia],
+        factYear = map?[DbFields.factYear],
+        factMonth = map?[DbFields.factMonth],
+        factDay = map?[DbFields.factDay],
+        factLink = map?[DbFields.factLink],
+        factLanguage = map?[DbFields.factLanguage],
         objectId = map?["objectId"],
-        factArchivedLink = map?[Queries.factArchivedLink] ?? "";
+        factArchivedLink = map?[DbFields.factArchivedLink] ?? "";
 
   /// Construct an empty [Fact].
   Fact.empty() {
@@ -202,15 +202,15 @@ class Fact {
   /// Convert a [Fact] back to its [Map] representation.
   Map<String, dynamic> toMap() {
     final Map<String, dynamic> vars = {
-      Queries.factText: factText,
-      Queries.factLanguage: factLanguage,
-      Queries.factYear: factYear,
-      Queries.factMonth: factMonth,
-      Queries.factDay: factDay,
-      Queries.factLink: factLink,
-      Queries.factAuthor: factAuthor,
-      Queries.factArchivedLink: factArchivedLink,
-      Queries.factMedia: factMedia
+      DbFields.factText: factText,
+      DbFields.factLanguage: factLanguage,
+      DbFields.factYear: factYear,
+      DbFields.factMonth: factMonth,
+      DbFields.factDay: factDay,
+      DbFields.factLink: factLink,
+      DbFields.factAuthor: factAuthor,
+      DbFields.factArchivedLink: factArchivedLink,
+      DbFields.factMedia: factMedia
     };
     return vars;
   }

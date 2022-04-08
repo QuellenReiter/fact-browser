@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:statementmanager/constants/constants.dart';
 import 'package:statementmanager/models/statement.dart';
 import 'package:statementmanager/provider/device_type_provider.dart';
 import 'package:statementmanager/utilities/utilities.dart';
@@ -84,7 +85,7 @@ class DetailScreen extends StatelessWidget {
                   clipBehavior: Clip.none,
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    color: Colors.grey[200],
+                    color: DesignColors.lightGrey,
                   ),
                   child: FractionallySizedBox(
                     widthFactor: 1.1,
@@ -169,7 +170,8 @@ class DetailScreen extends StatelessWidget {
                                               .textTheme
                                               .subtitle2
                                               ?.copyWith(
-                                                  color: Colors.grey[200]),
+                                                  color:
+                                                      DesignColors.lightGrey),
                                         ),
                                       ),
                                       Container(
@@ -270,9 +272,12 @@ class DetailScreen extends StatelessWidget {
                 ),
               ),
               // Display all [statement.factChecks]
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: factContainers,
+              Padding(
+                padding: const EdgeInsets.only(bottom: 40),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: factContainers,
+                ),
               ),
             ],
           ),

@@ -1,11 +1,11 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
+import 'package:statementmanager/constants/constants.dart';
 import 'package:statementmanager/models/fact.dart';
 import 'package:statementmanager/models/statement.dart';
 import 'package:statementmanager/provider/database_utils.dart';
 import 'package:statementmanager/provider/device_type_provider.dart';
-import 'package:statementmanager/provider/queries.dart';
 import 'package:statementmanager/utilities/utilities.dart';
 import 'package:statementmanager/widgets/editable/date_container.dart';
 import 'package:statementmanager/widgets/editable/fact_container.dart';
@@ -196,7 +196,7 @@ class _EditScreenState extends State<EditScreen> {
                   textController: statementController.authorController,
                   label: "Gebe den Author ein.",
                   errorCallback: Utils.checkIfEmpty,
-                  autoCompleteList: Queries.authorSuggestions,
+                  autoCompleteList: Suggestions.authorSuggestions,
                 ),
               ),
               Flexible(
@@ -204,7 +204,7 @@ class _EditScreenState extends State<EditScreen> {
                   textController: statementController.mediaController,
                   label: "Gebe das Medium ein.",
                   errorCallback: Utils.checkIfEmpty,
-                  autoCompleteList: Queries.mediaSuggestions,
+                  autoCompleteList: Suggestions.mediaSuggestions,
                 ),
               ),
             ]),
@@ -214,7 +214,7 @@ class _EditScreenState extends State<EditScreen> {
                   textController: statementController.languageController,
                   label: "Gebe die Originalsprache ein.",
                   errorCallback: Utils.checkIfEmpty,
-                  autoCompleteList: Queries.languageSuggestions,
+                  autoCompleteList: Suggestions.languageSuggestions,
                 ),
               ),
             ]),
@@ -282,7 +282,7 @@ class _EditScreenState extends State<EditScreen> {
                                           value.toString();
                                     });
                                   },
-                                  items: Queries.categoryValues
+                                  items: DropdownValues.categoryValues
                                       .map<DropdownMenuItem<String>>(
                                           (String value) {
                                     return DropdownMenuItem<String>(
@@ -317,7 +317,7 @@ class _EditScreenState extends State<EditScreen> {
                                           value.toString();
                                     });
                                   },
-                                  items: Queries.mediatypeValues
+                                  items: DropdownValues.mediatypeValues
                                       .map<DropdownMenuItem<String>>(
                                           (String value) {
                                     return DropdownMenuItem<String>(
@@ -385,7 +385,7 @@ class _EditScreenState extends State<EditScreen> {
                                           value.toString();
                                     });
                                   },
-                                  items: Queries.correctnessValues
+                                  items: DropdownValues.correctnessValues
                                       .map<DropdownMenuItem<String>>(
                                           (String value) {
                                     return DropdownMenuItem<String>(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:statementmanager/constants/constants.dart';
 import 'package:statementmanager/models/fact.dart';
 
 import '../../provider/device_type_provider.dart';
@@ -24,7 +25,7 @@ class FactDisplayContainer extends StatelessWidget {
         clipBehavior: Clip.none,
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(10)),
-          color: Colors.grey[200],
+          color: DesignColors.lightGrey,
         ),
         child: FractionallySizedBox(
           widthFactor: 1.1,
@@ -52,7 +53,7 @@ class FactDisplayContainer extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .subtitle2
-                                ?.copyWith(color: Colors.grey[200]),
+                                ?.copyWith(color: DesignColors.lightGrey),
                           ),
                         ),
                       ),
