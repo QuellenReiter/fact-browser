@@ -16,7 +16,7 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
-          source-directory: ${{GITHUB_WORKSPACE}}build/web/
+          source-directory: build/web/
           destination-github-username: 'QuellenReiter'
           destination-repository-name: 'fact-browser-deployment'
           user-name: simonsasse
