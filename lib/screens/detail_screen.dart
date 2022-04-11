@@ -3,6 +3,7 @@ import 'package:statementmanager/constants/constants.dart';
 import 'package:statementmanager/models/statement.dart';
 import 'package:statementmanager/provider/device_type_provider.dart';
 import 'package:statementmanager/utilities/utilities.dart';
+import 'package:statementmanager/widgets/link_alert.dart';
 import 'package:statementmanager/widgets/main_app_bar.dart';
 import '../widgets/display/fact_display_container.dart';
 
@@ -131,7 +132,7 @@ class DetailScreen extends StatelessWidget {
                                     Container(
                                       padding: const EdgeInsets.all(2),
                                       color: const Color.fromARGB(61, 0, 0, 0),
-                                      child: Text(
+                                      child: SelectableText(
                                         statement.samplePictureCopyright.trim(),
                                         style: Theme.of(context)
                                             .textTheme
@@ -164,14 +165,25 @@ class DetailScreen extends StatelessWidget {
                                               Radius.circular(10)),
                                           color: Color(0xFF0999bc),
                                         ),
-                                        child: Text(
-                                          statement.statementText,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .subtitle2
-                                              ?.copyWith(
-                                                  color:
-                                                      DesignColors.lightGrey),
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              statement.statementText,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .subtitle2
+                                                  ?.copyWith(
+                                                      color: DesignColors
+                                                          .lightGrey),
+                                            ),
+                                            Align(
+                                              alignment: Alignment.topLeft,
+                                              child: LinkAlert(
+                                                  link: statement.statementLink,
+                                                  msg:
+                                                      "Du verlässt diese Website. Dieser link ist archiviert, kann aber trotzdem unangenehme inhalte aufweisen. Be carful <3."),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                       Container(
@@ -246,7 +258,7 @@ class DetailScreen extends StatelessWidget {
                                   Row(
                                     children: [
                                       const Icon(Icons.calendar_month),
-                                      Text(statement.dateAsString()),
+                                      SelectableText(statement.dateAsString()),
                                     ],
                                   ),
                                   DeviceType.width(context) < 400
@@ -258,7 +270,8 @@ class DetailScreen extends StatelessWidget {
                                   Row(
                                     children: [
                                       const Icon(Icons.language),
-                                      Text(statement.statementLanguage),
+                                      SelectableText(
+                                          statement.statementLanguage),
                                     ],
                                   )
                                 ],

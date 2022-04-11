@@ -46,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Einloggen"),
+        title: const SelectableText("Einloggen"),
       ),
       body: Align(
         alignment: Alignment.center,
@@ -95,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 : Container(
                     padding: const EdgeInsets.all(10),
                     color: Colors.red,
-                    child: Text(
+                    child: SelectableText(
                       errorText!,
                       style: const TextStyle(
                         fontSize: 20,
@@ -110,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   loginCallback,
                 ),
                 icon: const Icon(Icons.login),
-                label: const Text("Einloggen"),
+                label: const SelectableText("Einloggen"),
               ),
             ),
           ]),

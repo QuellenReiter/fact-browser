@@ -136,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 // Show loading while requesting data.
                                 if (result.data == null) {
                                   return const Center(
-                                    child: Text(
+                                    child: SelectableText(
                                       "Loading...",
                                       style: TextStyle(fontSize: 20.0),
                                     ),
@@ -160,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               },
                             );
                           } else {
-                            return const Text("");
+                            return const SelectableText("");
                           }
                         },
                       ),

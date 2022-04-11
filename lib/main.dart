@@ -40,7 +40,6 @@ class _FactBrowserState extends State<FactBrowser> {
           data: ThemeData(
             brightness: Brightness.light,
             primarySwatch: Colors.grey,
-
             textTheme: TextTheme(
 
                 // Small text for light backgrounds.

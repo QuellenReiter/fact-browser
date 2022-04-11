@@ -78,11 +78,11 @@ class _MainAppBarState extends State<MainAppBar> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      SelectableText(
                         'FACT BROWSER',
                         style: Theme.of(context).textTheme.headline1,
                       ),
-                      Text('Die "Fake News"-Datenbank',
+                      SelectableText('Die "Fake News"-Datenbank',
                           style: Theme.of(context).textTheme.subtitle1),
                     ],
                   ),
@@ -91,6 +91,7 @@ class _MainAppBarState extends State<MainAppBar> {
                 widget.searchController != null
                     ? Container(
                         padding: const EdgeInsets.all(10),
+                        constraints: const BoxConstraints(maxWidth: 400),
                         child: TextField(
                           controller: widget.searchController,
                           style: Theme.of(context).textTheme.bodyText2,
@@ -119,11 +120,11 @@ class _MainAppBarState extends State<MainAppBar> {
                     PopupMenuItem(
                       onTap: () => widget.onLogin(),
                       child: widget.loggedIn
-                          ? Text(
+                          ? SelectableText(
                               "Logout",
                               style: Theme.of(context).textTheme.subtitle2,
                             )
-                          : Text(
+                          : SelectableText(
                               "Login",
                               style: Theme.of(context).textTheme.subtitle2,
                             ),
@@ -137,7 +138,7 @@ class _MainAppBarState extends State<MainAppBar> {
                           throw 'could not launch';
                         }
                       },
-                      child: Text(
+                      child: SelectableText(
                         "Impressum",
                         style: Theme.of(context).textTheme.subtitle2,
                       ),
@@ -151,7 +152,7 @@ class _MainAppBarState extends State<MainAppBar> {
                           throw 'could not launch';
                         }
                       },
-                      child: Text(
+                      child: SelectableText(
                         "Datenschutz",
                         style: Theme.of(context).textTheme.subtitle2,
                       ),
@@ -173,12 +174,12 @@ class _MainAppBarState extends State<MainAppBar> {
                               color: Color(0xFFc7ebeb),
                             ),
                             widget.loggedIn
-                                ? Text(
+                                ? SelectableText(
                                     "Logout",
                                     style:
                                         Theme.of(context).textTheme.subtitle1,
                                   )
-                                : Text(
+                                : SelectableText(
                                     "Login",
                                     style:
                                         Theme.of(context).textTheme.subtitle1,
@@ -202,7 +203,7 @@ class _MainAppBarState extends State<MainAppBar> {
                                 throw 'could not launch';
                               }
                             },
-                            child: Text(
+                            child: SelectableText(
                               "Impressum",
                               style: Theme.of(context).textTheme.subtitle1,
                             ),
@@ -214,7 +215,7 @@ class _MainAppBarState extends State<MainAppBar> {
                                 throw 'could not launch';
                               }
                             },
-                            child: Text(
+                            child: SelectableText(
                               "Datenschutz",
                               style: Theme.of(context).textTheme.subtitle1,
                             ),

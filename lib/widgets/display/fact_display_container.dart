@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:statementmanager/constants/constants.dart';
 import 'package:statementmanager/models/fact.dart';
+import 'package:statementmanager/widgets/link_alert.dart';
 
 import '../../provider/device_type_provider.dart';
 
@@ -48,7 +49,7 @@ class FactDisplayContainer extends StatelessWidget {
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             color: Color(0xFF0999bc),
                           ),
-                          child: Text(
+                          child: SelectableText(
                             fact.factText,
                             style: Theme.of(context)
                                 .textTheme
@@ -67,7 +68,7 @@ class FactDisplayContainer extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                         color: Color(0xFF009E74),
                       ),
-                      child: Text(
+                      child: SelectableText(
                         "Fakt",
                         style: Theme.of(context).textTheme.headline3,
                       ),
@@ -92,7 +93,7 @@ class FactDisplayContainer extends StatelessWidget {
                         Row(
                           children: [
                             const Icon(Icons.person),
-                            Text(fact.factAuthor),
+                            SelectableText(fact.factAuthor),
                           ],
                         ),
                         DeviceType.width(context) < 400
@@ -104,7 +105,7 @@ class FactDisplayContainer extends StatelessWidget {
                         Row(
                           children: [
                             const Icon(Icons.newspaper),
-                            Text(fact.factMedia),
+                            SelectableText(fact.factMedia),
                           ],
                         )
                       ],
@@ -117,7 +118,7 @@ class FactDisplayContainer extends StatelessWidget {
                         Row(
                           children: [
                             const Icon(Icons.calendar_month),
-                            Text(fact.dateAsString()),
+                            SelectableText(fact.dateAsString()),
                           ],
                         ),
                         DeviceType.width(context) < 400
@@ -129,13 +130,42 @@ class FactDisplayContainer extends StatelessWidget {
                         Row(
                           children: [
                             const Icon(Icons.language),
-                            Text(fact.factLanguage),
+                            SelectableText(fact.factLanguage),
                           ],
                         )
                       ],
                     )
                   ],
                 ),
+              ),
+              FractionallySizedBox(
+                widthFactor: 0.8,
+                child: Divider(
+                    height: 20, thickness: 2, color: DesignColors.black),
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  LinkAlert(
+                      label: "Link zum Artikel",
+                      link: fact.factLink,
+                      color: Colors.grey[600],
+                      msg:
+                          "Dieser Link führt zum Originale Faktcheck. ggbf. ist dieser nicht mehr verfügbar."),
+                  fact.factArchivedLink != null
+                      ? LinkAlert(
+                          label: "Archivierter Link zum Artikel",
+                          link: fact.factArchivedLink!,
+                          color: Colors.grey[600],
+                          msg:
+                              "Dieser Link ist eine archivierte Version des Faktchecks. Die Seite brauch etwas zum laden. Falls du den nicht archivierten Link noch nicht probiert hast, versuche das erstmal.",
+                        )
+                      : const SizedBox.shrink()
+                ],
+              ),
+              const SizedBox(
+                height: 10,
               )
             ],
           ),

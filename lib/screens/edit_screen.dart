@@ -174,11 +174,11 @@ class _EditScreenState extends State<EditScreen> {
           height: DeviceType.height(context),
           child: ListView(shrinkWrap: true, children: [
             errorText == null
-                ? const Text("")
+                ? const SelectableText("")
                 : Container(
                     padding: const EdgeInsets.all(10),
                     color: Colors.red,
-                    child: Text(
+                    child: SelectableText(
                       errorText!,
                       style: const TextStyle(
                         fontSize: 40,
@@ -187,14 +187,14 @@ class _EditScreenState extends State<EditScreen> {
                   ),
             TextFieldContainer(
               textController: statementController.textController,
-              label: "Gebe eine Aussage ein.",
+              label: "Gib eine Aussage ein.",
               errorCallback: Utils.checkIfEmpty,
             ),
             Row(children: [
               Flexible(
                 child: TextFieldContainer(
                   textController: statementController.authorController,
-                  label: "Gebe den Author ein.",
+                  label: "Gib den Author ein.",
                   errorCallback: Utils.checkIfEmpty,
                   autoCompleteList: Suggestions.authorSuggestions,
                 ),
@@ -202,7 +202,7 @@ class _EditScreenState extends State<EditScreen> {
               Flexible(
                 child: TextFieldContainer(
                   textController: statementController.mediaController,
-                  label: "Gebe das Medium ein.",
+                  label: "Gib das Medium ein.",
                   errorCallback: Utils.checkIfEmpty,
                   autoCompleteList: Suggestions.mediaSuggestions,
                 ),
@@ -212,7 +212,7 @@ class _EditScreenState extends State<EditScreen> {
               Flexible(
                 child: TextFieldContainer(
                   textController: statementController.languageController,
-                  label: "Gebe die Originalsprache ein.",
+                  label: "Gib die Originalsprache ein.",
                   errorCallback: Utils.checkIfEmpty,
                   autoCompleteList: Suggestions.languageSuggestions,
                 ),
@@ -224,7 +224,7 @@ class _EditScreenState extends State<EditScreen> {
                   yearController: statementController.yearController,
                   monthController: statementController.monthController,
                   dayController: statementController.dayController,
-                  label: "Gebe das Ursprungsdatum ein(dd/mm/yyyy)",
+                  label: "Gib das Ursprungsdatum ein(dd/mm/yyyy)",
                 ),
               ),
               Flexible(
@@ -271,7 +271,7 @@ class _EditScreenState extends State<EditScreen> {
                           padding: const EdgeInsets.all(5),
                           child: Row(
                             children: [
-                              const Text("Wähle eine Kategorie?"),
+                              const SelectableText("Wähle eine Kategorie?"),
                               Padding(
                                 padding: const EdgeInsets.all(5),
                                 child: DropdownButton(
@@ -287,7 +287,7 @@ class _EditScreenState extends State<EditScreen> {
                                           (String value) {
                                     return DropdownMenuItem<String>(
                                       value: value,
-                                      child: Text(
+                                      child: SelectableText(
                                         value,
                                         style: Theme.of(context)
                                             .textTheme
@@ -306,7 +306,7 @@ class _EditScreenState extends State<EditScreen> {
                           padding: const EdgeInsets.all(5),
                           child: Row(
                             children: [
-                              const Text("Wähle einen Medientyp."),
+                              const SelectableText("Wähle einen Medientyp."),
                               Padding(
                                 padding: const EdgeInsets.all(5),
                                 child: DropdownButton(
@@ -322,7 +322,7 @@ class _EditScreenState extends State<EditScreen> {
                                           (String value) {
                                     return DropdownMenuItem<String>(
                                       value: value,
-                                      child: Text(
+                                      child: SelectableText(
                                         value,
                                         style: Theme.of(context)
                                             .textTheme
@@ -347,7 +347,7 @@ class _EditScreenState extends State<EditScreen> {
                         child: Stack(
                           children: [
                             buildDropZone(context),
-                            Center(child: Text(dropMsg)),
+                            Center(child: SelectableText(dropMsg)),
                           ],
                         ),
                       ),
@@ -355,7 +355,7 @@ class _EditScreenState extends State<EditScreen> {
                         child: TextFieldContainer(
                           textController: statementController
                               .samplePictureCopyrightController,
-                          label: "Gebe ein Copyright für das Foto ein.",
+                          label: "Gib ein Copyright für das Foto ein.",
                           errorCallback: (TextEditingController c) {
                             return null;
                           },
@@ -374,7 +374,8 @@ class _EditScreenState extends State<EditScreen> {
                           padding: const EdgeInsets.all(5),
                           child: Row(
                             children: [
-                              const Text("Wie ist die Aussage einzuordnen?"),
+                              const SelectableText(
+                                  "Wie ist die Aussage einzuordnen?"),
                               Padding(
                                 padding: const EdgeInsets.all(5),
                                 child: DropdownButton(
@@ -390,7 +391,7 @@ class _EditScreenState extends State<EditScreen> {
                                           (String value) {
                                     return DropdownMenuItem<String>(
                                       value: value,
-                                      child: Text(
+                                      child: SelectableText(
                                         value,
                                         style: Theme.of(context)
                                             .textTheme
@@ -409,7 +410,8 @@ class _EditScreenState extends State<EditScreen> {
                           padding: const EdgeInsets.all(5),
                           child: Row(
                             children: [
-                              const Text("Wurde die Aussage Korrigiert?"),
+                              const SelectableText(
+                                  "Wurde die Aussage Korrigiert?"),
                               Padding(
                                 padding: const EdgeInsets.all(5),
                                 child: Switch(
@@ -439,14 +441,14 @@ class _EditScreenState extends State<EditScreen> {
                   ..add(ElevatedButton.icon(
                     onPressed: addNewFact,
                     icon: const Icon(Icons.add),
-                    label: const Text("Fakt"),
+                    label: const SelectableText("Fakt"),
                   ))),
             Padding(
               padding: const EdgeInsets.all(20),
               child: ElevatedButton.icon(
                   onPressed: () => uploadStatement(),
                   icon: const Icon(Icons.upload_file),
-                  label: const Text("Diese Aussage speichern")),
+                  label: const SelectableText("Diese Aussage speichern")),
             ),
           ]),
         ),
@@ -484,7 +486,7 @@ class _EditScreenState extends State<EditScreen> {
                   return Container(
                     height: DeviceType.height(context) / 2,
                     child: const Center(
-                      child: Text("Bild wird geladen."),
+                      child: SelectableText("Bild wird geladen."),
                     ),
                   );
                 });

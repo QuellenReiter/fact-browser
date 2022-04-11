@@ -105,7 +105,7 @@ class _FactContainerState extends State<FactContainer> {
                 widget.removeFact(widget.controllers);
               },
               icon: const Icon(Icons.remove),
-              label: const Text("Fakt entfernen"),
+              label: const SelectableText("Fakt entfernen"),
             ),
           ),
           const Divider(
