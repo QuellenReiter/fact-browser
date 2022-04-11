@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the build method from the FactDisplayContainer class, for the Dart programming language.">
-  <title>build method - FactDisplayContainer class - fact_display_container library - Dart API</title>
+  <meta name="description" content="API docs for the build method from the LinkAlert class, for the Dart programming language.">
+  <title>build method - LinkAlert class - link_alert library - Dart API</title>
 
 
   
@@ -30,8 +30,8 @@
   <button id="sidenav-left-toggle" type="button">&nbsp;</button>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">statementmanager</a></li>
-    <li><a href="../../widgets_display_fact_display_container/widgets_display_fact_display_container-library.html">fact_display_container</a></li>
-    <li><a href="../../widgets_display_fact_display_container/FactDisplayContainer-class.html">FactDisplayContainer</a></li>
+    <li><a href="../../widgets_link_alert/widgets_link_alert-library.html">link_alert</a></li>
+    <li><a href="../../widgets_link_alert/LinkAlert-class.html">LinkAlert</a></li>
     <li class="self-crumb">build method</li>
   </ol>
   <div class="self-name">build</div>
@@ -93,7 +93,7 @@ and</li>
 <li>any ambient state obtained from the <code>context</code> using
 <a href="https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html">BuildContext.dependOnInheritedWidgetOfExactType</a>.</li>
 </ul>
-<p>If a widget's <a href="../../widgets_display_fact_display_container/FactDisplayContainer/build.html">build</a> method is to depend on anything else, use a
+<p>If a widget's <a href="../../widgets_link_alert/LinkAlert/build.html">build</a> method is to depend on anything else, use a
 <a href="https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html">StatefulWidget</a> instead.</p>
 <p>See also:</p>
 <ul>
@@ -107,157 +107,78 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
-  return Padding(
-    padding: const EdgeInsets.only(top: 40, left: 40, right: 40),
-    &#47;&#47; The grey background container.
-    child: Container(
-      alignment: Alignment.topLeft,
-      clipBehavior: Clip.none,
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-        color: DesignColors.lightGrey,
-      ),
-      child: FractionallySizedBox(
-        widthFactor: 1.1,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            &#47;&#47; Display [fact.factText] and a label &quot;Fakt&quot;.
-            Stack(
-              clipBehavior: Clip.none,
+  return TextButton.icon(
+    onPressed: () =&gt; showModalBottomSheet&lt;void&gt;(
+      context: context,
+      isDismissible: true,
+      builder: (BuildContext context) {
+        return Align(
+          alignment: Alignment.topCenter,
+          child: Container(
+            padding: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
+            constraints: const BoxConstraints(
+              maxWidth: 700,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: FractionallySizedBox(
-                    widthFactor: 0.7,
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: Color(0xFF0999bc),
-                        ),
-                        child: SelectableText(
-                          fact.factText,
-                          style: Theme.of(context)
-                              .textTheme
-                              .subtitle2
-                              ?.copyWith(color: DesignColors.lightGrey),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
                 Align(
                   alignment: Alignment.topRight,
-                  child: Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      color: Color(0xFF009E74),
-                    ),
-                    child: SelectableText(
-                      &quot;Fakt&quot;,
-                      style: Theme.of(context).textTheme.headline3,
-                    ),
+                  child: IconButton(
+                    icon: const Icon(Icons.close),
+                    iconSize: 50,
+                    onPressed: () =&gt; Navigator.pop(context),
                   ),
                 ),
-              ],
-            ),
-            &#47;&#47; Display more information.
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Flex(
-                direction: DeviceType.width(context) &lt; 400
-                    ? Axis.vertical
-                    : Axis.horizontal,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      &#47;&#47; Author.
-                      Row(
-                        children: [
-                          const Icon(Icons.person),
-                          SelectableText(fact.factAuthor),
-                        ],
-                      ),
-                      DeviceType.width(context) &lt; 400
-                          ? const SizedBox.shrink()
-                          : const Divider(
-                              height: 20,
-                            ),
-                      &#47;&#47; Media.
-                      Row(
-                        children: [
-                          const Icon(Icons.newspaper),
-                          SelectableText(fact.factMedia),
-                        ],
-                      )
-                    ],
+                SelectableText(
+                  &quot;Du verlässt diese Website!&quot;,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline1!
+                      .copyWith(color: DesignColors.red),
+                ),
+                SelectableText(
+                  msg,
+                  style: Theme.of(context).textTheme.subtitle2,
+                ),
+                ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all&lt;Color&gt;(DesignColors.red),
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      &#47;&#47; Date.
-                      Row(
-                        children: [
-                          const Icon(Icons.calendar_month),
-                          SelectableText(fact.dateAsString()),
-                        ],
-                      ),
-                      DeviceType.width(context) &lt; 400
-                          ? const SizedBox.shrink()
-                          : const Divider(
-                              height: 20,
-                            ),
-                      &#47;&#47; Language.
-                      Row(
-                        children: [
-                          const Icon(Icons.language),
-                          SelectableText(fact.factLanguage),
-                        ],
-                      )
-                    ],
-                  )
-                ],
-              ),
-            ),
-            FractionallySizedBox(
-              widthFactor: 0.8,
-              child: Divider(
-                  height: 20, thickness: 2, color: DesignColors.black),
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                LinkAlert(
-                    label: &quot;Link zum Artikel&quot;,
-                    link: fact.factLink,
-                    color: Colors.grey[600],
-                    msg:
-                        &quot;Dieser Link führt zum Originale Faktcheck. ggbf. ist dieser nicht mehr verfügbar.&quot;),
-                fact.factArchivedLink != null
-                    ? LinkAlert(
-                        label: &quot;Archivierter Link zum Artikel&quot;,
-                        link: fact.factArchivedLink!,
-                        color: Colors.grey[600],
-                        msg:
-                            &quot;Dieser Link ist eine archivierte Version des Faktchecks. Die Seite brauch etwas zum laden. Falls du den nicht archivierten Link noch nicht probiert hast, versuche das erstmal.&quot;,
-                      )
-                    : const SizedBox.shrink()
+                  onPressed: () async {
+                    if (!await launch(link)) {
+                      throw &#39;could not launch&#39;;
+                    }
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    &quot;Trotzdem fortfahren.&quot;,
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
+                ),
+                Text(link),
               ],
             ),
-            const SizedBox(
-              height: 10,
-            )
-          ],
-        ),
+          ),
+        );
+      },
+    ),
+    label: Text(
+      label,
+      style: Theme.of(context)
+          .textTheme
+          .bodyText2!
+          .copyWith(color: color ?? DesignColors.lightGrey),
+    ),
+    icon: Padding(
+      padding: const EdgeInsets.all(2),
+      child: Icon(
+        Icons.link_rounded,
+        size: Theme.of(context).textTheme.subtitle2!.fontSize! + 5,
+        color: color ?? DesignColors.lightGrey,
       ),
     ),
   );
@@ -276,29 +197,32 @@ Widget build(BuildContext context) {
 
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
   <li><a href="../../index.html">statementmanager</a></li>
-  <li><a href="../../widgets_display_fact_display_container/widgets_display_fact_display_container-library.html">fact_display_container</a></li>
-  <li><a href="../../widgets_display_fact_display_container/FactDisplayContainer-class.html">FactDisplayContainer</a></li>
+  <li><a href="../../widgets_link_alert/widgets_link_alert-library.html">link_alert</a></li>
+  <li><a href="../../widgets_link_alert/LinkAlert-class.html">LinkAlert</a></li>
   <li class="self-crumb">build method</li>
 </ol>
 
 
-    <h5>FactDisplayContainer class</h5>
+    <h5>LinkAlert class</h5>
     <ol>
 
-    <li class="section-title"><a href="../../widgets_display_fact_display_container/FactDisplayContainer-class.html#constructors">Constructors</a></li>
-    <li><a href="../../widgets_display_fact_display_container/FactDisplayContainer/FactDisplayContainer.html">FactDisplayContainer</a></li>
+    <li class="section-title"><a href="../../widgets_link_alert/LinkAlert-class.html#constructors">Constructors</a></li>
+    <li><a href="../../widgets_link_alert/LinkAlert/LinkAlert.html">LinkAlert</a></li>
 
 
     <li class="section-title">
-      <a href="../../widgets_display_fact_display_container/FactDisplayContainer-class.html#instance-properties">Properties</a>
+      <a href="../../widgets_link_alert/LinkAlert-class.html#instance-properties">Properties</a>
     </li>
-    <li><a href="../../widgets_display_fact_display_container/FactDisplayContainer/fact.html">fact</a></li>
+    <li><a href="../../widgets_link_alert/LinkAlert/color.html">color</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/hashCode.html">hashCode</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/key.html">key</a></li>
+    <li><a href="../../widgets_link_alert/LinkAlert/label.html">label</a></li>
+    <li><a href="../../widgets_link_alert/LinkAlert/link.html">link</a></li>
+    <li><a href="../../widgets_link_alert/LinkAlert/msg.html">msg</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
 
-    <li class="section-title"><a href="../../widgets_display_fact_display_container/FactDisplayContainer-class.html#instance-methods">Methods</a></li>
-    <li><a href="../../widgets_display_fact_display_container/FactDisplayContainer/build.html">build</a></li>
+    <li class="section-title"><a href="../../widgets_link_alert/LinkAlert-class.html#instance-methods">Methods</a></li>
+    <li><a href="../../widgets_link_alert/LinkAlert/build.html">build</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/StatelessWidget/createElement.html">createElement</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/debugDescribeChildren.html">debugDescribeChildren</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/debugFillProperties.html">debugFillProperties</a></li>
@@ -309,7 +233,7 @@ Widget build(BuildContext context) {
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringShallow.html">toStringShallow</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/toStringShort.html">toStringShort</a></li>
 
-    <li class="section-title inherited"><a href="../../widgets_display_fact_display_container/FactDisplayContainer-class.html#operators">Operators</a></li>
+    <li class="section-title inherited"><a href="../../widgets_link_alert/LinkAlert-class.html#operators">Operators</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/operator_equals.html">operator ==</a></li>
 
 

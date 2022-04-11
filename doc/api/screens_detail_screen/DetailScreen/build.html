@@ -207,7 +207,7 @@ Widget build(BuildContext context) {
                                   Container(
                                     padding: const EdgeInsets.all(2),
                                     color: const Color.fromARGB(61, 0, 0, 0),
-                                    child: Text(
+                                    child: SelectableText(
                                       statement.samplePictureCopyright.trim(),
                                       style: Theme.of(context)
                                           .textTheme
@@ -240,34 +240,30 @@ Widget build(BuildContext context) {
                                             Radius.circular(10)),
                                         color: Color(0xFF0999bc),
                                       ),
-                                      child: Text(
-                                        statement.statementText,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .subtitle2
-                                            ?.copyWith(
-                                                color:
-                                                    DesignColors.lightGrey),
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            statement.statementText,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .subtitle2
+                                                ?.copyWith(
+                                                    color: DesignColors
+                                                        .lightGrey),
+                                          ),
+                                          Align(
+                                            alignment: Alignment.topLeft,
+                                            child: LinkAlert(
+                                                link: statement.statementLink,
+                                                msg:
+                                                    &quot;Du verlässt diese Website. Dieser link ist archiviert, kann aber trotzdem unangenehme inhalte aufweisen. Be carful &lt;3.&quot;),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    Container(
-                                      margin: const EdgeInsets.only(top: 10),
-                                      padding: const EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(10)),
-                                        color: statement
-                                                    .statementCorrectness !=
-                                                CorrectnessCategory.correct
-                                            ? const Color(0xFFD55C00)
-                                            : const Color(0xFF009E74),
-                                      ),
-                                      child: Text(
-                                        statement.statementCorrectness,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline3,
-                                      ),
+                                    CorrectnessBadge(
+                                      correctnessValue:
+                                          statement.statementCorrectness,
                                     ),
                                   ],
                                 ),
@@ -322,7 +318,7 @@ Widget build(BuildContext context) {
                                 Row(
                                   children: [
                                     const Icon(Icons.calendar_month),
-                                    Text(statement.dateAsString()),
+                                    SelectableText(statement.dateAsString()),
                                   ],
                                 ),
                                 DeviceType.width(context) &lt; 400
@@ -334,7 +330,8 @@ Widget build(BuildContext context) {
                                 Row(
                                   children: [
                                     const Icon(Icons.language),
-                                    Text(statement.statementLanguage),
+                                    SelectableText(
+                                        statement.statementLanguage),
                                   ],
                                 )
                               ],
