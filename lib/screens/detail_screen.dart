@@ -190,26 +190,7 @@ class DetailScreen extends StatelessWidget {
                                       CorrectnessBadge(
                                         correctnessValue:
                                             statement.statementCorrectness,
-                                      )
-                                      // Container(
-                                      //   margin: const EdgeInsets.only(top: 10),
-                                      //   padding: const EdgeInsets.all(10),
-                                      //   decoration: BoxDecoration(
-                                      //     borderRadius: const BorderRadius.all(
-                                      //         Radius.circular(10)),
-                                      //     color: statement
-                                      //                 .statementCorrectness !=
-                                      //             CorrectnessCategory.correct
-                                      //         ? const Color(0xFFD55C00)
-                                      //         : const Color(0xFF009E74),
-                                      //   ),
-                                      //   child: Text(
-                                      //     statement.statementCorrectness,
-                                      //     style: Theme.of(context)
-                                      //         .textTheme
-                                      //         .headline3,
-                                      //   ),
-                                      // ),
+                                      ),
                                     ],
                                   ),
                                 ),

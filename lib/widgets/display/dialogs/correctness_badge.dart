@@ -36,162 +36,186 @@ class CorrectnessBadge extends StatelessWidget {
             builder: (BuildContext context) {
               return Container(
                 padding: const EdgeInsets.all(20),
-                child: Column(
-                  children: [
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: IconButton(
-                        icon: const Icon(Icons.close),
-                        iconSize: 50,
-                        onPressed: () => Navigator.pop(context),
-                      ),
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Container(
+                    constraints: const BoxConstraints(
+                      maxWidth: 1000,
                     ),
-                    SelectableText(
-                      "Unsere Bewertungsskala",
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline1!
-                          .copyWith(color: DesignColors.green),
-                    ),
-                    Row(
+                    child: ListView(
                       children: [
-                        Container(
-                          margin: const EdgeInsets.only(top: 10),
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                            color: DesignColors.green,
-                          ),
-                          child: SelectableText(
-                            "Richtig",
-                            style: Theme.of(context).textTheme.headline3,
-                          ),
+                        Column(
+                          children: [
+                            Align(
+                              alignment: Alignment.topRight,
+                              child: IconButton(
+                                icon: const Icon(Icons.close),
+                                iconSize: 50,
+                                onPressed: () => Navigator.pop(context),
+                              ),
+                            ),
+                            SelectableText(
+                              "Unsere Bewertungsskala",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline1!
+                                  .copyWith(color: DesignColors.green),
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.only(top: 10),
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10)),
+                                    color: DesignColors.green,
+                                  ),
+                                  child: SelectableText(
+                                    "Richtig",
+                                    style:
+                                        Theme.of(context).textTheme.headline3,
+                                  ),
+                                ),
+                                Flexible(
+                                  child: SelectableText(
+                                    "Die Behauptungen oder Aussagen sind richtig.",
+                                    style:
+                                        Theme.of(context).textTheme.subtitle2,
+                                  ),
+                                )
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.only(top: 10),
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10)),
+                                    color: DesignColors.red,
+                                  ),
+                                  child: SelectableText(
+                                    "Manipuliert",
+                                    style:
+                                        Theme.of(context).textTheme.headline3,
+                                  ),
+                                ),
+                                Flexible(
+                                  child: SelectableText(
+                                    "Diese Aussage ist Falsch und bewusst manipulliert worden.",
+                                    style:
+                                        Theme.of(context).textTheme.subtitle2,
+                                  ),
+                                )
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.only(top: 10),
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10)),
+                                    color: DesignColors.red,
+                                  ),
+                                  child: SelectableText(
+                                    "Falscher Kontext",
+                                    style:
+                                        Theme.of(context).textTheme.headline3,
+                                  ),
+                                ),
+                                Flexible(
+                                  child: SelectableText(
+                                    "Ein Foto oder Video zeigt nicht das, was behauptet wird, ist veraltet oder an einem anderen Ort entstanden. ",
+                                    style:
+                                        Theme.of(context).textTheme.subtitle2,
+                                  ),
+                                )
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.only(top: 10),
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10)),
+                                    color: DesignColors.red,
+                                  ),
+                                  child: SelectableText(
+                                    "Irreführend",
+                                    style:
+                                        Theme.of(context).textTheme.headline3,
+                                  ),
+                                ),
+                                Flexible(
+                                  child: SelectableText(
+                                    "Diese Aussage ",
+                                    style:
+                                        Theme.of(context).textTheme.subtitle2,
+                                  ),
+                                )
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.only(top: 10),
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10)),
+                                    color: DesignColors.red,
+                                  ),
+                                  child: SelectableText(
+                                    "Frei Erfunden",
+                                    style:
+                                        Theme.of(context).textTheme.headline3,
+                                  ),
+                                ),
+                                Flexible(
+                                  child: SelectableText(
+                                    "Zitate, Behauptungen, Zahlen, Geschehnisse oder Personen sind erfunden.",
+                                    style:
+                                        Theme.of(context).textTheme.subtitle2,
+                                  ),
+                                )
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.only(top: 10),
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10)),
+                                    color: DesignColors.red,
+                                  ),
+                                  child: SelectableText(
+                                    "Unbelegt",
+                                    style:
+                                        Theme.of(context).textTheme.headline3,
+                                  ),
+                                ),
+                                Flexible(
+                                  child: SelectableText(
+                                    "Die Behauptungen oder Aussagen sind nicht belegbar.",
+                                    style:
+                                        Theme.of(context).textTheme.subtitle2,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ],
                         ),
-                        Flexible(
-                          child: SelectableText(
-                            "Die Behauptungen oder Aussagen sind richtig.",
-                            style: Theme.of(context).textTheme.subtitle2,
-                          ),
-                        )
                       ],
                     ),
-                    Row(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.only(top: 10),
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                            color: DesignColors.red,
-                          ),
-                          child: SelectableText(
-                            "Manipuliert",
-                            style: Theme.of(context).textTheme.headline3,
-                          ),
-                        ),
-                        Flexible(
-                          child: SelectableText(
-                            "Diese Aussage ist Falsch und bewusst manipulliert worden.",
-                            style: Theme.of(context).textTheme.subtitle2,
-                          ),
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.only(top: 10),
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                            color: DesignColors.red,
-                          ),
-                          child: SelectableText(
-                            "Falscher Kontext",
-                            style: Theme.of(context).textTheme.headline3,
-                          ),
-                        ),
-                        Flexible(
-                          child: SelectableText(
-                            "Ein Foto oder Video zeigt nicht das, was behauptet wird, ist veraltet oder an einem anderen Ort entstanden. ",
-                            style: Theme.of(context).textTheme.subtitle2,
-                          ),
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.only(top: 10),
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                            color: DesignColors.red,
-                          ),
-                          child: SelectableText(
-                            "Irreführend",
-                            style: Theme.of(context).textTheme.headline3,
-                          ),
-                        ),
-                        Flexible(
-                          child: SelectableText(
-                            "Diese Aussage ",
-                            style: Theme.of(context).textTheme.subtitle2,
-                          ),
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.only(top: 10),
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                            color: DesignColors.red,
-                          ),
-                          child: SelectableText(
-                            "Frei Erfunden",
-                            style: Theme.of(context).textTheme.headline3,
-                          ),
-                        ),
-                        Flexible(
-                          child: SelectableText(
-                            "Zitate, Behauptungen, Zahlen, Geschehnisse oder Personen sind erfunden.",
-                            style: Theme.of(context).textTheme.subtitle2,
-                          ),
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.only(top: 10),
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                            color: DesignColors.red,
-                          ),
-                          child: SelectableText(
-                            "Unbelegt",
-                            style: Theme.of(context).textTheme.headline3,
-                          ),
-                        ),
-                        Flexible(
-                          child: SelectableText(
-                            "Die Behauptungen oder Aussagen sind nicht belegbar.",
-                            style: Theme.of(context).textTheme.subtitle2,
-                          ),
-                        )
-                      ],
-                    ),
-                  ],
+                  ),
                 ),
               );
             },

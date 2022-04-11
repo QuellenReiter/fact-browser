@@ -23,44 +23,55 @@ class LinkAlert extends StatelessWidget {
         context: context,
         isDismissible: true,
         builder: (BuildContext context) {
-          return Container(
-            constraints: BoxConstraints(
-              maxWidth: 100,
-              minHeight: DeviceType.height(context) / 2,
-            ),
-            child: Align(
-              alignment: Alignment.center,
-              child: Container(
-                constraints: const BoxConstraints(
-                  maxWidth: 500,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SelectableText(
-                      msg,
-                      style: Theme.of(context).textTheme.subtitle2,
+          return Align(
+            alignment: Alignment.topCenter,
+            child: Container(
+              padding: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
+              constraints: const BoxConstraints(
+                maxWidth: 700,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: IconButton(
+                      icon: const Icon(Icons.close),
+                      iconSize: 50,
+                      onPressed: () => Navigator.pop(context),
                     ),
-                    ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(DesignColors.red),
-                      ),
-                      onPressed: () async {
-                        if (!await launch(link)) {
-                          throw 'could not launch';
-                        }
-                        Navigator.pop(context);
-                      },
-                      child: Text(
-                        "Trotzdem fortfahren.",
-                        style: Theme.of(context).textTheme.subtitle1,
-                      ),
+                  ),
+                  SelectableText(
+                    "Du verlässt diese Website!",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline1!
+                        .copyWith(color: DesignColors.red),
+                  ),
+                  SelectableText(
+                    msg,
+                    style: Theme.of(context).textTheme.subtitle2,
+                  ),
+                  ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(DesignColors.red),
                     ),
-                    Text(link),
-                  ],
-                ),
+                    onPressed: () async {
+                      if (!await launch(link)) {
+                        throw 'could not launch';
+                      }
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      "Trotzdem fortfahren.",
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ),
+                  ),
+                  Text(link),
+                ],
               ),
             ),
           );
