@@ -3,6 +3,7 @@ import 'package:statementmanager/constants/constants.dart';
 import 'package:statementmanager/models/statement.dart';
 import 'package:statementmanager/provider/device_type_provider.dart';
 import 'package:statementmanager/utilities/utilities.dart';
+import 'package:statementmanager/widgets/display/dialogs/correctness_badge.dart';
 import 'package:statementmanager/widgets/link_alert.dart';
 import 'package:statementmanager/widgets/main_app_bar.dart';
 import '../widgets/display/fact_display_container.dart';
@@ -186,25 +187,29 @@ class DetailScreen extends StatelessWidget {
                                           ],
                                         ),
                                       ),
-                                      Container(
-                                        margin: const EdgeInsets.only(top: 10),
-                                        padding: const EdgeInsets.all(10),
-                                        decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(10)),
-                                          color: statement
-                                                      .statementCorrectness !=
-                                                  CorrectnessCategory.correct
-                                              ? const Color(0xFFD55C00)
-                                              : const Color(0xFF009E74),
-                                        ),
-                                        child: Text(
-                                          statement.statementCorrectness,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline3,
-                                        ),
-                                      ),
+                                      CorrectnessBadge(
+                                        correctnessValue:
+                                            statement.statementCorrectness,
+                                      )
+                                      // Container(
+                                      //   margin: const EdgeInsets.only(top: 10),
+                                      //   padding: const EdgeInsets.all(10),
+                                      //   decoration: BoxDecoration(
+                                      //     borderRadius: const BorderRadius.all(
+                                      //         Radius.circular(10)),
+                                      //     color: statement
+                                      //                 .statementCorrectness !=
+                                      //             CorrectnessCategory.correct
+                                      //         ? const Color(0xFFD55C00)
+                                      //         : const Color(0xFF009E74),
+                                      //   ),
+                                      //   child: Text(
+                                      //     statement.statementCorrectness,
+                                      //     style: Theme.of(context)
+                                      //         .textTheme
+                                      //         .headline3,
+                                      //   ),
+                                      // ),
                                     ],
                                   ),
                                 ),
