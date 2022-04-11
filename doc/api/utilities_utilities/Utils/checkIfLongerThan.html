@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the checkIfLongerThan method from the Utils class, for the Dart programming language.">
+  <title>checkIfLongerThan method - Utils class - utilities library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../../"
+      data-using-base-href="false">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">statementmanager</a></li>
+    <li><a href="../../utilities_utilities/utilities_utilities-library.html">utilities</a></li>
+    <li><a href="../../utilities_utilities/Utils-class.html">Utils</a></li>
+    <li class="self-crumb">checkIfLongerThan method</li>
+  </ol>
+  <div class="self-name">checkIfLongerThan</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+
+  <div id="dartdoc-main-content" class="main-content">
+      <div>
+<h1><span class="kind-method">checkIfLongerThan</span> method 
+    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span>
+<span class="name ">checkIfLongerThan</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="checkIfLongerThan-param-textEditingController"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/TextEditingController-class.html">TextEditingController</a></span> <span class="parameter-name">textEditingController</span>, </span></li>
+<li><span class="parameter" id="checkIfLongerThan-param-minLength"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">minLength</span></span></li>
+</ol>)
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Checks if the Value of a <a href="https://api.flutter.dev/flutter/widgets/TextEditingController-class.html">TextEditingController</a> is longer than
+<code>minLength</code>.</p>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">static String? checkIfLongerThan(
+    TextEditingController textEditingController, int minLength) {
+  final text = textEditingController.text;
+  if (text.length &lt; minLength) {
+    return &#39;Mindestens ${minLength.toString()} Zeichen&#39;;
+  }
+  &#47;&#47; return null if the text is valid
+  return null;
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="../../index.html">statementmanager</a></li>
+  <li><a href="../../utilities_utilities/utilities_utilities-library.html">utilities</a></li>
+  <li><a href="../../utilities_utilities/Utils-class.html">Utils</a></li>
+  <li class="self-crumb">checkIfLongerThan method</li>
+</ol>
+
+
+    <h5>Utils class</h5>
+    <ol>
+
+    <li class="section-title"><a href="../../utilities_utilities/Utils-class.html#constructors">Constructors</a></li>
+    <li><a href="../../utilities_utilities/Utils/Utils.html">Utils</a></li>
+
+
+    <li class="section-title inherited">
+      <a href="../../utilities_utilities/Utils-class.html#instance-properties">Properties</a>
+    </li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
+
+    <li class="section-title inherited"><a href="../../utilities_utilities/Utils-class.html#instance-methods">Methods</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
+
+    <li class="section-title inherited"><a href="../../utilities_utilities/Utils-class.html#operators">Operators</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
+
+
+
+    <li class="section-title"><a href="../../utilities_utilities/Utils-class.html#static-methods">Static methods</a></li>
+    <li><a href="../../utilities_utilities/Utils/checkIfDay.html">checkIfDay</a></li>
+    <li><a href="../../utilities_utilities/Utils/checkIfEmpty.html">checkIfEmpty</a></li>
+    <li><a href="../../utilities_utilities/Utils/checkIfEmptyOrEqualTo.html">checkIfEmptyOrEqualTo</a></li>
+    <li><a href="../../utilities_utilities/Utils/checkIfLongerThan.html">checkIfLongerThan</a></li>
+    <li><a href="../../utilities_utilities/Utils/checkIfMonth.html">checkIfMonth</a></li>
+    <li><a href="../../utilities_utilities/Utils/checkIfYear.html">checkIfYear</a></li>
+    <li><a href="../../utilities_utilities/Utils/compressImage.html">compressImage</a></li>
+
+</ol>
+
+  </div><!--/.sidebar-offcanvas-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    statementmanager
+      1.0.0+1
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/script.js?v1"></script>
+
+
+
+</body>
+
+</html>
+
