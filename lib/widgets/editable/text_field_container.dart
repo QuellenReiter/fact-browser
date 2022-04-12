@@ -32,7 +32,7 @@ class TextFieldContainer extends StatelessWidget {
               children: [
                 Padding(
                     padding: const EdgeInsets.only(right: 5),
-                    child: SelectableText(
+                    child: Text(
                       label,
                       style: Theme.of(context).textTheme.headline2,
                     )),

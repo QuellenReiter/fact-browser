@@ -58,6 +58,55 @@ class Queries {
     return ret;
   }
 
+  /// Returns the graphQL query to get to newest n statements.
+  static String getnNewestStatements(int n) {
+    String ret = '''
+  query getNNewestStatements{
+  statements(
+      order: [createdAt_DESC],
+    	first: $n
+  ){
+    edges{
+      node{
+        objectId
+        ${DbFields.statementText}
+        ${DbFields.statementPictureFile}{url}
+        ${DbFields.statementYear}
+        ${DbFields.statementMonth}
+        ${DbFields.statementDay}
+        ${DbFields.statementCorrectness}
+        ${DbFields.statementMedia}
+        ${DbFields.statementLanguage}
+        ${DbFields.statementCategory}
+        ${DbFields.statementMediatype}
+        ${DbFields.statementAuthor}
+        ${DbFields.statementLink}
+        ${DbFields.statementRectification}
+        ${DbFields.statementPictureCopyright}
+        ${DbFields.statementFactcheckIDs}{
+          edges{
+            node{
+              objectId
+              ${DbFields.factText}
+              ${DbFields.factAuthor}
+              ${DbFields.statementYear}
+              ${DbFields.statementMonth}
+              ${DbFields.statementDay}
+              ${DbFields.factLanguage}
+              ${DbFields.factMedia}
+              ${DbFields.factLink}
+              ${DbFields.factArchivedLink}
+            }
+          }
+        }
+      }
+    }
+  }
+}
+  ''';
+    return ret;
+  }
+
   /// Returns the graphQL mutation to create a [Statement].
   static String createStatement() {
     String ret = '''

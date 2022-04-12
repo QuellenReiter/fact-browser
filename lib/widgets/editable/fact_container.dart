@@ -39,7 +39,7 @@ class _FactContainerState extends State<FactContainer> {
         children: [
           TextFieldContainer(
             textController: widget.controllers!.factController,
-            label: "Gebe einen Fakt ein.",
+            label: "Gib einen Fakt ein.",
             errorCallback: Utils.checkIfEmpty,
           ),
           Flexible(
@@ -47,7 +47,7 @@ class _FactContainerState extends State<FactContainer> {
               Flexible(
                 child: TextFieldContainer(
                   textController: widget.controllers!.authorController,
-                  label: "Gebe den Author ein.",
+                  label: "Gib den Author ein.",
                   errorCallback: Utils.checkIfEmpty,
                   autoCompleteList: Suggestions.authorSuggestions,
                 ),
@@ -55,7 +55,7 @@ class _FactContainerState extends State<FactContainer> {
               Flexible(
                 child: TextFieldContainer(
                   textController: widget.controllers!.mediaController,
-                  label: "Gebe das Medium ein.",
+                  label: "Gib das Medium ein.",
                   errorCallback: Utils.checkIfEmpty,
                   autoCompleteList: Suggestions.mediaSuggestions,
                 ),
@@ -67,7 +67,7 @@ class _FactContainerState extends State<FactContainer> {
               Flexible(
                 child: TextFieldContainer(
                   textController: widget.controllers!.languageController,
-                  label: "Gebe die Originalsprache ein.",
+                  label: "Gib die Originalsprache ein.",
                   errorCallback: Utils.checkIfEmpty,
                   autoCompleteList: Suggestions.languageSuggestions,
                 ),
@@ -77,7 +77,7 @@ class _FactContainerState extends State<FactContainer> {
                   yearController: widget.controllers!.yearController,
                   monthController: widget.controllers!.monthController,
                   dayController: widget.controllers!.dayController,
-                  label: "gebe das datum ein.",
+                  label: "Gib das datum ein.",
                 ),
               ),
             ]),
@@ -105,7 +105,7 @@ class _FactContainerState extends State<FactContainer> {
                 widget.removeFact(widget.controllers);
               },
               icon: const Icon(Icons.remove),
-              label: const SelectableText("Fakt entfernen"),
+              label: const Text("Fakt entfernen"),
             ),
           ),
           const Divider(

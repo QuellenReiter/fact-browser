@@ -123,45 +123,52 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Builder(
                         builder: (BuildContext context) {
-                          if (Utils.checkIfEmpty(searchController) == null) {
-                            return Query(
-                              options: QueryOptions(
-                                  document: gql(Queries.searchStatements(
-                                      searchController.text))),
-                              builder: (
-                                QueryResult result, {
-                                VoidCallback? refetch,
-                                FetchMore? fetchMore,
-                              }) {
-                                // Show loading while requesting data.
-                                if (result.data == null) {
-                                  return const Center(
-                                    child: SelectableText(
-                                      "Loading...",
-                                      style: TextStyle(fontSize: 20.0),
+                          // if (1 == 1) {
+                          return Query(
+                            options: QueryOptions(
+                              document: searchController.text.isEmpty
+                                  ? gql(
+                                      Queries.getnNewestStatements(8),
+                                    )
+                                  : gql(
+                                      Queries.searchStatements(
+                                          searchController.text),
                                     ),
-                                  );
-                                } else {
-                                  statements = Statements.fromMap(result.data);
-                                  // Build search results.
-                                  return Flexible(
-                                    child: ListView.builder(
-                                        itemCount: statements.statements.length,
-                                        itemBuilder:
-                                            (BuildContext context, int index) {
-                                          return StatementCard(
-                                            statement:
-                                                statements.statements[index],
-                                            onTapped: widget.onSelectStatement,
-                                          );
-                                        }),
-                                  );
-                                }
-                              },
-                            );
-                          } else {
-                            return const SelectableText("");
-                          }
+                            ),
+                            builder: (
+                              QueryResult result, {
+                              VoidCallback? refetch,
+                              FetchMore? fetchMore,
+                            }) {
+                              // Show loading while requesting data.
+                              if (result.data == null) {
+                                return const Center(
+                                  child: SelectableText(
+                                    "Loading...",
+                                    style: TextStyle(fontSize: 20.0),
+                                  ),
+                                );
+                              } else {
+                                statements = Statements.fromMap(result.data);
+                                // Build search results.
+                                return Flexible(
+                                  child: ListView.builder(
+                                    itemCount: statements.statements.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return StatementCard(
+                                        statement: statements.statements[index],
+                                        onTapped: widget.onSelectStatement,
+                                      );
+                                    },
+                                  ),
+                                );
+                              }
+                            },
+                          );
+                          // } else {
+                          //   return const SelectableText("");
+                          // }
                         },
                       ),
                     ],

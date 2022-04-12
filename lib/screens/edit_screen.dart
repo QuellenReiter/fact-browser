@@ -174,11 +174,11 @@ class _EditScreenState extends State<EditScreen> {
           height: DeviceType.height(context),
           child: ListView(shrinkWrap: true, children: [
             errorText == null
-                ? const SelectableText("")
+                ? const Text("")
                 : Container(
                     padding: const EdgeInsets.all(10),
-                    color: Colors.red,
-                    child: SelectableText(
+                    color: DesignColors.red,
+                    child: Text(
                       errorText!,
                       style: const TextStyle(
                         fontSize: 40,
@@ -274,7 +274,7 @@ class _EditScreenState extends State<EditScreen> {
                           padding: const EdgeInsets.all(5),
                           child: Row(
                             children: [
-                              const SelectableText("Wähle eine Kategorie?"),
+                              const Text("Wähle eine Kategorie?"),
                               Padding(
                                 padding: const EdgeInsets.all(5),
                                 child: DropdownButton(
@@ -290,7 +290,7 @@ class _EditScreenState extends State<EditScreen> {
                                           (String value) {
                                     return DropdownMenuItem<String>(
                                       value: value,
-                                      child: SelectableText(
+                                      child: Text(
                                         value,
                                         style: Theme.of(context)
                                             .textTheme
@@ -309,7 +309,7 @@ class _EditScreenState extends State<EditScreen> {
                           padding: const EdgeInsets.all(5),
                           child: Row(
                             children: [
-                              const SelectableText("Wähle einen Medientyp."),
+                              const Text("Wähle einen Medientyp."),
                               Padding(
                                 padding: const EdgeInsets.all(5),
                                 child: DropdownButton(
@@ -325,7 +325,7 @@ class _EditScreenState extends State<EditScreen> {
                                           (String value) {
                                     return DropdownMenuItem<String>(
                                       value: value,
-                                      child: SelectableText(
+                                      child: Text(
                                         value,
                                         style: Theme.of(context)
                                             .textTheme
@@ -342,15 +342,16 @@ class _EditScreenState extends State<EditScreen> {
                       Container(
                         margin: const EdgeInsets.all(5),
                         decoration: BoxDecoration(
-                          color:
-                              highlightedDrop ? Colors.green : Colors.white12,
+                          color: highlightedDrop
+                              ? DesignColors.green
+                              : DesignColors.lightGrey,
                           borderRadius: BorderRadius.circular(5),
                         ),
                         height: 100,
                         child: Stack(
                           children: [
                             buildDropZone(context),
-                            Center(child: SelectableText(dropMsg)),
+                            Center(child: Text(dropMsg)),
                           ],
                         ),
                       ),
@@ -370,15 +371,14 @@ class _EditScreenState extends State<EditScreen> {
                           decoration: BoxDecoration(
                             color: widget.statement.statementCorrectness !=
                                     CorrectnessCategory.correct
-                                ? const Color.fromARGB(157, 255, 0, 0)
-                                : const Color.fromARGB(202, 46, 196, 0),
+                                ? DesignColors.red
+                                : DesignColors.green,
                             borderRadius: BorderRadius.circular(5),
                           ),
                           padding: const EdgeInsets.all(5),
                           child: Row(
                             children: [
-                              const SelectableText(
-                                  "Wie ist die Aussage einzuordnen?"),
+                              const Text("Wie ist die Aussage einzuordnen?"),
                               Padding(
                                 padding: const EdgeInsets.all(5),
                                 child: DropdownButton(
@@ -394,7 +394,7 @@ class _EditScreenState extends State<EditScreen> {
                                           (String value) {
                                     return DropdownMenuItem<String>(
                                       value: value,
-                                      child: SelectableText(
+                                      child: Text(
                                         value,
                                         style: Theme.of(context)
                                             .textTheme
@@ -413,8 +413,7 @@ class _EditScreenState extends State<EditScreen> {
                           padding: const EdgeInsets.all(5),
                           child: Row(
                             children: [
-                              const SelectableText(
-                                  "Wurde die Aussage Korrigiert?"),
+                              const Text("Wurde die Aussage Korrigiert?"),
                               Padding(
                                 padding: const EdgeInsets.all(5),
                                 child: Switch(
@@ -444,14 +443,14 @@ class _EditScreenState extends State<EditScreen> {
                   ..add(ElevatedButton.icon(
                     onPressed: addNewFact,
                     icon: const Icon(Icons.add),
-                    label: const SelectableText("Fakt"),
+                    label: const Text("Fakt"),
                   ))),
             Padding(
               padding: const EdgeInsets.all(20),
               child: ElevatedButton.icon(
                   onPressed: () => uploadStatement(),
                   icon: const Icon(Icons.upload_file),
-                  label: const SelectableText("Diese Aussage speichern")),
+                  label: const Text("Diese Aussage speichern")),
             ),
           ]),
         ),
@@ -489,7 +488,7 @@ class _EditScreenState extends State<EditScreen> {
                   return Container(
                     height: DeviceType.height(context) / 2,
                     child: const Center(
-                      child: SelectableText("Bild wird geladen."),
+                      child: Text("Bild wird geladen."),
                     ),
                   );
                 });
