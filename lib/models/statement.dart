@@ -157,7 +157,7 @@ class Statement {
   late String statementText;
 
   /// The URL to a picture describing the statement.
-  late String statementPictureURL;
+  late String? statementPictureURL;
 
   /// The Year of the statement publication.
   late int statementYear;
@@ -248,6 +248,7 @@ class Statement {
   Statement.empty() {
     statementText = "";
     statementAuthor = "";
+    statementPictureURL = null;
     statementCategory = DropdownValues.categoryValues.first;
     statementCorrectness = DropdownValues.correctnessValues.first;
     statementYear = 0;
@@ -258,7 +259,6 @@ class Statement {
     statementLink = "";
     statementMedia = "";
     statementMediatype = DropdownValues.mediatypeValues.first;
-    statementPictureURL = "emptyButNotEmpty";
     samplePictureCopyright = "";
     statementRectification = false;
   }
@@ -274,7 +274,7 @@ class Statement {
         statementLink.isEmpty ||
         statementMedia.isEmpty ||
         statementMediatype.isEmpty ||
-        (statementPictureURL == "emptyButNotEmpty" && (uploadImage == null))) {
+        (statementPictureURL == null && (uploadImage == null))) {
       return false;
     }
     //check all facts
@@ -314,7 +314,6 @@ class Statement {
     Map<String, dynamic> vars = {
       "fields": {
         DbFields.statementText: statementText,
-        DbFields.statementPicture: statementPictureURL,
         DbFields.statementYear: statementYear,
         DbFields.statementMonth: statementMonth,
         DbFields.statementDay: statementDay,
@@ -327,7 +326,6 @@ class Statement {
         DbFields.statementLink: statementLink,
         DbFields.statementRectification: statementRectification,
         DbFields.statementPictureCopyright: samplePictureCopyright,
-        // DbFields.statementPictureFile: {"file": statementPictureURL}
       }
     };
 

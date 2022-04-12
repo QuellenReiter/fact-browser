@@ -249,13 +249,16 @@ class _EditScreenState extends State<EditScreen> {
                       Flexible(
                         child: Padding(
                           padding: const EdgeInsets.all(5),
-                          child: widget.statement.uploadImage == null
-                              ? Image.network(widget
-                                  .statement.statementPictureURL
-                                  .replaceAll(
-                                      "https%3A%2F%2Fparsefiles.back4app.com%2FFeP6gb7k9R2K9OztjKWA1DgYhubqhW0yJMyrHbxH%2F",
-                                      ""))
-                              : Image.memory(widget.statement.uploadImage!),
+                          child: widget.statement.uploadImage == null &&
+                                  widget.statement.statementPictureURL == null
+                              ? Image.asset("assets/logo-pink.png")
+                              : widget.statement.uploadImage != null
+                                  ? Image.memory(widget.statement.uploadImage!)
+                                  : Image.network(widget
+                                      .statement.statementPictureURL!
+                                      .replaceAll(
+                                          "https%3A%2F%2Fparsefiles.back4app.com%2FFeP6gb7k9R2K9OztjKWA1DgYhubqhW0yJMyrHbxH%2F",
+                                          "")),
                         ),
                       ),
                     ],

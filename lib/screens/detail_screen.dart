@@ -116,9 +116,9 @@ class DetailScreen extends StatelessWidget {
                                           image: DecorationImage(
                                             image: NetworkImage(
                                               statement.statementPictureURL !=
-                                                      ""
+                                                      null
                                                   ? statement
-                                                      .statementPictureURL
+                                                      .statementPictureURL!
                                                       .replaceAll(
                                                           "https%3A%2F%2Fparsefiles.back4app.com%2FFeP6gb7k9R2K9OztjKWA1DgYhubqhW0yJMyrHbxH%2F",
                                                           "")
