@@ -120,11 +120,11 @@ class _MainAppBarState extends State<MainAppBar> {
                     PopupMenuItem(
                       onTap: () => widget.onLogin(),
                       child: widget.loggedIn
-                          ? SelectableText(
+                          ? Text(
                               "Logout",
                               style: Theme.of(context).textTheme.subtitle2,
                             )
-                          : SelectableText(
+                          : Text(
                               "Login",
                               style: Theme.of(context).textTheme.subtitle2,
                             ),
@@ -138,7 +138,7 @@ class _MainAppBarState extends State<MainAppBar> {
                           throw 'could not launch';
                         }
                       },
-                      child: SelectableText(
+                      child: Text(
                         "Impressum",
                         style: Theme.of(context).textTheme.subtitle2,
                       ),
@@ -152,7 +152,7 @@ class _MainAppBarState extends State<MainAppBar> {
                           throw 'could not launch';
                         }
                       },
-                      child: SelectableText(
+                      child: Text(
                         "Datenschutz",
                         style: Theme.of(context).textTheme.subtitle2,
                       ),
@@ -174,12 +174,12 @@ class _MainAppBarState extends State<MainAppBar> {
                               color: Color(0xFFc7ebeb),
                             ),
                             widget.loggedIn
-                                ? SelectableText(
+                                ? Text(
                                     "Logout",
                                     style:
                                         Theme.of(context).textTheme.subtitle1,
                                   )
-                                : SelectableText(
+                                : Text(
                                     "Login",
                                     style:
                                         Theme.of(context).textTheme.subtitle1,
@@ -203,7 +203,7 @@ class _MainAppBarState extends State<MainAppBar> {
                                 throw 'could not launch';
                               }
                             },
-                            child: SelectableText(
+                            child: Text(
                               "Impressum",
                               style: Theme.of(context).textTheme.subtitle1,
                             ),
@@ -215,7 +215,7 @@ class _MainAppBarState extends State<MainAppBar> {
                                 throw 'could not launch';
                               }
                             },
-                            child: SelectableText(
+                            child: Text(
                               "Datenschutz",
                               style: Theme.of(context).textTheme.subtitle1,
                             ),

@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:statementmanager/models/fact.dart';
-import 'package:statementmanager/provider/queries.dart';
-
 import '../constants/constants.dart';
 
 /// This holds all [TextEditingController] to create and edit a [Statement].
