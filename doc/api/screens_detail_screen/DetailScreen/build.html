@@ -190,9 +190,9 @@ Widget build(BuildContext context) {
                                         image: DecorationImage(
                                           image: NetworkImage(
                                             statement.statementPictureURL !=
-                                                    &quot;&quot;
+                                                    null
                                                 ? statement
-                                                    .statementPictureURL
+                                                    .statementPictureURL!
                                                     .replaceAll(
                                                         &quot;https%3A%2F%2Fparsefiles.back4app.com%2FFeP6gb7k9R2K9OztjKWA1DgYhubqhW0yJMyrHbxH%2F&quot;,
                                                         &quot;&quot;)

@@ -152,15 +152,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                 statements = Statements.fromMap(result.data);
                                 // Build search results.
                                 return Flexible(
-                                  child: ListView.builder(
-                                    itemCount: statements.statements.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return StatementCard(
-                                        statement: statements.statements[index],
-                                        onTapped: widget.onSelectStatement,
-                                      );
-                                    },
+                                  child: ScrollConfiguration(
+                                    behavior: ScrollConfiguration.of(context)
+                                        .copyWith(scrollbars: false),
+                                    child: ListView.builder(
+                                      itemCount: statements.statements.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return StatementCard(
+                                          statement:
+                                              statements.statements[index],
+                                          onTapped: widget.onSelectStatement,
+                                        );
+                                      },
+                                    ),
                                   ),
                                 );
                               }
