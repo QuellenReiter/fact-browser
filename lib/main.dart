@@ -53,6 +53,7 @@ class _FactBrowserState extends State<FactBrowser> {
 
                     // Small text for light backgrounds.
                     bodyText2: TextStyle(
+                      color: DesignColors.black,
                       fontSize: DeviceType.width(ctx) < 600 ? 10 : 14,
                       fontFamily: 'Oswald',
                     ),
@@ -75,7 +76,7 @@ class _FactBrowserState extends State<FactBrowser> {
                     // Huge text in bangers font.
                     headline3: TextStyle(
                       fontFamily: 'Bangers',
-                      fontSize: DeviceType.width(ctx) < 600 ? 24 : 50,
+                      fontSize: DeviceType.width(ctx) < 600 ? 24 : 40,
                       color: DesignColors.lightGrey,
                     ),
 

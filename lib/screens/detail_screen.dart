@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:statementmanager/constants/constants.dart';
 import 'package:statementmanager/models/statement.dart';
 import 'package:statementmanager/provider/device_type_provider.dart';
-import 'package:statementmanager/utilities/utilities.dart';
 import 'package:statementmanager/widgets/display/dialogs/correctness_badge.dart';
 import 'package:statementmanager/widgets/link_alert.dart';
 import 'package:statementmanager/widgets/main_app_bar.dart';
@@ -68,14 +67,21 @@ class DetailScreen extends StatelessWidget {
                         const EdgeInsets.only(left: 40, top: 20, bottom: 20),
                     child: Wrap(
                       children: [
-                        OutlinedButton.icon(
+                        TextButton.icon(
                           onPressed: () => Navigator.pop(context),
-                          icon: const Icon(Icons.arrow_back_ios_new),
+                          icon: Icon(
+                            Icons.arrow_back,
+                            color: DesignColors.black,
+                          ),
                           label: Padding(
                             padding: const EdgeInsets.all(7),
                             child: Text(
                               "zurück zur Suche",
-                              style: Theme.of(context).textTheme.bodyText2,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2!
+                                  .copyWith(
+                                      decoration: TextDecoration.underline),
                             ),
                           ),
                         ),
@@ -176,6 +182,8 @@ class DetailScreen extends StatelessWidget {
                                             color: Color(0xFF0999bc),
                                           ),
                                           child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 statement.statementText,
@@ -186,14 +194,10 @@ class DetailScreen extends StatelessWidget {
                                                         color: DesignColors
                                                             .lightGrey),
                                               ),
-                                              Align(
-                                                alignment: Alignment.topLeft,
-                                                child: LinkAlert(
-                                                    link:
-                                                        statement.statementLink,
-                                                    msg:
-                                                        "Du verlässt diese Website. Dieser link ist archiviert, kann aber trotzdem unangenehme inhalte aufweisen. Be carful <3."),
-                                              ),
+                                              LinkAlert(
+                                                  link: statement.statementLink,
+                                                  msg:
+                                                      "Du verlässt diese Website. Dieser link ist archiviert, kann aber trotzdem unangenehme inhalte aufweisen. Be carful <3."),
                                             ],
                                           ),
                                         ),
@@ -226,7 +230,11 @@ class DetailScreen extends StatelessWidget {
                                     Row(
                                       children: [
                                         const Icon(Icons.person),
-                                        Text(statement.statementAuthor),
+                                        Padding(
+                                            padding:
+                                                const EdgeInsets.only(left: 3),
+                                            child: Text(
+                                                statement.statementAuthor)),
                                       ],
                                     ),
                                     DeviceType.width(context) < 400
@@ -238,9 +246,13 @@ class DetailScreen extends StatelessWidget {
                                     Row(
                                       children: [
                                         const Icon(Icons.newspaper),
-                                        Text(statement.statementMedia +
-                                            ' | ' +
-                                            statement.statementMediatype),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 3),
+                                          child: Text(statement.statementMedia +
+                                              ' | ' +
+                                              statement.statementMediatype),
+                                        ),
                                       ],
                                     )
                                   ],
@@ -254,8 +266,12 @@ class DetailScreen extends StatelessWidget {
                                     Row(
                                       children: [
                                         const Icon(Icons.calendar_month),
-                                        SelectableText(
-                                            statement.dateAsString()),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 3),
+                                          child: SelectableText(
+                                              statement.dateAsString()),
+                                        ),
                                       ],
                                     ),
                                     DeviceType.width(context) < 400
@@ -267,8 +283,12 @@ class DetailScreen extends StatelessWidget {
                                     Row(
                                       children: [
                                         const Icon(Icons.language),
-                                        SelectableText(
-                                            statement.statementLanguage),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 3),
+                                          child: SelectableText(
+                                              statement.statementLanguage),
+                                        ),
                                       ],
                                     )
                                   ],

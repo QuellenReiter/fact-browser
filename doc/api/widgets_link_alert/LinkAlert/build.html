@@ -166,6 +166,11 @@ Widget build(BuildContext context) {
         );
       },
     ),
+    style: ButtonStyle(
+        padding: MaterialStateProperty.all&lt;EdgeInsets&gt;(
+          const EdgeInsets.all(0),
+        ),
+        alignment: Alignment.topLeft),
     label: Text(
       label,
       style: Theme.of(context)
@@ -173,13 +178,10 @@ Widget build(BuildContext context) {
           .bodyText2!
           .copyWith(color: color ?? DesignColors.lightGrey),
     ),
-    icon: Padding(
-      padding: const EdgeInsets.all(2),
-      child: Icon(
-        Icons.link_rounded,
-        size: Theme.of(context).textTheme.subtitle2!.fontSize! + 5,
-        color: color ?? DesignColors.lightGrey,
-      ),
+    icon: Icon(
+      Icons.link_rounded,
+      size: Theme.of(context).textTheme.subtitle2!.fontSize! + 5,
+      color: color ?? DesignColors.lightGrey,
     ),
   );
 }</code></pre>

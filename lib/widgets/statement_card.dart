@@ -27,7 +27,7 @@ class StatementCard extends StatelessWidget {
             color: Colors.black,
           ),
           Padding(
-            padding: const EdgeInsets.only(right: 20),
+            padding: const EdgeInsets.only(right: 20, left: 3),
             child: Text(
               statement.statementFactchecks.facts[i].factMedia,
               style: Theme.of(context).textTheme.bodyText2,

@@ -24,7 +24,7 @@ class DesignColors {
   static Color lightGrey = const Color(0xFFEEEEEE);
 
   /// Color for light grey backgrounds.
-  static Color black = const Color.fromARGB(255, 0, 0, 0);
+  static Color black = const Color.fromARGB(255, 23, 23, 23);
 }
 
 /// Contains suggestions to speed up User input and to minimize spelling

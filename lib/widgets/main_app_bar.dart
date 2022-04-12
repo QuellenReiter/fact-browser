@@ -55,7 +55,7 @@ class _MainAppBarState extends State<MainAppBar> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
-            padding: const EdgeInsets.only(bottom: 40, top: 0),
+            padding: const EdgeInsets.only(bottom: 20, top: 20),
             child:
                 // The app icon. If tabbed, returns to homescreen.
                 InkWell(
@@ -104,6 +104,7 @@ class _MainAppBarState extends State<MainAppBar> {
                                 gapPadding: 2),
                             filled: true,
                             fillColor: Colors.white,
+                            contentPadding: EdgeInsets.all(10),
                           ),
                         ),
                       )

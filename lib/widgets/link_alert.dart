@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:statementmanager/constants/constants.dart';
-import 'package:statementmanager/provider/device_type_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LinkAlert extends StatelessWidget {
@@ -77,6 +76,11 @@ class LinkAlert extends StatelessWidget {
           );
         },
       ),
+      style: ButtonStyle(
+          padding: MaterialStateProperty.all<EdgeInsets>(
+            const EdgeInsets.all(0),
+          ),
+          alignment: Alignment.topLeft),
       label: Text(
         label,
         style: Theme.of(context)
@@ -84,13 +88,10 @@ class LinkAlert extends StatelessWidget {
             .bodyText2!
             .copyWith(color: color ?? DesignColors.lightGrey),
       ),
-      icon: Padding(
-        padding: const EdgeInsets.all(2),
-        child: Icon(
-          Icons.link_rounded,
-          size: Theme.of(context).textTheme.subtitle2!.fontSize! + 5,
-          color: color ?? DesignColors.lightGrey,
-        ),
+      icon: Icon(
+        Icons.link_rounded,
+        size: Theme.of(context).textTheme.subtitle2!.fontSize! + 5,
+        color: color ?? DesignColors.lightGrey,
       ),
     );
   }
