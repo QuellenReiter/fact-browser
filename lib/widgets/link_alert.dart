@@ -39,7 +39,7 @@ class LinkAlert extends StatelessWidget {
                     child: IconButton(
                       icon: const Icon(Icons.close),
                       iconSize: 50,
-                      onPressed: () => Navigator.pop(context),
+                      onPressed: () => Navigator.of(context).pop(context),
                     ),
                   ),
                   SelectableText(
@@ -62,7 +62,7 @@ class LinkAlert extends StatelessWidget {
                       if (!await launch(link)) {
                         throw 'could not launch';
                       }
-                      Navigator.pop(context);
+                      Navigator.of(context).pop(context);
                     },
                     child: Text(
                       "Trotzdem fortfahren.",

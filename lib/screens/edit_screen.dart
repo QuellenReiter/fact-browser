@@ -57,7 +57,7 @@ class _EditScreenState extends State<EditScreen> {
   }
 
   void safeFile(Uint8List img) {
-    Navigator.pop(context);
+    Navigator.of(context).pop(context);
     setState(() {
       // whaaaat to do here?
       widget.statement.uploadImage = img;
@@ -66,7 +66,7 @@ class _EditScreenState extends State<EditScreen> {
 
   void reloadAndPopLoading(Statement? _statement, String? _error) {
     setState(() {
-      Navigator.pop(context);
+      Navigator.of(context).pop(context);
       errorText = _error;
       if (_statement != null) {
         widget.statement = _statement;
@@ -91,7 +91,7 @@ class _EditScreenState extends State<EditScreen> {
         });
     //check if all fields are non zero
     if (!widget.statement.isComplete()) {
-      Navigator.pop(context);
+      Navigator.of(context).pop(context);
       setState(() {
         errorText = "Keines der Felder darf Leer sein.";
       });
@@ -104,7 +104,7 @@ class _EditScreenState extends State<EditScreen> {
       var queryResult =
           await db.sendData(widget.statement, reloadAndPopLoading);
       if (queryResult == null || queryResult.hasException) {
-        Navigator.pop(context);
+        Navigator.of(context).pop(context);
         setState(() {
           errorText = "Erstellen des Statements fehlgeschlagen!";
         });
@@ -116,7 +116,7 @@ class _EditScreenState extends State<EditScreen> {
       var queryResult = await db.updateData(
           widget.statement, factsToBeDeleted, reloadAndPopLoading);
       if (queryResult == null || queryResult.hasException) {
-        Navigator.pop(context);
+        Navigator.of(context).pop(context);
         setState(() {
           errorText = "Update des Statements fehlgeschlagen!";
         });

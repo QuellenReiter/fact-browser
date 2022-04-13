@@ -51,7 +51,8 @@ class CorrectnessBadge extends StatelessWidget {
                               child: IconButton(
                                 icon: const Icon(Icons.close),
                                 iconSize: 50,
-                                onPressed: () => Navigator.pop(context),
+                                onPressed: () =>
+                                    Navigator.of(context).pop(context),
                               ),
                             ),
                             SelectableText(

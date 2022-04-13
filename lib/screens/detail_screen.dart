@@ -68,7 +68,7 @@ class DetailScreen extends StatelessWidget {
                     child: Wrap(
                       children: [
                         TextButton.icon(
-                          onPressed: () => Navigator.pop(context),
+                          onPressed: () => Navigator.of(context).pop(),
                           icon: Icon(
                             Icons.arrow_back,
                             color: DesignColors.black,

@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:statementmanager/models/statement.dart';
-import 'package:statementmanager/provider/queries.dart';
-import 'package:statementmanager/utilities/utilities.dart';
 import 'package:statementmanager/widgets/main_app_bar.dart';
 import 'package:statementmanager/widgets/statement_card.dart';
-
-import '../consonents.dart';
 
 /// The Homescreen page with a searchbar.
 class HomeScreen extends StatefulWidget {
@@ -18,7 +13,8 @@ class HomeScreen extends StatefulWidget {
       required this.query,
       required this.onLogin,
       required this.isLoggedIn,
-      required this.createStatement})
+      required this.createStatement,
+      required this.statements})
       : super(key: key);
 
   /// Stores if a statement is selected.
@@ -42,6 +38,9 @@ class HomeScreen extends StatefulWidget {
   /// Stores if user is logged in.
   final bool isLoggedIn;
 
+  /// Statements downloaded from the Database.
+  final Statements? statements;
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -50,9 +49,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   /// Stores the query.
   late TextEditingController searchController;
-
-  /// Stores statements received from server after search.
-  late Statements statements;
 
   /// Initialize [searchController] to query value, if it exists. If not,
   /// inittialize with default constructor.
@@ -65,6 +61,10 @@ class _HomeScreenState extends State<HomeScreen> {
     searchController.addListener(() {
       widget.onQueryChanged(searchController.text);
     });
+
+    if (widget.statements == null) {
+      widget.onQueryChanged("");
+    }
     super.initState();
   }
 
@@ -77,136 +77,79 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Link to server.
-    final HttpLink httpLink = HttpLink(kUrl, defaultHeaders: {
-      'X-Parse-Application-Id': kParseApplicationId,
-      'X-Parse-Client-Key': kParseClientKey,
-      //'X-Parse-REST-API-Key' : kParseRestApiKey,
-    });
-
-    // Provides data from server and facilitates requests.
-    ValueNotifier<GraphQLClient> client = ValueNotifier(
-      GraphQLClient(
-        cache: GraphQLCache(),
-        link: httpLink,
-      ),
-    );
     // Return the search page widget hierarchy.
-    return GraphQLProvider(
-      client: client,
-      child: Scaffold(
-        appBar: MainAppBar(
-          title: "Suche",
-          onLogin: widget.onLogin,
-          loggedIn: widget.isLoggedIn,
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
-        floatingActionButton: widget.isLoggedIn
-            ? FloatingActionButton(
-                child: const Icon(Icons.add),
-                onPressed: () => widget.createStatement(),
-              )
-            : null,
-        body: ValueListenableBuilder(
-          valueListenable: searchController,
-          builder: (context, TextEditingValue value, __) {
-            return Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Container(
-                  constraints: const BoxConstraints(
-                    // Max width of the search results.
-                    maxWidth: 1000,
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Flexible(
-                            child: Container(
-                              padding: const EdgeInsets.all(10),
-                              constraints: const BoxConstraints(maxWidth: 1000),
-                              child: TextField(
-                                controller: searchController,
-                                style: Theme.of(context).textTheme.headline2,
-                                decoration: const InputDecoration(
-                                  hintText: "Suche nach Themen, z.B. Corona",
-                                  border: UnderlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(10),
-                                    ),
-                                  ),
-                                  filled: true,
-                                  fillColor: Colors.transparent,
-                                  contentPadding: EdgeInsets.all(10),
-                                ),
-                              ),
+    return Scaffold(
+      appBar: MainAppBar(
+        title: "Suche",
+        onLogin: widget.onLogin,
+        loggedIn: widget.isLoggedIn,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
+      floatingActionButton: widget.isLoggedIn
+          ? FloatingActionButton(
+              child: const Icon(Icons.add),
+              onPressed: () => widget.createStatement(),
+            )
+          : null,
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Container(
+            constraints: const BoxConstraints(
+              // Max width of the search results.
+              maxWidth: 1000,
+            ),
+            child: Column(children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Flexible(
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
+                      constraints: const BoxConstraints(maxWidth: 1000),
+                      child: TextField(
+                        controller: searchController,
+                        style: Theme.of(context).textTheme.headline2,
+                        decoration: const InputDecoration(
+                          hintText: "Suche nach Themen, z.B. Corona",
+                          border: UnderlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
                             ),
-                          )
-                        ],
+                          ),
+                          filled: true,
+                          fillColor: Colors.transparent,
+                          contentPadding: EdgeInsets.all(10),
+                        ),
                       ),
-                      Builder(
-                        builder: (BuildContext context) {
-                          // if (1 == 1) {
-                          return Query(
-                            options: QueryOptions(
-                              document: searchController.text.isEmpty
-                                  ? gql(
-                                      Queries.getnNewestStatements(8),
-                                    )
-                                  : gql(
-                                      Queries.searchStatements(
-                                          searchController.text),
-                                    ),
-                            ),
-                            builder: (
-                              QueryResult result, {
-                              VoidCallback? refetch,
-                              FetchMore? fetchMore,
-                            }) {
-                              // Show loading while requesting data.
-                              if (result.data == null) {
-                                return const Center(
-                                  child: SelectableText(
-                                    "Loading...",
-                                    style: TextStyle(fontSize: 20.0),
-                                  ),
-                                );
-                              } else {
-                                statements = Statements.fromMap(result.data);
-                                // Build search results.
-                                return Flexible(
-                                  child: ScrollConfiguration(
-                                    behavior: ScrollConfiguration.of(context)
-                                        .copyWith(scrollbars: false),
-                                    child: ListView.builder(
-                                      itemCount: statements.statements.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        return StatementCard(
-                                          statement:
-                                              statements.statements[index],
-                                          onTapped: widget.onSelectStatement,
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                );
-                              }
-                            },
-                          );
-                          // } else {
-                          //   return const SelectableText("");
-                          // }
-                        },
-                      ),
-                    ],
-                  ),
-                ),
+                    ),
+                  )
+                ],
               ),
-            );
-          },
+              widget.statements != null
+                  ? Flexible(
+                      child: ScrollConfiguration(
+                        behavior: ScrollConfiguration.of(context)
+                            .copyWith(scrollbars: false),
+                        child: ListView.builder(
+                          itemCount: widget.statements!.statements.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return StatementCard(
+                              statement: widget.statements!.statements[index],
+                              onTapped: widget.onSelectStatement,
+                            );
+                          },
+                        ),
+                      ),
+                    )
+                  : const Center(
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text("loading"),
+                      ),
+                    ),
+            ]),
+          ),
         ),
       ),
     );

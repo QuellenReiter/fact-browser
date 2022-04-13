@@ -56,7 +56,7 @@ class _MainAppBarState extends State<MainAppBar> {
                 // The app icon. If tabbed, returns to homescreen.
                 InkWell(
               onTap: () {
-                Navigator.pop(context);
+                Navigator.of(context).pop(context);
               },
               child: const Image(
                 image: AssetImage('assets/logo-pink.png'),

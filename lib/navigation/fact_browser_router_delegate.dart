@@ -12,7 +12,9 @@ class FactBrowserRouterDelegate extends RouterDelegate<FactBrowserRoutePath>
   @override
   final GlobalKey<NavigatorState> navigatorKey;
 
+  final db = DatabaseUtils();
   Statement? _statement;
+  Statements? _statements;
   Statement? _emptyStatement;
   String? _query;
   bool _show404 = false;
@@ -47,8 +49,11 @@ class FactBrowserRouterDelegate extends RouterDelegate<FactBrowserRoutePath>
   }
 
   /// Function that handles the search queries.
-  void _onQueryChanged(String query) {
+  void _onQueryChanged(String? query) async {
+    // If query is null, make it empty
+    query ?? "";
     _query = query;
+    _statements = await db.searchStatements(query);
     notifyListeners();
   }
 
@@ -107,6 +112,7 @@ class FactBrowserRouterDelegate extends RouterDelegate<FactBrowserRoutePath>
             onQueryChanged: _onQueryChanged,
             onLogin: _onLogin,
             query: null,
+            statements: _statements,
             isLoggedIn: loggedIn,
             createStatement: _createStatement,
           ),
@@ -128,6 +134,7 @@ class FactBrowserRouterDelegate extends RouterDelegate<FactBrowserRoutePath>
               onSelectStatement: _onSelectStatement,
               onQueryChanged: _onQueryChanged,
               query: _query,
+              statements: _statements,
               onLogin: _onLogin,
               isLoggedIn: loggedIn,
               createStatement: _createStatement,
@@ -174,11 +181,9 @@ class FactBrowserRouterDelegate extends RouterDelegate<FactBrowserRoutePath>
         if (!route.didPop(result)) {
           return false;
         }
-        _query = null;
         _statement = null;
         _emptyStatement = null;
         _showLogIn = false;
-
         notifyListeners();
         return true;
       },

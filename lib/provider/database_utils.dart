@@ -229,4 +229,34 @@ class DatabaseUtils {
     }
     return Statement.fromMap(queryResult.data?["statement"]);
   }
+
+  /// Search for [Statements] from the Database by [String].
+  ///
+  /// If [query] is empty or null, return the newest [Statements].
+  Future<Statements?> searchStatements(String? query) async {
+    final HttpLink httpLink = HttpLink(kUrl, defaultHeaders: {
+      'X-Parse-Application-Id': kParseApplicationId,
+      'X-Parse-Client-Key': kParseClientKey,
+    });
+    // create the data provider
+    GraphQLClient client = GraphQLClient(
+      cache: GraphQLCache(),
+      link: httpLink,
+    );
+    var queryResult = await client.query(
+      QueryOptions(
+        document: query == null || query.isEmpty
+            ? gql(
+                Queries.getnNewestStatements(8),
+              )
+            : gql(
+                Queries.searchStatements(query),
+              ),
+      ),
+    );
+    if (queryResult.hasException) {
+      return null;
+    }
+    return Statements.fromMap(queryResult.data);
+  }
 }
