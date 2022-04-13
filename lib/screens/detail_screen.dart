@@ -197,7 +197,7 @@ class DetailScreen extends StatelessWidget {
                                               LinkAlert(
                                                   link: statement.statementLink,
                                                   msg:
-                                                      "Du verlässt diese Website. Dieser link ist archiviert, kann aber trotzdem unangenehme inhalte aufweisen. Be carful <3."),
+                                                      "Vorsicht! Du verlässt diese Seite und wirst zu einer archivierten vollständigen Version dieser Aussage weitergeleitet. Die Inhalte können möglicherweise verstörend oder diskriminierend sein. Inhalte, die mit dem Label “Unbelegt”, “Falscher Kontext”, “Manipuliert”, “Irreführend” oder “Frei erfunden” gekennzeichnet wurden, enthalten Desinformationen und sind keine verlässliche Quelle. Vollständiger Link:"),
                                             ],
                                           ),
                                         ),

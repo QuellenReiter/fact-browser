@@ -162,15 +162,13 @@ class FactDisplayContainer extends StatelessWidget {
                           label: "Link zum Artikel",
                           link: fact.factLink,
                           color: Colors.grey[600],
-                          msg:
-                              "Dieser Link führt zum Originale Faktcheck. ggbf. ist dieser nicht mehr verfügbar."),
+                          msg: ""),
                       fact.factArchivedLink != null
                           ? LinkAlert(
                               label: "Archivierter Link zum Artikel",
                               link: fact.factArchivedLink!,
                               color: Colors.grey[600],
-                              msg:
-                                  "Dieser Link ist eine archivierte Version des Faktchecks. Die Seite brauch etwas zum laden. Falls du den nicht archivierten Link noch nicht probiert hast, versuche das erstmal.",
+                              msg: "",
                             )
                           : const SizedBox.shrink()
                     ],
