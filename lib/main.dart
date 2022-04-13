@@ -1,6 +1,4 @@
-import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:statementmanager/constants/constants.dart';
 import 'package:statementmanager/navigation/fact_browser_rout_information_parser.dart';
 import 'package:statementmanager/navigation/fact_browser_router_delegate.dart';

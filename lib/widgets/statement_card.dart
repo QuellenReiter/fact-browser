@@ -22,9 +22,9 @@ class StatementCard extends StatelessWidget {
       (int i) => Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(
+          Icon(
             Icons.fact_check,
-            color: Colors.black,
+            color: DesignColors.black,
           ),
           Padding(
             padding: const EdgeInsets.only(right: 20, left: 3),
@@ -100,12 +100,35 @@ class StatementCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Divider(
-                  height: 20,
-                  thickness: 2,
-                ),
+                Row(children: [
+                  Expanded(
+                    child: Container(
+                        width: 40,
+                        margin: const EdgeInsets.only(right: 10),
+                        child: const Divider(
+                          color: Colors.grey,
+                          height: 40,
+                        )),
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Faktenchecks",
+                      style: Theme.of(context).textTheme.headline2,
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                        margin: const EdgeInsets.only(left: 10),
+                        child: const Divider(
+                          color: Colors.grey,
+                          height: 40,
+                        )),
+                  ),
+                ]),
                 // Display list of Factcheck Media.
                 Wrap(
+                  alignment: WrapAlignment.spaceBetween,
                   children: factcheckMediaList,
                 )
               ],
