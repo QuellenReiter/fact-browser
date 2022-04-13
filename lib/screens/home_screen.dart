@@ -96,7 +96,6 @@ class _HomeScreenState extends State<HomeScreen> {
       client: client,
       child: Scaffold(
         appBar: MainAppBar(
-          searchController: searchController,
           title: "Suche",
           onLogin: widget.onLogin,
           loggedIn: widget.isLoggedIn,
@@ -121,6 +120,32 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   child: Column(
                     children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Flexible(
+                            child: Container(
+                              padding: const EdgeInsets.all(10),
+                              constraints: const BoxConstraints(maxWidth: 1000),
+                              child: TextField(
+                                controller: searchController,
+                                style: Theme.of(context).textTheme.headline2,
+                                decoration: const InputDecoration(
+                                  hintText: "Suche nach Themen, z.B. Corona",
+                                  border: UnderlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(10),
+                                    ),
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.transparent,
+                                  contentPadding: EdgeInsets.all(10),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                       Builder(
                         builder: (BuildContext context) {
                           // if (1 == 1) {

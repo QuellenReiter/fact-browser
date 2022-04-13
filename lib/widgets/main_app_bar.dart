@@ -11,7 +11,6 @@ class MainAppBar extends StatefulWidget with PreferredSizeWidget {
     required this.title,
     required this.onLogin,
     required this.loggedIn,
-    this.searchController,
   }) : super(key: key);
 
   /// Page title, currently not displayed.
@@ -22,9 +21,6 @@ class MainAppBar extends StatefulWidget with PreferredSizeWidget {
 
   /// Callback, if user requests login.
   final Function onLogin;
-
-  /// The controller of the searchbar content and input.
-  final TextEditingController? searchController;
 
   /// The height of the appBar.
   double barHeight = 150;
@@ -87,28 +83,6 @@ class _MainAppBarState extends State<MainAppBar> {
                     ],
                   ),
                 ),
-                // Display the searchbar, if [widget.searchController] exists.
-                widget.searchController != null
-                    ? Container(
-                        padding: const EdgeInsets.all(10),
-                        constraints: const BoxConstraints(maxWidth: 400),
-                        child: TextField(
-                          controller: widget.searchController,
-                          style: Theme.of(context).textTheme.bodyText2,
-                          decoration: const InputDecoration(
-                            hintText: "Suche nach Themen, z.B. Corona",
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                                gapPadding: 2),
-                            filled: true,
-                            fillColor: Colors.white,
-                            contentPadding: EdgeInsets.all(10),
-                          ),
-                        ),
-                      )
-                    : const SizedBox.shrink(),
               ],
             ),
           ),
