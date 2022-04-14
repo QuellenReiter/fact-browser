@@ -132,6 +132,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         behavior: ScrollConfiguration.of(context)
                             .copyWith(scrollbars: false),
                         child: ListView.builder(
+                          keyboardDismissBehavior:
+                              ScrollViewKeyboardDismissBehavior.onDrag,
                           itemCount: widget.statements!.statements.length,
                           itemBuilder: (BuildContext context, int index) {
                             return StatementCard(
