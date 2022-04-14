@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:statementmanager/models/statement.dart';
 import 'package:statementmanager/widgets/main_app_bar.dart';
 import 'package:statementmanager/widgets/statement_card.dart';
@@ -131,16 +132,28 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ScrollConfiguration(
                         behavior: ScrollConfiguration.of(context)
                             .copyWith(scrollbars: false),
-                        child: ListView.builder(
-                          keyboardDismissBehavior:
-                              ScrollViewKeyboardDismissBehavior.onDrag,
-                          itemCount: widget.statements!.statements.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return StatementCard(
-                              statement: widget.statements!.statements[index],
-                              onTapped: widget.onSelectStatement,
-                            );
-                          },
+                        child: AnimationLimiter(
+                          child: ListView.builder(
+                            keyboardDismissBehavior:
+                                ScrollViewKeyboardDismissBehavior.onDrag,
+                            itemCount: widget.statements!.statements.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return AnimationConfiguration.staggeredList(
+                                position: index,
+                                duration: const Duration(milliseconds: 400),
+                                child: SlideAnimation(
+                                  horizontalOffset: 30,
+                                  child: FadeInAnimation(
+                                    child: StatementCard(
+                                      statement:
+                                          widget.statements!.statements[index],
+                                      onTapped: widget.onSelectStatement,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
                         ),
                       ),
                     )
