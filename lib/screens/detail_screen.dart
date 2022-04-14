@@ -5,6 +5,7 @@ import 'package:statementmanager/provider/device_type_provider.dart';
 import 'package:statementmanager/widgets/display/dialogs/correctness_badge.dart';
 import 'package:statementmanager/widgets/link_alert.dart';
 import 'package:statementmanager/widgets/main_app_bar.dart';
+import 'package:transparent_image/transparent_image.dart';
 import '../widgets/display/fact_display_container.dart';
 
 /// The page to display all details of a [Statement].
@@ -122,22 +123,26 @@ class DetailScreen extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(10),
                                         child: AspectRatio(
                                           aspectRatio: 4 / 3,
-                                          child: Container(
-                                              decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              image: NetworkImage(
-                                                statement.statementPictureURL !=
-                                                        null
-                                                    ? statement
-                                                        .statementPictureURL!
-                                                        .replaceAll(
-                                                            "https%3A%2F%2Fparsefiles.back4app.com%2FFeP6gb7k9R2K9OztjKWA1DgYhubqhW0yJMyrHbxH%2F",
-                                                            "")
-                                                    : "https://quellenreiter.app/assets/logo-pink.png",
-                                              ),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            child: FadeInImage.memoryNetwork(
+                                              fadeInDuration: const Duration(
+                                                  milliseconds: 400),
+                                              fadeInCurve: Curves.easeInOut,
                                               fit: BoxFit.cover,
+                                              placeholder: kTransparentImage,
+                                              image: statement
+                                                          .statementPictureURL !=
+                                                      null
+                                                  ? statement
+                                                      .statementPictureURL!
+                                                      .replaceAll(
+                                                          "https%3A%2F%2Fparsefiles.back4app.com%2FFeP6gb7k9R2K9OztjKWA1DgYhubqhW0yJMyrHbxH%2F",
+                                                          "")
+                                                  : "https://quellenreiter.app/assets/logo-pink.png",
                                             ),
-                                          )),
+                                          ),
                                         ),
                                       ),
                                       // Display [statement.samplePictureCopyright]

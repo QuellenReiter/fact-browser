@@ -99,6 +99,7 @@ Widget build(BuildContext context) {
           onQueryChanged: _onQueryChanged,
           onLogin: _onLogin,
           query: null,
+          statements: _statements,
           isLoggedIn: loggedIn,
           createStatement: _createStatement,
         ),
@@ -120,6 +121,7 @@ Widget build(BuildContext context) {
             onSelectStatement: _onSelectStatement,
             onQueryChanged: _onQueryChanged,
             query: _query,
+            statements: _statements,
             onLogin: _onLogin,
             isLoggedIn: loggedIn,
             createStatement: _createStatement,
@@ -166,11 +168,9 @@ Widget build(BuildContext context) {
       if (!route.didPop(result)) {
         return false;
       }
-      _query = null;
       _statement = null;
       _emptyStatement = null;
       _showLogIn = false;
-
       notifyListeners();
       return true;
     },
@@ -207,6 +207,7 @@ Widget build(BuildContext context) {
       <a href="../../navigation_fact_browser_router_delegate/FactBrowserRouterDelegate-class.html#instance-properties">Properties</a>
     </li>
     <li><a href="../../navigation_fact_browser_router_delegate/FactBrowserRouterDelegate/currentConfiguration.html">currentConfiguration</a></li>
+    <li><a href="../../navigation_fact_browser_router_delegate/FactBrowserRouterDelegate/db.html">db</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html">hasListeners</a></li>
     <li><a href="../../navigation_fact_browser_router_delegate/FactBrowserRouterDelegate/loggedIn.html">loggedIn</a></li>

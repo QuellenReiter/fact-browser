@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the login method from the DatabaseUtils class, for the Dart programming language.">
-  <title>login method - DatabaseUtils class - database_utils library - Dart API</title>
+  <meta name="description" content="API docs for the searchStatements method from the DatabaseUtils class, for the Dart programming language.">
+  <title>searchStatements method - DatabaseUtils class - database_utils library - Dart API</title>
 
 
   
@@ -32,9 +32,9 @@
     <li><a href="../../index.html">statementmanager</a></li>
     <li><a href="../../provider_database_utils/provider_database_utils-library.html">database_utils</a></li>
     <li><a href="../../provider_database_utils/DatabaseUtils-class.html">DatabaseUtils</a></li>
-    <li class="self-crumb">login method</li>
+    <li class="self-crumb">searchStatements method</li>
   </ol>
-  <div class="self-name">login</div>
+  <div class="self-name">searchStatements</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
@@ -45,17 +45,15 @@
 
   <div id="dartdoc-main-content" class="main-content">
       <div>
-<h1><span class="kind-method">login</span> method 
+<h1><span class="kind-method">searchStatements</span> method 
     <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
 </h1></div>
 
     <section class="multi-line-signature">
       
 
-<span class="returntype">void</span>
-<span class="name ">login</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="login-param-username"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">username</span>, </span></li>
-<li><span class="parameter" id="login-param-password"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">password</span>, </span></li>
-<li><span class="parameter" id="login-param-loginCallback"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Function-class.html">Function</a></span> <span class="parameter-name">loginCallback</span></span></li>
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../models_statement/Statements-class.html">Statements</a>?</span>&gt;</span></span>
+<span class="name ">searchStatements</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="searchStatements-param-query"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">query</span></span></li>
 </ol>)
 
       
@@ -63,43 +61,39 @@
     </section>
     
 <section class="desc markdown">
-  <p>Login a user.</p>
+  <p>Search for <code>Statements</code> from the Database by <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>.</p>
+<p>If <code>query</code> is empty or null, return the newest <code>Statements</code>.</p>
 </section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">void login(String username, String password, Function loginCallback) async {
-  &#47;&#47; Link to server.
+  <pre class="language-dart"><code class="language-dart">Future&lt;Statements?&gt; searchStatements(String? query) async {
   final HttpLink httpLink = HttpLink(kUrl, defaultHeaders: {
     &#39;X-Parse-Application-Id&#39;: kParseApplicationId,
     &#39;X-Parse-Client-Key&#39;: kParseClientKey,
-    &#47;&#47;&#39;X-Parse-REST-API-Key&#39; : kParseRestApiKey,
   });
-
-  &#47;&#47; Provides data from server and facilitates requests.
+  &#47;&#47; create the data provider
   GraphQLClient client = GraphQLClient(
     cache: GraphQLCache(),
     link: httpLink,
   );
-
-  &#47;&#47; The result returned from the query.
-  var loginResult = await client.mutate(
-    MutationOptions(
-      document: gql(Queries.login(username, password)),
+  var queryResult = await client.query(
+    QueryOptions(
+      document: query == null || query.isEmpty
+          ? gql(
+              Queries.getnNewestStatements(8),
+            )
+          : gql(
+              Queries.searchStatements(query),
+            ),
     ),
   );
-  &#47;&#47; If login result has any exceptions.
-  if (loginResult.hasException) {
-    loginCallback(false, &quot;Login fehlgeschlagen.&quot;);
-    return;
+  if (queryResult.hasException) {
+    return null;
   }
-  &#47;&#47; Safe the new token.
-  safeStorage.write(
-      key: &quot;token&quot;,
-      value: loginResult.data?[&quot;logIn&quot;][&quot;viewer&quot;][&quot;sessionToken&quot;]);
-  loginCallback(true, null);
+  return Statements.fromMap(queryResult.data);
 }</code></pre>
 </section>
 
@@ -117,7 +111,7 @@
   <li><a href="../../index.html">statementmanager</a></li>
   <li><a href="../../provider_database_utils/provider_database_utils-library.html">database_utils</a></li>
   <li><a href="../../provider_database_utils/DatabaseUtils-class.html">DatabaseUtils</a></li>
-  <li class="self-crumb">login method</li>
+  <li class="self-crumb">searchStatements method</li>
 </ol>
 
 

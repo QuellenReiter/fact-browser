@@ -134,7 +134,7 @@ Widget build(BuildContext context) {
             ),
           ),
           FractionallySizedBox(
-            widthFactor: 1.1,
+            widthFactor: DeviceType.width(context) &lt; 600 ? 1.22 : 1.1,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -251,15 +251,13 @@ Widget build(BuildContext context) {
                         label: &quot;Link zum Artikel&quot;,
                         link: fact.factLink,
                         color: Colors.grey[600],
-                        msg:
-                            &quot;Dieser Link führt zum Originale Faktcheck. ggbf. ist dieser nicht mehr verfügbar.&quot;),
+                        msg: &quot;&quot;),
                     fact.factArchivedLink != null
                         ? LinkAlert(
                             label: &quot;Archivierter Link zum Artikel&quot;,
                             link: fact.factArchivedLink!,
                             color: Colors.grey[600],
-                            msg:
-                                &quot;Dieser Link ist eine archivierte Version des Faktchecks. Die Seite brauch etwas zum laden. Falls du den nicht archivierten Link noch nicht probiert hast, versuche das erstmal.&quot;,
+                            msg: &quot;&quot;,
                           )
                         : const SizedBox.shrink()
                   ],

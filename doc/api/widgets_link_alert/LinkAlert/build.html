@@ -108,64 +108,72 @@ and</li>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
   return TextButton.icon(
-    onPressed: () =&gt; showModalBottomSheet&lt;void&gt;(
-      context: context,
-      isDismissible: true,
-      builder: (BuildContext context) {
-        return Align(
-          alignment: Alignment.topCenter,
-          child: Container(
-            padding: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
-            constraints: const BoxConstraints(
-              maxWidth: 700,
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Align(
-                  alignment: Alignment.topRight,
-                  child: IconButton(
-                    icon: const Icon(Icons.close),
-                    iconSize: 50,
-                    onPressed: () =&gt; Navigator.pop(context),
+    onPressed: msg != &quot;&quot;
+        ? () =&gt; showModalBottomSheet&lt;void&gt;(
+              context: context,
+              isDismissible: true,
+              builder: (BuildContext context) {
+                return Align(
+                  alignment: Alignment.topCenter,
+                  child: Container(
+                    padding: const EdgeInsets.only(
+                        bottom: 20, left: 20, right: 20),
+                    constraints: const BoxConstraints(
+                      maxWidth: 700,
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: IconButton(
+                            icon: const Icon(Icons.close),
+                            iconSize: 50,
+                            onPressed: () =&gt;
+                                Navigator.of(context).pop(context),
+                          ),
+                        ),
+                        SelectableText(
+                          &quot;Du verlässt diese Website!&quot;,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline1!
+                              .copyWith(color: DesignColors.red),
+                        ),
+                        SelectableText(
+                          msg,
+                          style: Theme.of(context).textTheme.subtitle2,
+                        ),
+                        Text(link),
+                        ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all&lt;Color&gt;(
+                                DesignColors.red),
+                          ),
+                          onPressed: () async {
+                            if (!await launch(link)) {
+                              throw &#39;could not launch&#39;;
+                            }
+                            Navigator.of(context).pop(context);
+                          },
+                          child: Text(
+                            &quot;Trotzdem fortfahren.&quot;,
+                            style: Theme.of(context).textTheme.subtitle1,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                SelectableText(
-                  &quot;Du verlässt diese Website!&quot;,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline1!
-                      .copyWith(color: DesignColors.red),
-                ),
-                SelectableText(
-                  msg,
-                  style: Theme.of(context).textTheme.subtitle2,
-                ),
-                ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all&lt;Color&gt;(DesignColors.red),
-                  ),
-                  onPressed: () async {
-                    if (!await launch(link)) {
-                      throw &#39;could not launch&#39;;
-                    }
-                    Navigator.pop(context);
-                  },
-                  child: Text(
-                    &quot;Trotzdem fortfahren.&quot;,
-                    style: Theme.of(context).textTheme.subtitle1,
-                  ),
-                ),
-                Text(link),
-              ],
-            ),
-          ),
-        );
-      },
-    ),
+                );
+              },
+            )
+        : () async {
+            if (!await launch(link)) {
+              throw &#39;could not launch&#39;;
+            }
+          },
     style: ButtonStyle(
         padding: MaterialStateProperty.all&lt;EdgeInsets&gt;(
           const EdgeInsets.all(0),

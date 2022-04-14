@@ -141,176 +141,328 @@ Widget build(BuildContext context) {
                   constraints: const BoxConstraints(
                     maxWidth: 1000,
                   ),
-                  child: ListView(
+                  child: Column(
                     children: [
-                      Column(
-                        children: [
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: IconButton(
-                              icon: const Icon(Icons.close),
-                              iconSize: 50,
-                              onPressed: () =&gt; Navigator.pop(context),
-                            ),
-                          ),
-                          SelectableText(
-                            &quot;Unsere Bewertungsskala&quot;,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline1!
-                                .copyWith(color: DesignColors.green),
-                          ),
-                          Row(
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: IconButton(
+                          icon: const Icon(Icons.close),
+                          iconSize: 50,
+                          onPressed: () =&gt; Navigator.of(context).pop(context),
+                        ),
+                      ),
+                      Flexible(
+                        child: ScrollConfiguration(
+                          behavior: ScrollConfiguration.of(context)
+                              .copyWith(scrollbars: false),
+                          child: ListView(
                             children: [
-                              Container(
-                                margin: const EdgeInsets.only(top: 10),
-                                padding: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10)),
-                                  color: DesignColors.green,
-                                ),
-                                child: SelectableText(
-                                  &quot;Richtig&quot;,
-                                  style:
-                                      Theme.of(context).textTheme.headline3,
-                                ),
+                              Column(
+                                children: [
+                                  SelectableText(
+                                    &quot;Unsere Bewertungsskala&quot;,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline1!
+                                        .copyWith(color: DesignColors.green),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 10),
+                                        child: Container(
+                                          margin: const EdgeInsets.only(
+                                              top: 10, bottom: 10),
+                                          padding: const EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(10)),
+                                            color: DesignColors.green,
+                                          ),
+                                          child: SelectableText(
+                                            &quot;Richtig&quot;,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline3,
+                                          ),
+                                        ),
+                                      ),
+                                      Flexible(
+                                        child: SelectableText(
+                                          &quot;Die Behauptung oder Aussage ist richtig.&quot;,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle2,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  const Divider(
+                                    height: 10,
+                                    thickness: 2,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 10),
+                                        child: Container(
+                                          margin: const EdgeInsets.only(
+                                              top: 10, bottom: 10),
+                                          padding: const EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(10)),
+                                            color: DesignColors.red,
+                                          ),
+                                          child: SelectableText(
+                                            &quot;Unbelegt&quot;,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline3,
+                                          ),
+                                        ),
+                                      ),
+                                      Flexible(
+                                        child: SelectableText(
+                                          &quot;Es gibt keine Belege für die Richtigkeit dieser Behauptung oder Aussage.&quot;,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle2,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  const Divider(
+                                    height: 10,
+                                    thickness: 2,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 10),
+                                        child: Container(
+                                          margin: const EdgeInsets.only(
+                                              top: 10, bottom: 10),
+                                          padding: const EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(10)),
+                                            color: DesignColors.red,
+                                          ),
+                                          child: SelectableText(
+                                            &quot;Falscher Kontext&quot;,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline3,
+                                          ),
+                                        ),
+                                      ),
+                                      Flexible(
+                                        child: SelectableText(
+                                          &quot;Die Aussage wird in einem falschen Kontext dargestellt.&quot;,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle2,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  const Divider(
+                                    height: 10,
+                                    thickness: 2,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 10),
+                                        child: Container(
+                                          margin: const EdgeInsets.only(
+                                              top: 10, bottom: 10),
+                                          padding: const EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(10)),
+                                            color: DesignColors.red,
+                                          ),
+                                          child: SelectableText(
+                                            &quot;Manipuliert&quot;,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline3,
+                                          ),
+                                        ),
+                                      ),
+                                      Flexible(
+                                        child: SelectableText(
+                                          &quot;Das Video oder Bild wurde manipuliert, z.B. durch Fotoshop.&quot;,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle2,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  const Divider(
+                                    height: 10,
+                                    thickness: 2,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 10),
+                                        child: Container(
+                                          margin: const EdgeInsets.only(
+                                              top: 10, bottom: 10),
+                                          padding: const EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(10)),
+                                            color: DesignColors.red,
+                                          ),
+                                          child: SelectableText(
+                                            &quot;Irreführend&quot;,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline3,
+                                          ),
+                                        ),
+                                      ),
+                                      Flexible(
+                                        child: SelectableText(
+                                          &quot;Etwas wird falsch interpretiert oder ein Ereignis hat sich nicht so zugetragen, wie behauptet wird - dadurch werden Menschen in die Irre geführt.&quot;,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle2,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  const Divider(
+                                    height: 10,
+                                    thickness: 2,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 10),
+                                        child: Container(
+                                          margin: const EdgeInsets.only(
+                                              top: 10, bottom: 10),
+                                          padding: const EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(10)),
+                                            color: DesignColors.red,
+                                          ),
+                                          child: SelectableText(
+                                            &quot;Frei erfunden&quot;,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline3,
+                                          ),
+                                        ),
+                                      ),
+                                      Flexible(
+                                        child: SelectableText(
+                                          &quot;Zitate, Behauptungen, Zahlen, Geschehnisse oder Personen sind erfunden.&quot;,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle2,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  const Divider(
+                                    height: 10,
+                                    thickness: 2,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 10),
+                                        child: Container(
+                                          margin: const EdgeInsets.only(
+                                              top: 10, bottom: 10),
+                                          padding: const EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(10)),
+                                            color: DesignColors.red,
+                                          ),
+                                          child: SelectableText(
+                                            &quot;Fehlinformation&quot;,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline3,
+                                          ),
+                                        ),
+                                      ),
+                                      Flexible(
+                                        child: SelectableText(
+                                          &quot;Die Aussage beinhaltet Informationen, die versehentlich falsch wiedergegeben wurden. Die Fehler wurden daraufhin vom Medium korrigiert.&quot;,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle2,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  const Divider(
+                                    height: 10,
+                                    thickness: 2,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 10),
+                                        child: Container(
+                                          margin: const EdgeInsets.only(
+                                              top: 10, bottom: 10),
+                                          padding: const EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(10)),
+                                            color: DesignColors.red,
+                                          ),
+                                          child: SelectableText(
+                                            &quot;Satire&quot;,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline3,
+                                          ),
+                                        ),
+                                      ),
+                                      Flexible(
+                                        child: SelectableText(
+                                          &quot;Es handelt sich um Satire, die jedoch nicht als solche zu erkennen ist.&quot;,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle2,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ],
                               ),
-                              Flexible(
-                                child: SelectableText(
-                                  &quot;Die Behauptungen oder Aussagen sind richtig.&quot;,
-                                  style:
-                                      Theme.of(context).textTheme.subtitle2,
-                                ),
-                              )
                             ],
                           ),
-                          Row(
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.only(top: 10),
-                                padding: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10)),
-                                  color: DesignColors.red,
-                                ),
-                                child: SelectableText(
-                                  &quot;Manipuliert&quot;,
-                                  style:
-                                      Theme.of(context).textTheme.headline3,
-                                ),
-                              ),
-                              Flexible(
-                                child: SelectableText(
-                                  &quot;Diese Aussage ist Falsch und bewusst manipulliert worden.&quot;,
-                                  style:
-                                      Theme.of(context).textTheme.subtitle2,
-                                ),
-                              )
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.only(top: 10),
-                                padding: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10)),
-                                  color: DesignColors.red,
-                                ),
-                                child: SelectableText(
-                                  &quot;Falscher Kontext&quot;,
-                                  style:
-                                      Theme.of(context).textTheme.headline3,
-                                ),
-                              ),
-                              Flexible(
-                                child: SelectableText(
-                                  &quot;Ein Foto oder Video zeigt nicht das, was behauptet wird, ist veraltet oder an einem anderen Ort entstanden. &quot;,
-                                  style:
-                                      Theme.of(context).textTheme.subtitle2,
-                                ),
-                              )
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.only(top: 10),
-                                padding: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10)),
-                                  color: DesignColors.red,
-                                ),
-                                child: SelectableText(
-                                  &quot;Irreführend&quot;,
-                                  style:
-                                      Theme.of(context).textTheme.headline3,
-                                ),
-                              ),
-                              Flexible(
-                                child: SelectableText(
-                                  &quot;Diese Aussage &quot;,
-                                  style:
-                                      Theme.of(context).textTheme.subtitle2,
-                                ),
-                              )
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.only(top: 10),
-                                padding: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10)),
-                                  color: DesignColors.red,
-                                ),
-                                child: SelectableText(
-                                  &quot;Frei Erfunden&quot;,
-                                  style:
-                                      Theme.of(context).textTheme.headline3,
-                                ),
-                              ),
-                              Flexible(
-                                child: SelectableText(
-                                  &quot;Zitate, Behauptungen, Zahlen, Geschehnisse oder Personen sind erfunden.&quot;,
-                                  style:
-                                      Theme.of(context).textTheme.subtitle2,
-                                ),
-                              )
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.only(top: 10),
-                                padding: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10)),
-                                  color: DesignColors.red,
-                                ),
-                                child: SelectableText(
-                                  &quot;Unbelegt&quot;,
-                                  style:
-                                      Theme.of(context).textTheme.headline3,
-                                ),
-                              ),
-                              Flexible(
-                                child: SelectableText(
-                                  &quot;Die Behauptungen oder Aussagen sind nicht belegbar.&quot;,
-                                  style:
-                                      Theme.of(context).textTheme.subtitle2,
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
+                        ),
                       ),
                     ],
                   ),
