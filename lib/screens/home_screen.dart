@@ -144,10 +144,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     )
-                  : const Center(
+                  : Center(
                       child: Align(
                         alignment: Alignment.center,
-                        child: Text("loading"),
+                        child: Text(
+                          "Inhalte laden...",
+                          style: Theme.of(context).textTheme.headline3,
+                        ),
                       ),
                     ),
             ]),
