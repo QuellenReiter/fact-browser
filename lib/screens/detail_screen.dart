@@ -100,7 +100,7 @@ class DetailScreen extends StatelessWidget {
                       color: DesignColors.lightGrey,
                     ),
                     child: FractionallySizedBox(
-                      widthFactor: 1.1,
+                      widthFactor: DeviceType.width(context) < 600 ? 1.22 : 1.1,
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -114,7 +114,7 @@ class DetailScreen extends StatelessWidget {
                                       ? 0.8
                                       : 0.5,
                                   child: Stack(
-                                    alignment: Alignment.bottomCenter,
+                                    alignment: Alignment.centerLeft,
                                     children: [
                                       // The image with rounded edges and cropped
                                       // to 4:3 ratio.
@@ -141,16 +141,19 @@ class DetailScreen extends StatelessWidget {
                                         ),
                                       ),
                                       // Display [statement.samplePictureCopyright]
-                                      Container(
-                                        padding: const EdgeInsets.all(2),
-                                        color:
-                                            const Color.fromARGB(61, 0, 0, 0),
-                                        child: SelectableText(
-                                          statement.samplePictureCopyright
-                                              .trim(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1,
+                                      RotatedBox(
+                                        quarterTurns: 1,
+                                        child: Container(
+                                          padding: const EdgeInsets.all(2),
+                                          color:
+                                              const Color.fromARGB(61, 0, 0, 0),
+                                          child: SelectableText(
+                                            statement.samplePictureCopyright
+                                                .trim(),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1,
+                                          ),
                                         ),
                                       ),
                                     ],
