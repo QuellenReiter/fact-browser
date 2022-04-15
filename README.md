@@ -2,6 +2,9 @@
 
 A simple frontend for the "Fake News" Database created within the QuellenReiter:in project.
 
+- Deployment: https://quellenreiter.github.io/fact-browser-deployment/
+- Documentation: https://quellenreiter.github.io/fact-browser-documentation/
+
 ## Contents
 - [Fact Browser](#fact-browser)
 - [Contents](#contents)
