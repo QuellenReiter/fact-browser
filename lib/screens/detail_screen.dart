@@ -196,10 +196,12 @@ class DetailScreen extends StatelessWidget {
                                             margin:
                                                 const EdgeInsets.only(top: 10),
                                             padding: const EdgeInsets.all(10),
-                                            decoration: const BoxDecoration(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(10)),
-                                              color: Color(0xFF0999bc),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(10)),
+                                              color:
+                                                  DesignColors.backgroundBlue,
                                             ),
                                             child: Column(
                                               crossAxisAlignment:

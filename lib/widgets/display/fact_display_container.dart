@@ -34,9 +34,9 @@ class FactDisplayContainer extends StatelessWidget {
               alignment: Alignment.topRight,
               child: Container(
                 padding: const EdgeInsets.all(10),
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  color: Color(0xFF009E74),
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  color: DesignColors.green,
                 ),
                 child: SelectableText(
                   "Fakt",
@@ -61,10 +61,10 @@ class FactDisplayContainer extends StatelessWidget {
                             alignment: Alignment.topLeft,
                             child: Container(
                               padding: const EdgeInsets.all(10),
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                                color: Color(0xFF0999bc),
+                                    const BorderRadius.all(Radius.circular(10)),
+                                color: DesignColors.backgroundBlue,
                               ),
                               child: SelectableText(
                                 fact.factText,

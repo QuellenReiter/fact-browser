@@ -75,8 +75,8 @@ class StatementCard extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: statement.statementCorrectness ==
                                   CorrectnessCategory.correct
-                              ? const Color(0xFF009e73)
-                              : const Color(0xFFd55e00),
+                              ? DesignColors.green
+                              : DesignColors.red,
                           borderRadius: const BorderRadius.all(
                             Radius.circular(5),
                           ),

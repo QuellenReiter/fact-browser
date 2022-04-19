@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:statementmanager/constants/constants.dart';
 import 'package:statementmanager/provider/device_type_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -42,9 +43,9 @@ class _MainAppBarState extends State<MainAppBar> {
     // Narrow windows show a dropdown for login/impressum/datenschutz.
     return Container(
       // Set background color and rounded bottom corners.
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.vertical(bottom: Radius.circular(40)),
-        color: Color(0xFF0999bc),
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.vertical(bottom: Radius.circular(40)),
+        color: DesignColors.backgroundBlue,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -144,9 +145,9 @@ class _MainAppBarState extends State<MainAppBar> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(
+                            Icon(
                               Icons.login,
-                              color: Color(0xFFc7ebeb),
+                              color: DesignColors.lightBlue,
                             ),
                             widget.loggedIn
                                 ? Text(
