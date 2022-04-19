@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:statementmanager/models/statement.dart';
-import 'package:statementmanager/navigation/fact_browser_routes.dart';
-import 'package:statementmanager/provider/database_utils.dart';
-import 'package:statementmanager/screens/detail_screen.dart';
+import 'package:fact_browser/models/statement.dart';
+import 'package:fact_browser/navigation/fact_browser_routes.dart';
+import 'package:fact_browser/provider/database_utils.dart';
+import 'package:fact_browser/screens/detail_screen.dart';
 import '../screens/edit_screen.dart';
 import '../screens/home_screen.dart';
 import '../screens/login_screen.dart';

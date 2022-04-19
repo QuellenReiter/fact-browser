@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:statementmanager/constants/constants.dart';
+import 'package:fact_browser/constants/constants.dart';
 
 /// This holds all [TextEditingController] to create and edit a [Fact].
 class FactController {

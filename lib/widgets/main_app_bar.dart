@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:statementmanager/constants/constants.dart';
-import 'package:statementmanager/provider/device_type_provider.dart';
+import 'package:fact_browser/constants/constants.dart';
+import 'package:fact_browser/provider/device_type_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// The AppBar (top of the App) that contains searchbar and links to impressum, datenschutz and

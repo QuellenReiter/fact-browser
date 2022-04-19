@@ -1,16 +1,16 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
-import 'package:statementmanager/constants/constants.dart';
-import 'package:statementmanager/models/fact.dart';
-import 'package:statementmanager/models/statement.dart';
-import 'package:statementmanager/provider/database_utils.dart';
-import 'package:statementmanager/provider/device_type_provider.dart';
-import 'package:statementmanager/utilities/utilities.dart';
-import 'package:statementmanager/widgets/editable/date_container.dart';
-import 'package:statementmanager/widgets/editable/fact_container.dart';
-import 'package:statementmanager/widgets/editable/text_field_container.dart';
-import 'package:statementmanager/widgets/main_app_bar.dart';
+import 'package:fact_browser/constants/constants.dart';
+import 'package:fact_browser/models/fact.dart';
+import 'package:fact_browser/models/statement.dart';
+import 'package:fact_browser/provider/database_utils.dart';
+import 'package:fact_browser/provider/device_type_provider.dart';
+import 'package:fact_browser/utilities/utilities.dart';
+import 'package:fact_browser/widgets/editable/date_container.dart';
+import 'package:fact_browser/widgets/editable/fact_container.dart';
+import 'package:fact_browser/widgets/editable/text_field_container.dart';
+import 'package:fact_browser/widgets/main_app_bar.dart';
 
 //ignore: must_be_immutable
 class EditScreen extends StatefulWidget {

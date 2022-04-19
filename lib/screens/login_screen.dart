@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:statementmanager/provider/database_utils.dart';
-import 'package:statementmanager/utilities/utilities.dart';
+import 'package:fact_browser/provider/database_utils.dart';
+import 'package:fact_browser/utilities/utilities.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key, required this.loginCallback}) : super(key: key);

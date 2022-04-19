@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:statementmanager/constants/constants.dart';
-import 'package:statementmanager/models/statement.dart';
-import 'package:statementmanager/utilities/utilities.dart';
+import 'package:fact_browser/constants/constants.dart';
+import 'package:fact_browser/models/statement.dart';
+import 'package:fact_browser/utilities/utilities.dart';
 
 /// Brief information display of a single [Statement].
 class StatementCard extends StatelessWidget {

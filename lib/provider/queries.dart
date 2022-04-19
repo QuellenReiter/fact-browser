@@ -1,4 +1,4 @@
-import 'package:statementmanager/models/statement.dart';
+import 'package:fact_browser/models/statement.dart';
 import '../constants/constants.dart';
 import '../models/fact.dart';
 

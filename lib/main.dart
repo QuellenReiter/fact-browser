@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:statementmanager/constants/constants.dart';
-import 'package:statementmanager/navigation/fact_browser_rout_information_parser.dart';
-import 'package:statementmanager/navigation/fact_browser_router_delegate.dart';
-import 'package:statementmanager/provider/device_type_provider.dart';
+import 'package:fact_browser/constants/constants.dart';
+import 'package:fact_browser/navigation/fact_browser_rout_information_parser.dart';
+import 'package:fact_browser/navigation/fact_browser_router_delegate.dart';
+import 'package:fact_browser/provider/device_type_provider.dart';
 
 void main() async {
   runApp(const FactBrowser());

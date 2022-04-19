@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:statementmanager/constants/constants.dart';
-import 'package:statementmanager/models/fact.dart';
-import 'package:statementmanager/widgets/link_alert.dart';
+import 'package:fact_browser/constants/constants.dart';
+import 'package:fact_browser/models/fact.dart';
+import 'package:fact_browser/widgets/link_alert.dart';
 
 import '../../provider/device_type_provider.dart';
 

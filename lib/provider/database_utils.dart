@@ -1,7 +1,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:statementmanager/models/statement.dart';
-import 'package:statementmanager/provider/queries.dart';
+import 'package:fact_browser/models/statement.dart';
+import 'package:fact_browser/provider/queries.dart';
 import '../consonents.dart';
 
 /// This class facilitates the connection to the database and manages its

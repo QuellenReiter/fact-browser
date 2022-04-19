@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:statementmanager/navigation/fact_browser_routes.dart';
+import 'package:fact_browser/navigation/fact_browser_routes.dart';
 
 /// Class to parse given links and direct users to the correct page.
 class FactBrowserRouteInformationParser

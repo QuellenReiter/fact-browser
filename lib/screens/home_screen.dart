@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:statementmanager/models/statement.dart';
-import 'package:statementmanager/widgets/main_app_bar.dart';
-import 'package:statementmanager/widgets/statement_card.dart';
+import 'package:fact_browser/models/statement.dart';
+import 'package:fact_browser/widgets/main_app_bar.dart';
+import 'package:fact_browser/widgets/statement_card.dart';
 
 /// The Homescreen page with a searchbar.
 class HomeScreen extends StatefulWidget {

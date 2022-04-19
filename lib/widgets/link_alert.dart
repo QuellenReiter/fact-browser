@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:statementmanager/constants/constants.dart';
+import 'package:fact_browser/constants/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LinkAlert extends StatelessWidget {

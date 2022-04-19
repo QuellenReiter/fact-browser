@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:statementmanager/constants/constants.dart';
-import 'package:statementmanager/models/statement.dart';
-import 'package:statementmanager/provider/device_type_provider.dart';
-import 'package:statementmanager/widgets/display/dialogs/correctness_badge.dart';
-import 'package:statementmanager/widgets/link_alert.dart';
-import 'package:statementmanager/widgets/main_app_bar.dart';
+import 'package:fact_browser/constants/constants.dart';
+import 'package:fact_browser/models/statement.dart';
+import 'package:fact_browser/provider/device_type_provider.dart';
+import 'package:fact_browser/widgets/display/dialogs/correctness_badge.dart';
+import 'package:fact_browser/widgets/link_alert.dart';
+import 'package:fact_browser/widgets/main_app_bar.dart';
 import 'package:transparent_image/transparent_image.dart';
 import '../widgets/display/fact_display_container.dart';
 

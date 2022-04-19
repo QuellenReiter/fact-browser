@@ -1,4 +1,4 @@
-name: statementmanager
+name: fact_browser
 description: Die Fake-News Datenbank des QuellenReiter:in Projekts
 
 # The following line prevents the package from being accidentally published to

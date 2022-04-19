@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:statementmanager/utilities/utilities.dart';
+import 'package:fact_browser/utilities/utilities.dart';
 
 class DateContainer extends StatelessWidget {
   const DateContainer(
