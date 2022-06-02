@@ -173,6 +173,18 @@ class DetailScreen extends StatelessWidget {
                                             ),
                                           ),
                                         ),
+                                        Positioned(
+                                            top: 5,
+                                            left: 5,
+                                            child: ElevatedButton.icon(
+                                                style: ElevatedButton.styleFrom(
+                                                  primary:
+                                                      DesignColors.lightGrey,
+                                                ),
+                                                onPressed: () =>
+                                                    showImage(context),
+                                                icon: Icon(Icons.fullscreen),
+                                                label: const Text("Vollbild")))
                                       ],
                                     ),
                                   ),
@@ -328,6 +340,13 @@ class DetailScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Text(
+                      "Artikel die belegen, dass diese Aussage als \"${statement.statementCorrectness}\" einzuordnen ist:",
+                      style: Theme.of(context).textTheme.subtitle2,
+                    ),
+                  ),
                   // Display all [statement.factChecks]
                   Padding(
                     padding: const EdgeInsets.only(bottom: 40),
@@ -340,6 +359,53 @@ class DetailScreen extends StatelessWidget {
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  void showImage(BuildContext context) {
+    showDialog(
+      barrierDismissible: true,
+      context: context,
+      builder: (context) => Dialog(
+        backgroundColor: Colors.transparent,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: Stack(alignment: Alignment.centerLeft, children: [
+            FadeInImage.memoryNetwork(
+              fadeInDuration: const Duration(milliseconds: 400),
+              fadeInCurve: Curves.easeInOut,
+              fit: BoxFit.cover,
+              placeholder: kTransparentImage,
+              image: statement.statementPictureURL != null
+                  ? statement.statementPictureURL!.replaceAll(
+                      "https%3A%2F%2Fparsefiles.back4app.com%2FFeP6gb7k9R2K9OztjKWA1DgYhubqhW0yJMyrHbxH%2F",
+                      "")
+                  : "https://quellenreiter.app/assets/logo-pink.png",
+            ),
+            // Display [statement.samplePictureCopyright]
+            RotatedBox(
+              quarterTurns: 1,
+              child: Container(
+                padding: const EdgeInsets.all(2),
+                color: const Color.fromARGB(61, 0, 0, 0),
+                child: SelectableText(
+                  statement.samplePictureCopyright.trim(),
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+              ),
+            ),
+            Positioned(
+              top: 5,
+              right: 5,
+              child: IconButton(
+                icon: const Icon(Icons.close),
+                iconSize: 50,
+                onPressed: () => Navigator.of(context).pop(context),
+              ),
+            ),
+          ]),
         ),
       ),
     );

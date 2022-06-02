@@ -83,7 +83,10 @@ class StatementCard extends StatelessWidget {
                         ),
                         padding: const EdgeInsets.all(4),
                         child: Text(
-                          statement.statementCorrectness,
+                          statement.statementCorrectness ==
+                                  CorrectnessCategory.correct
+                              ? "Fakt"
+                              : "Fake",
                           style: Theme.of(context)
                               .textTheme
                               .subtitle1
@@ -113,7 +116,7 @@ class StatementCard extends StatelessWidget {
                   Align(
                     alignment: Alignment.center,
                     child: Text(
-                      "Faktenchecks",
+                      "Faktenchecks zur Aussage von:",
                       style: Theme.of(context).textTheme.headline2,
                     ),
                   ),
