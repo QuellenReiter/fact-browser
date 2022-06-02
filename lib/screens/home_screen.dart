@@ -81,25 +81,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     // Return the search page widget hierarchy.
     return Scaffold(
-      persistentFooterButtons: [
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image(
-              height: DeviceType.oneColumn(context) ? 50 : 120,
-              image: AssetImage('assets/bmbf.jpg'),
-            ),
-            SizedBox(
-              width: DeviceType.oneColumn(context) ? 50 : 200,
-            ),
-            Image(
-              height: DeviceType.oneColumn(context) ? 50 : 120,
-              image: AssetImage('assets/pf.png'),
-            ),
-          ],
-        ),
-      ],
       appBar: MainAppBar(
         title: "Suche",
         onLogin: widget.onLogin,
@@ -164,11 +145,62 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: SlideAnimation(
                                   horizontalOffset: 30,
                                   child: FadeInAnimation(
-                                    child: StatementCard(
-                                      statement:
-                                          widget.statements!.statements[index],
-                                      onTapped: widget.onSelectStatement,
-                                    ),
+                                    child: index !=
+                                            widget.statements!.statements
+                                                    .length -
+                                                1
+                                        ? StatementCard(
+                                            statement: widget
+                                                .statements!.statements[index],
+                                            onTapped: widget.onSelectStatement,
+                                          )
+                                        : Column(
+                                            children: [
+                                              StatementCard(
+                                                statement: widget.statements!
+                                                    .statements[index],
+                                                onTapped:
+                                                    widget.onSelectStatement,
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(20),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Image(
+                                                      height:
+                                                          DeviceType.oneColumn(
+                                                                  context)
+                                                              ? 70
+                                                              : 150,
+                                                      image: AssetImage(
+                                                          'assets/bmbf.jpg'),
+                                                    ),
+                                                    SizedBox(
+                                                      width:
+                                                          DeviceType.oneColumn(
+                                                                  context)
+                                                              ? 50
+                                                              : 200,
+                                                    ),
+                                                    Image(
+                                                      height:
+                                                          DeviceType.oneColumn(
+                                                                  context)
+                                                              ? 70
+                                                              : 150,
+                                                      image: AssetImage(
+                                                          'assets/pf.png'),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                   ),
                                 ),
                               );
