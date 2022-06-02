@@ -130,29 +130,41 @@ class DetailScreen extends StatelessWidget {
                                       children: [
                                         // The image with rounded edges and cropped
                                         // to 4:3 ratio.
-                                        ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          child: AspectRatio(
-                                            aspectRatio: 4 / 3,
+                                        Tooltip(
+                                          message: "Klicken zum Vergrößern.",
+                                          child: InkWell(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            onTap: () => showImage(context),
                                             child: ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(10),
-                                              child: FadeInImage.memoryNetwork(
-                                                fadeInDuration: const Duration(
-                                                    milliseconds: 400),
-                                                fadeInCurve: Curves.easeInOut,
-                                                fit: BoxFit.cover,
-                                                placeholder: kTransparentImage,
-                                                image: statement
-                                                            .statementPictureURL !=
-                                                        null
-                                                    ? statement
-                                                        .statementPictureURL!
-                                                        .replaceAll(
-                                                            "https%3A%2F%2Fparsefiles.back4app.com%2FFeP6gb7k9R2K9OztjKWA1DgYhubqhW0yJMyrHbxH%2F",
-                                                            "")
-                                                    : "https://quellenreiter.app/assets/logo-pink.png",
+                                              child: AspectRatio(
+                                                aspectRatio: 4 / 3,
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  child:
+                                                      FadeInImage.memoryNetwork(
+                                                    fadeInDuration:
+                                                        const Duration(
+                                                            milliseconds: 400),
+                                                    fadeInCurve:
+                                                        Curves.easeInOut,
+                                                    fit: BoxFit.cover,
+                                                    placeholder:
+                                                        kTransparentImage,
+                                                    image: statement
+                                                                .statementPictureURL !=
+                                                            null
+                                                        ? statement
+                                                            .statementPictureURL!
+                                                            .replaceAll(
+                                                                "https%3A%2F%2Fparsefiles.back4app.com%2FFeP6gb7k9R2K9OztjKWA1DgYhubqhW0yJMyrHbxH%2F",
+                                                                "")
+                                                        : "https://quellenreiter.app/assets/logo-pink.png",
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -173,18 +185,6 @@ class DetailScreen extends StatelessWidget {
                                             ),
                                           ),
                                         ),
-                                        Positioned(
-                                            top: 5,
-                                            left: 5,
-                                            child: ElevatedButton.icon(
-                                                style: ElevatedButton.styleFrom(
-                                                  primary:
-                                                      DesignColors.lightGrey,
-                                                ),
-                                                onPressed: () =>
-                                                    showImage(context),
-                                                icon: Icon(Icons.fullscreen),
-                                                label: const Text("Vollbild")))
                                       ],
                                     ),
                                   ),
