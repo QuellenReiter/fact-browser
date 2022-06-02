@@ -61,7 +61,7 @@ class _FactBrowserState extends State<FactBrowser> {
                 // Title in for appBar.
                 headline1: TextStyle(
                   fontFamily: 'Bangers',
-                  fontSize: DeviceType.width(ctx) < 600 ? 40 : 50,
+                  fontSize: DeviceType.width(ctx) < 600 ? 30 : 50,
                   color: DesignColors.lightBlue,
                 ),
 

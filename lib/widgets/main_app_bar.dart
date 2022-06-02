@@ -42,9 +42,11 @@ class _MainAppBarState extends State<MainAppBar> {
     // If mobile or narrow desktop browser. Main difference:
     // Narrow windows show a dropdown for login/impressum/datenschutz.
     return Container(
+      height: DeviceType.width(context) < 600 ? 70 : null,
       // Set background color and rounded bottom corners.
       decoration: BoxDecoration(
-        borderRadius: const BorderRadius.vertical(bottom: Radius.circular(40)),
+        borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(DeviceType.width(context) < 600 ? 15 : 40)),
         color: DesignColors.backgroundBlue,
       ),
       child: Row(
@@ -52,7 +54,8 @@ class _MainAppBarState extends State<MainAppBar> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
-            padding: const EdgeInsets.only(bottom: 20, top: 20),
+            padding: EdgeInsets.symmetric(
+                vertical: DeviceType.width(context) < 600 ? 5 : 20),
             child:
                 // The app icon. If tabbed, returns to homescreen.
                 InkWell(
