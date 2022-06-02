@@ -1,3 +1,4 @@
+import 'package:fact_browser/provider/device_type_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:fact_browser/models/statement.dart';
@@ -86,14 +87,14 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image(
-              height: 70,
+              height: DeviceType.oneColumn(context) ? 50 : 120,
               image: AssetImage('assets/bmbf.jpg'),
             ),
             SizedBox(
-              width: 50,
+              width: DeviceType.oneColumn(context) ? 50 : 200,
             ),
             Image(
-              height: 70,
+              height: DeviceType.oneColumn(context) ? 50 : 120,
               image: AssetImage('assets/pf.png'),
             ),
           ],
