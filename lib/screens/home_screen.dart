@@ -80,6 +80,25 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     // Return the search page widget hierarchy.
     return Scaffold(
+      persistentFooterButtons: [
+        Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image(
+              height: 70,
+              image: AssetImage('assets/bmbf.jpg'),
+            ),
+            SizedBox(
+              width: 50,
+            ),
+            Image(
+              height: 70,
+              image: AssetImage('assets/pf.png'),
+            ),
+          ],
+        ),
+      ],
       appBar: MainAppBar(
         title: "Suche",
         onLogin: widget.onLogin,
