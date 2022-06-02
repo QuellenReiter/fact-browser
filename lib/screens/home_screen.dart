@@ -128,6 +128,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   )
                 ],
               ),
+              ValueListenableBuilder(
+                  valueListenable: searchController,
+                  builder: (context, val, child) {
+                    return Text(
+                      searchController.text.isNotEmpty
+                          ? "Ergebnisse für \"${searchController.text}\""
+                          : "Aktuellste Einträge",
+                      style: Theme.of(context).textTheme.headline2,
+                    );
+                  }),
               widget.statements != null
                   ? Flexible(
                       child: ScrollConfiguration(
