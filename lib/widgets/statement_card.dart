@@ -116,7 +116,7 @@ class StatementCard extends StatelessWidget {
                   Align(
                     alignment: Alignment.center,
                     child: Text(
-                      "Faktenchecks zur Aussage von:",
+                      "Fakten gecheckt von:",
                       style: Theme.of(context).textTheme.headline2,
                     ),
                   ),

@@ -341,11 +341,19 @@ class DetailScreen extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: Text(
-                      "Artikel die belegen, dass diese Aussage als \"${statement.statementCorrectness}\" einzuordnen ist:",
-                      style: Theme.of(context).textTheme.subtitle2,
-                    ),
+                    padding: const EdgeInsets.only(top: 70),
+                    child: Row(children: [
+                      Text(
+                        "Artikel die belegen, dass diese Aussage als ",
+                        style: Theme.of(context).textTheme.subtitle2,
+                      ),
+                      CorrectnessBadge(
+                          correctnessValue: statement.statementCorrectness),
+                      Text(
+                        " einzuordnen ist:",
+                        style: Theme.of(context).textTheme.subtitle2,
+                      ),
+                    ]),
                   ),
                   // Display all [statement.factChecks]
                   Padding(
