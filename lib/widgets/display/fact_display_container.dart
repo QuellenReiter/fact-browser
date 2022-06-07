@@ -45,7 +45,7 @@ class FactDisplayContainer extends StatelessWidget {
               ),
             ),
             FractionallySizedBox(
-              widthFactor: DeviceType.width(context) < 600 ? 1.22 : 1.1,
+              widthFactor: DeviceType.width(context) < 600 ? 1.22 : 1.05,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [

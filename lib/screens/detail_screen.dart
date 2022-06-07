@@ -50,6 +50,10 @@ class DetailScreen extends StatelessWidget {
       ),
       body: Center(
         child: Container(
+          clipBehavior: Clip.hardEdge,
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(15)),
+          ),
           padding: const EdgeInsets.symmetric(horizontal: 20),
           constraints: const BoxConstraints(maxWidth: 1000),
           height: DeviceType.height(context),
@@ -58,7 +62,6 @@ class DetailScreen extends StatelessWidget {
             behavior:
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),
             child: ListView(
-              clipBehavior: Clip.none,
               shrinkWrap: true,
               children: AnimationConfiguration.toStaggeredList(
                 duration: const Duration(milliseconds: 400),
@@ -71,7 +74,7 @@ class DetailScreen extends StatelessWidget {
                 children: [
                   // The backbutton.
                   FractionallySizedBox(
-                    widthFactor: 1.1,
+                    widthFactor: 1.05,
                     child: Padding(
                       padding:
                           const EdgeInsets.only(left: 40, top: 20, bottom: 20),
@@ -112,7 +115,7 @@ class DetailScreen extends StatelessWidget {
                       ),
                       child: FractionallySizedBox(
                         widthFactor:
-                            DeviceType.width(context) < 600 ? 1.22 : 1.1,
+                            DeviceType.width(context) < 600 ? 1.22 : 1.05,
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -339,18 +342,20 @@ class DetailScreen extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 70),
-                    child: Row(children: [
-                      Text(
-                        "Artikel die belegen, dass diese Aussage als ",
-                        style: Theme.of(context).textTheme.subtitle2,
-                      ),
-                      CorrectnessBadge(
-                          correctnessValue: statement.statementCorrectness),
-                      Text(
-                        " einzuordnen ist:",
-                        style: Theme.of(context).textTheme.subtitle2,
-                      ),
-                    ]),
+                    child: Wrap(
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        children: [
+                          Text(
+                            "Warum ist diese Aussage ",
+                            style: Theme.of(context).textTheme.subtitle2,
+                          ),
+                          CorrectnessBadge(
+                              correctnessValue: statement.statementCorrectness),
+                          Text(
+                            " ?",
+                            style: Theme.of(context).textTheme.subtitle2,
+                          ),
+                        ]),
                   ),
                   // Display all [statement.factChecks]
                   Padding(
