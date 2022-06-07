@@ -7,6 +7,7 @@ import 'package:fact_browser/widgets/display/dialogs/correctness_badge.dart';
 import 'package:fact_browser/widgets/link_alert.dart';
 import 'package:fact_browser/widgets/main_app_bar.dart';
 import 'package:transparent_image/transparent_image.dart';
+import '../utilities/utilities.dart';
 import '../widgets/display/fact_display_container.dart';
 
 /// The page to display all details of a [Statement].
@@ -212,8 +213,12 @@ class DetailScreen extends StatelessWidget {
                                               borderRadius:
                                                   const BorderRadius.all(
                                                       Radius.circular(10)),
-                                              color:
-                                                  DesignColors.backgroundBlue,
+                                              color: statement
+                                                          .statementCorrectness ==
+                                                      CorrectnessCategory
+                                                          .correct
+                                                  ? DesignColors.green
+                                                  : DesignColors.red,
                                             ),
                                             child: Column(
                                               crossAxisAlignment:
