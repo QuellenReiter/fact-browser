@@ -126,7 +126,7 @@ class DetailScreen extends StatelessWidget {
                                         ? 0.8
                                         : 0.5,
                                     child: Stack(
-                                      alignment: Alignment.centerLeft,
+                                      alignment: Alignment.bottomCenter,
                                       children: [
                                         // The image with rounded edges and cropped
                                         // to 4:3 ratio.
@@ -170,19 +170,16 @@ class DetailScreen extends StatelessWidget {
                                           ),
                                         ),
                                         // Display [statement.samplePictureCopyright]
-                                        RotatedBox(
-                                          quarterTurns: 1,
-                                          child: Container(
-                                            padding: const EdgeInsets.all(2),
-                                            color: const Color.fromARGB(
-                                                61, 0, 0, 0),
-                                            child: SelectableText(
-                                              statement.samplePictureCopyright
-                                                  .trim(),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText1,
-                                            ),
+                                        Container(
+                                          padding: const EdgeInsets.all(2),
+                                          color:
+                                              const Color.fromARGB(61, 0, 0, 0),
+                                          child: SelectableText(
+                                            statement.samplePictureCopyright
+                                                .trim(),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1,
                                           ),
                                         ),
                                       ],
