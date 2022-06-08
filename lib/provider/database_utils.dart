@@ -21,9 +21,9 @@ class DatabaseUtils {
     }
 
     // Link to server.
-    final HttpLink httpLink = HttpLink(kUrl, defaultHeaders: {
-      'X-Parse-Application-Id': kParseApplicationId,
-      'X-Parse-Client-Key': kParseClientKey,
+    final HttpLink httpLink = HttpLink(statementDatabaseUrl, defaultHeaders: {
+      'X-Parse-Application-Id': statementDatabaseApplicationID,
+      'X-Parse-Client-Key': statementDatabaseClientKey,
       'X-Parse-Session-Token': token,
     });
 
@@ -66,9 +66,9 @@ class DatabaseUtils {
     }
 
     // Link to server.
-    final HttpLink httpLink = HttpLink(kUrl, defaultHeaders: {
-      'X-Parse-Application-Id': kParseApplicationId,
-      'X-Parse-Client-Key': kParseClientKey,
+    final HttpLink httpLink = HttpLink(statementDatabaseUrl, defaultHeaders: {
+      'X-Parse-Application-Id': statementDatabaseApplicationID,
+      'X-Parse-Client-Key': statementDatabaseClientKey,
       'X-Parse-Session-Token': token,
     });
 
@@ -137,9 +137,9 @@ class DatabaseUtils {
   /// Login a user.
   void login(String username, String password, Function loginCallback) async {
     // Link to server.
-    final HttpLink httpLink = HttpLink(kUrl, defaultHeaders: {
-      'X-Parse-Application-Id': kParseApplicationId,
-      'X-Parse-Client-Key': kParseClientKey,
+    final HttpLink httpLink = HttpLink(statementDatabaseUrl, defaultHeaders: {
+      'X-Parse-Application-Id': statementDatabaseApplicationID,
+      'X-Parse-Client-Key': statementDatabaseClientKey,
       //'X-Parse-REST-API-Key' : kParseRestApiKey,
     });
 
@@ -180,9 +180,9 @@ class DatabaseUtils {
     // If token is not null, check if it is valid.
     if (token != null) {
       // Link to the database.
-      final HttpLink httpLink = HttpLink(kUrl, defaultHeaders: {
-        'X-Parse-Application-Id': kParseApplicationId,
-        'X-Parse-Client-Key': kParseClientKey,
+      final HttpLink httpLink = HttpLink(statementDatabaseUrl, defaultHeaders: {
+        'X-Parse-Application-Id': statementDatabaseApplicationID,
+        'X-Parse-Client-Key': statementDatabaseClientKey,
         'X-Parse-Session-Token': token,
       });
 
@@ -210,9 +210,9 @@ class DatabaseUtils {
 
   /// Get a single [Statement] from the Database by [Statement.objectId].
   Future<Statement?> getStatement(String? statementID) async {
-    final HttpLink httpLink = HttpLink(kUrl, defaultHeaders: {
-      'X-Parse-Application-Id': kParseApplicationId,
-      'X-Parse-Client-Key': kParseClientKey,
+    final HttpLink httpLink = HttpLink(statementDatabaseUrl, defaultHeaders: {
+      'X-Parse-Application-Id': statementDatabaseApplicationID,
+      'X-Parse-Client-Key': statementDatabaseClientKey,
     });
     // create the data provider
     GraphQLClient client = GraphQLClient(
@@ -234,9 +234,9 @@ class DatabaseUtils {
   ///
   /// If [query] is empty or null, return the newest [Statements].
   Future<Statements?> searchStatements(String? query) async {
-    final HttpLink httpLink = HttpLink(kUrl, defaultHeaders: {
-      'X-Parse-Application-Id': kParseApplicationId,
-      'X-Parse-Client-Key': kParseClientKey,
+    final HttpLink httpLink = HttpLink(statementDatabaseUrl, defaultHeaders: {
+      'X-Parse-Application-Id': statementDatabaseApplicationID,
+      'X-Parse-Client-Key': statementDatabaseClientKey,
     });
     // create the data provider
     GraphQLClient client = GraphQLClient(
