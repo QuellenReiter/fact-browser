@@ -100,7 +100,7 @@ class CorrectnessBadge extends StatelessWidget {
                                         ),
                                         Flexible(
                                           child: SelectableText(
-                                            "Die Behauptung oder Aussage ist richtig.",
+                                            "Die Aussage stimmt.",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .subtitle2,
@@ -137,7 +137,7 @@ class CorrectnessBadge extends StatelessWidget {
                                         ),
                                         Flexible(
                                           child: SelectableText(
-                                            "Es gibt keine Belege für die Richtigkeit dieser Behauptung oder Aussage.",
+                                            "Es gibt keine Belege für die Richtigkeit dieser Aussage.",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .subtitle2,
@@ -174,7 +174,7 @@ class CorrectnessBadge extends StatelessWidget {
                                         ),
                                         Flexible(
                                           child: SelectableText(
-                                            "Die Aussage wird in einem falschen Kontext dargestellt.",
+                                            "Die Aussage wird in einem falschen oder fehlenden Kontext dargestellt.",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .subtitle2,
@@ -211,7 +211,7 @@ class CorrectnessBadge extends StatelessWidget {
                                         ),
                                         Flexible(
                                           child: SelectableText(
-                                            "Das Video oder Bild wurde manipuliert, z.B. durch Fotoshop.",
+                                            "Das Video oder Bild wurde nachträglich bearbeitet.",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .subtitle2,
@@ -248,7 +248,7 @@ class CorrectnessBadge extends StatelessWidget {
                                         ),
                                         Flexible(
                                           child: SelectableText(
-                                            "Etwas wird falsch interpretiert oder ein Ereignis hat sich nicht so zugetragen, wie behauptet wird - dadurch werden Menschen in die Irre geführt.",
+                                            "Etwas wird falsch interpretiert oder hat sich nicht so zugetragen, wie behauptet wird.",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .subtitle2,
@@ -285,7 +285,7 @@ class CorrectnessBadge extends StatelessWidget {
                                         ),
                                         Flexible(
                                           child: SelectableText(
-                                            "Zitate, Behauptungen, Zahlen, Geschehnisse oder Personen sind erfunden.",
+                                            "Die Inhalte sind erfunden worden.",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .subtitle2,
@@ -322,7 +322,7 @@ class CorrectnessBadge extends StatelessWidget {
                                         ),
                                         Flexible(
                                           child: SelectableText(
-                                            "Die Aussage beinhaltet Informationen, die versehentlich falsch wiedergegeben wurden. Die Fehler wurden daraufhin vom Medium korrigiert.",
+                                            "Die Aussage wurde versehentlich falsch wiedergegeben. Die Fehler wurden daraufhin vom Medium korrigiert.",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .subtitle2,
