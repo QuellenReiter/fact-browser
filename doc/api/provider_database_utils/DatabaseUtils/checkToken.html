@@ -73,9 +73,9 @@
   &#47;&#47; If token is not null, check if it is valid.
   if (token != null) {
     &#47;&#47; Link to the database.
-    final HttpLink httpLink = HttpLink(kUrl, defaultHeaders: {
-      &#39;X-Parse-Application-Id&#39;: kParseApplicationId,
-      &#39;X-Parse-Client-Key&#39;: kParseClientKey,
+    final HttpLink httpLink = HttpLink(statementDatabaseUrl, defaultHeaders: {
+      &#39;X-Parse-Application-Id&#39;: statementDatabaseApplicationID,
+      &#39;X-Parse-Client-Key&#39;: statementDatabaseClientKey,
       &#39;X-Parse-Session-Token&#39;: token,
     });
 

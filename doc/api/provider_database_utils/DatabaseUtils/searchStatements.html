@@ -70,9 +70,9 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;Statements?&gt; searchStatements(String? query) async {
-  final HttpLink httpLink = HttpLink(kUrl, defaultHeaders: {
-    &#39;X-Parse-Application-Id&#39;: kParseApplicationId,
-    &#39;X-Parse-Client-Key&#39;: kParseClientKey,
+  final HttpLink httpLink = HttpLink(statementDatabaseUrl, defaultHeaders: {
+    &#39;X-Parse-Application-Id&#39;: statementDatabaseApplicationID,
+    &#39;X-Parse-Client-Key&#39;: statementDatabaseClientKey,
   });
   &#47;&#47; create the data provider
   GraphQLClient client = GraphQLClient(
@@ -81,6 +81,7 @@
   );
   var queryResult = await client.query(
     QueryOptions(
+      &#47;&#47; if no query, get the 8 newest statements.
       document: query == null || query.isEmpty
           ? gql(
               Queries.getnNewestStatements(8),

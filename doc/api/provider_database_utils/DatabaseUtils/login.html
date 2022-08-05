@@ -72,9 +72,9 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">void login(String username, String password, Function loginCallback) async {
   &#47;&#47; Link to server.
-  final HttpLink httpLink = HttpLink(kUrl, defaultHeaders: {
-    &#39;X-Parse-Application-Id&#39;: kParseApplicationId,
-    &#39;X-Parse-Client-Key&#39;: kParseClientKey,
+  final HttpLink httpLink = HttpLink(statementDatabaseUrl, defaultHeaders: {
+    &#39;X-Parse-Application-Id&#39;: statementDatabaseApplicationID,
+    &#39;X-Parse-Client-Key&#39;: statementDatabaseClientKey,
     &#47;&#47;&#39;X-Parse-REST-API-Key&#39; : kParseRestApiKey,
   });
 

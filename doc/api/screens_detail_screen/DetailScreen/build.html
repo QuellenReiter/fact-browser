@@ -123,6 +123,10 @@ Widget build(BuildContext context) {
     ),
     body: Center(
       child: Container(
+        clipBehavior: Clip.hardEdge,
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+        ),
         padding: const EdgeInsets.symmetric(horizontal: 20),
         constraints: const BoxConstraints(maxWidth: 1000),
         height: DeviceType.height(context),
@@ -131,7 +135,6 @@ Widget build(BuildContext context) {
           behavior:
               ScrollConfiguration.of(context).copyWith(scrollbars: false),
           child: ListView(
-            clipBehavior: Clip.none,
             shrinkWrap: true,
             children: AnimationConfiguration.toStaggeredList(
               duration: const Duration(milliseconds: 400),
@@ -144,7 +147,7 @@ Widget build(BuildContext context) {
               children: [
                 &#47;&#47; The backbutton.
                 FractionallySizedBox(
-                  widthFactor: 1.1,
+                  widthFactor: 1.05,
                   child: Padding(
                     padding:
                         const EdgeInsets.only(left: 40, top: 20, bottom: 20),
@@ -185,7 +188,7 @@ Widget build(BuildContext context) {
                     ),
                     child: FractionallySizedBox(
                       widthFactor:
-                          DeviceType.width(context) &lt; 600 ? 1.22 : 1.1,
+                          DeviceType.width(context) &lt; 600 ? 1.22 : 1.05,
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -199,51 +202,60 @@ Widget build(BuildContext context) {
                                       ? 0.8
                                       : 0.5,
                                   child: Stack(
-                                    alignment: Alignment.centerLeft,
+                                    alignment: Alignment.bottomCenter,
                                     children: [
                                       &#47;&#47; The image with rounded edges and cropped
                                       &#47;&#47; to 4:3 ratio.
-                                      ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(10),
-                                        child: AspectRatio(
-                                          aspectRatio: 4 &#47; 3,
+                                      Tooltip(
+                                        message: &quot;Klicken zum Vergrößern.&quot;,
+                                        child: InkWell(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          onTap: () =&gt; showImage(context),
                                           child: ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(10),
-                                            child: FadeInImage.memoryNetwork(
-                                              fadeInDuration: const Duration(
-                                                  milliseconds: 400),
-                                              fadeInCurve: Curves.easeInOut,
-                                              fit: BoxFit.cover,
-                                              placeholder: kTransparentImage,
-                                              image: statement
-                                                          .statementPictureURL !=
-                                                      null
-                                                  ? statement
-                                                      .statementPictureURL!
-                                                      .replaceAll(
-                                                          &quot;https%3A%2F%2Fparsefiles.back4app.com%2FFeP6gb7k9R2K9OztjKWA1DgYhubqhW0yJMyrHbxH%2F&quot;,
-                                                          &quot;&quot;)
-                                                  : &quot;https:&#47;&#47;quellenreiter.app&#47;assets&#47;logo-pink.png&quot;,
+                                            child: AspectRatio(
+                                              aspectRatio: 4 &#47; 3,
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                child:
+                                                    FadeInImage.memoryNetwork(
+                                                  fadeInDuration:
+                                                      const Duration(
+                                                          milliseconds: 400),
+                                                  fadeInCurve:
+                                                      Curves.easeInOut,
+                                                  fit: BoxFit.cover,
+                                                  placeholder:
+                                                      kTransparentImage,
+                                                  image: statement
+                                                              .statementPictureURL !=
+                                                          null
+                                                      ? statement
+                                                          .statementPictureURL!
+                                                          .replaceAll(
+                                                              &quot;https%3A%2F%2Fparsefiles.back4app.com%2FFeP6gb7k9R2K9OztjKWA1DgYhubqhW0yJMyrHbxH%2F&quot;,
+                                                              &quot;&quot;)
+                                                      : &quot;https:&#47;&#47;quellenreiter.app&#47;assets&#47;logo-pink.png&quot;,
+                                                ),
+                                              ),
                                             ),
                                           ),
                                         ),
                                       ),
                                       &#47;&#47; Display [statement.samplePictureCopyright]
-                                      RotatedBox(
-                                        quarterTurns: 1,
-                                        child: Container(
-                                          padding: const EdgeInsets.all(2),
-                                          color: const Color.fromARGB(
-                                              61, 0, 0, 0),
-                                          child: SelectableText(
-                                            statement.samplePictureCopyright
-                                                .trim(),
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyText1,
-                                          ),
+                                      Container(
+                                        padding: const EdgeInsets.all(2),
+                                        color:
+                                            const Color.fromARGB(61, 0, 0, 0),
+                                        child: SelectableText(
+                                          statement.samplePictureCopyright
+                                              .trim(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1,
                                         ),
                                       ),
                                     ],
@@ -273,8 +285,12 @@ Widget build(BuildContext context) {
                                             borderRadius:
                                                 const BorderRadius.all(
                                                     Radius.circular(10)),
-                                            color:
-                                                DesignColors.backgroundBlue,
+                                            color: statement
+                                                        .statementCorrectness ==
+                                                    CorrectnessCategory
+                                                        .correct
+                                                ? DesignColors.green
+                                                : DesignColors.red,
                                           ),
                                           child: Column(
                                             crossAxisAlignment:
@@ -293,7 +309,7 @@ Widget build(BuildContext context) {
                                                   link:
                                                       statement.statementLink,
                                                   msg:
-                                                      &quot;Vorsicht! Du verlässt diese Seite und wirst zu einer archivierten vollständigen Version dieser Aussage weitergeleitet. Die Inhalte können möglicherweise verstörend oder diskriminierend sein. Inhalte, die mit dem Label “Unbelegt”, “Falscher Kontext”, “Manipuliert”, “Irreführend” oder “Frei erfunden” gekennzeichnet wurden, enthalten Desinformationen und sind keine verlässliche Quelle. Vollständiger Link:&quot;),
+                                                      &quot;Vorsicht! Du verlässt diese Seite. Die Inhalte können möglicherweise verstörend oder diskriminierend sein.\n Inhalte, die mit einem roten Label gekennzeichnet wurden, enthalten möglicherweise Desinformationen und sind keine verlässliche Quelle.\n Vollständiger Link:&quot;),
                                             ],
                                           ),
                                         ),
@@ -401,6 +417,23 @@ Widget build(BuildContext context) {
                     ),
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 70),
+                  child: Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        Text(
+                          &quot;Warum ist diese Aussage &quot;,
+                          style: Theme.of(context).textTheme.subtitle2,
+                        ),
+                        CorrectnessBadge(
+                            correctnessValue: statement.statementCorrectness),
+                        Text(
+                          &quot; ?&quot;,
+                          style: Theme.of(context).textTheme.subtitle2,
+                        ),
+                      ]),
+                ),
                 &#47;&#47; Display all [statement.factChecks]
                 Padding(
                   padding: const EdgeInsets.only(bottom: 40),
@@ -461,6 +494,7 @@ Widget build(BuildContext context) {
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/debugDescribeChildren.html">debugDescribeChildren</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/debugFillProperties.html">debugFillProperties</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+    <li><a href="../../screens_detail_screen/DetailScreen/showImage.html">showImage</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toDiagnosticsNode.html">toDiagnosticsNode</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html">toString</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringDeep.html">toStringDeep</a></li>

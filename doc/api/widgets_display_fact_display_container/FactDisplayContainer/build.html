@@ -134,7 +134,7 @@ Widget build(BuildContext context) {
             ),
           ),
           FractionallySizedBox(
-            widthFactor: DeviceType.width(context) &lt; 600 ? 1.22 : 1.1,
+            widthFactor: DeviceType.width(context) &lt; 600 ? 1.22 : 1.05,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -153,7 +153,7 @@ Widget build(BuildContext context) {
                             decoration: BoxDecoration(
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(10)),
-                              color: DesignColors.backgroundBlue,
+                              color: DesignColors.green,
                             ),
                             child: SelectableText(
                               fact.factText,

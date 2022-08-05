@@ -131,9 +131,17 @@ Widget build(BuildContext context) {
         ),
         onTap: () =&gt; showModalBottomSheet&lt;void&gt;(
           context: context,
+          backgroundColor: Colors.transparent,
           isDismissible: true,
           builder: (BuildContext context) {
             return Container(
+              decoration: const BoxDecoration(
+                color: DesignColors.lightGrey,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(15),
+                  topRight: Radius.circular(15),
+                ),
+              ),
               padding: const EdgeInsets.all(20),
               child: Align(
                 alignment: Alignment.topCenter,
@@ -191,7 +199,7 @@ Widget build(BuildContext context) {
                                       ),
                                       Flexible(
                                         child: SelectableText(
-                                          &quot;Die Behauptung oder Aussage ist richtig.&quot;,
+                                          &quot;Die Aussage stimmt.&quot;,
                                           style: Theme.of(context)
                                               .textTheme
                                               .subtitle2,
@@ -228,7 +236,7 @@ Widget build(BuildContext context) {
                                       ),
                                       Flexible(
                                         child: SelectableText(
-                                          &quot;Es gibt keine Belege für die Richtigkeit dieser Behauptung oder Aussage.&quot;,
+                                          &quot;Es gibt keine Belege für die Richtigkeit dieser Aussage.&quot;,
                                           style: Theme.of(context)
                                               .textTheme
                                               .subtitle2,
@@ -265,7 +273,7 @@ Widget build(BuildContext context) {
                                       ),
                                       Flexible(
                                         child: SelectableText(
-                                          &quot;Die Aussage wird in einem falschen Kontext dargestellt.&quot;,
+                                          &quot;Die Aussage wird in einem falschen oder fehlenden Kontext dargestellt.&quot;,
                                           style: Theme.of(context)
                                               .textTheme
                                               .subtitle2,
@@ -302,7 +310,7 @@ Widget build(BuildContext context) {
                                       ),
                                       Flexible(
                                         child: SelectableText(
-                                          &quot;Das Video oder Bild wurde manipuliert, z.B. durch Fotoshop.&quot;,
+                                          &quot;Das Video oder Bild wurde nachträglich bearbeitet.&quot;,
                                           style: Theme.of(context)
                                               .textTheme
                                               .subtitle2,
@@ -339,7 +347,7 @@ Widget build(BuildContext context) {
                                       ),
                                       Flexible(
                                         child: SelectableText(
-                                          &quot;Etwas wird falsch interpretiert oder ein Ereignis hat sich nicht so zugetragen, wie behauptet wird - dadurch werden Menschen in die Irre geführt.&quot;,
+                                          &quot;Etwas wird falsch interpretiert oder hat sich nicht so zugetragen, wie behauptet wird.&quot;,
                                           style: Theme.of(context)
                                               .textTheme
                                               .subtitle2,
@@ -376,7 +384,7 @@ Widget build(BuildContext context) {
                                       ),
                                       Flexible(
                                         child: SelectableText(
-                                          &quot;Zitate, Behauptungen, Zahlen, Geschehnisse oder Personen sind erfunden.&quot;,
+                                          &quot;Die Inhalte sind erfunden worden.&quot;,
                                           style: Theme.of(context)
                                               .textTheme
                                               .subtitle2,
@@ -413,7 +421,7 @@ Widget build(BuildContext context) {
                                       ),
                                       Flexible(
                                         child: SelectableText(
-                                          &quot;Die Aussage beinhaltet Informationen, die versehentlich falsch wiedergegeben wurden. Die Fehler wurden daraufhin vom Medium korrigiert.&quot;,
+                                          &quot;Die Aussage wurde versehentlich falsch wiedergegeben. Die Fehler wurden daraufhin vom Medium korrigiert.&quot;,
                                           style: Theme.of(context)
                                               .textTheme
                                               .subtitle2,
