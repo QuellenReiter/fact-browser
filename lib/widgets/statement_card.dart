@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fact_browser/constants/constants.dart';
 import 'package:fact_browser/models/statement.dart';
 import 'package:fact_browser/utilities/utilities.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 /// Brief information display of a single [Statement].
 class StatementCard extends StatelessWidget {
@@ -58,50 +59,96 @@ class StatementCard extends StatelessWidget {
                 // Display Statementtext.
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10),
-                  child: Text(
-                    statement.statementText,
-                    style: Theme.of(context).textTheme.subtitle2,
-                  ),
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Display correctness.
-                      Container(
-                        decoration: BoxDecoration(
-                          color: statement.statementCorrectness ==
-                                  CorrectnessCategory.correct
-                              ? DesignColors.green
-                              : DesignColors.red,
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(5),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 5),
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.2,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: AspectRatio(
+                              aspectRatio: 4 / 3,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: FadeInImage.memoryNetwork(
+                                  fadeInDuration:
+                                      const Duration(milliseconds: 400),
+                                  fadeInCurve: Curves.easeInOut,
+                                  fit: BoxFit.cover,
+                                  placeholder: kTransparentImage,
+                                  image: statement.statementPictureURL != null
+                                      ? statement.statementPictureURL!.replaceAll(
+                                          "https%3A%2F%2Fparsefiles.back4app.com%2FFeP6gb7k9R2K9OztjKWA1DgYhubqhW0yJMyrHbxH%2F",
+                                          "")
+                                      : "https://quellenreiter.app/assets/logo-pink.png",
+                                ),
+                              ),
+                            ),
                           ),
                         ),
-                        padding: const EdgeInsets.all(4),
+                      ),
+                      Expanded(
                         child: Text(
-                          statement.statementCorrectness ==
-                                  CorrectnessCategory.correct
-                              ? "Fakt"
-                              : "Fake",
+                          statement.statementText,
                           style: Theme.of(context)
                               .textTheme
-                              .subtitle1
-                              ?.copyWith(color: DesignColors.lightGrey),
+                              .headline2!
+                              .copyWith(color: DesignColors.black),
                         ),
                       ),
-                      // Display Media and date.
-                      Text(
-                        statement.statementMedia +
-                            ', ' +
-                            statement.dateAsString(),
-                        style: Theme.of(context).textTheme.bodyText2,
-                      )
+                      const Padding(
+                        padding: EdgeInsets.only(left: 5),
+                        child: Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          color: DesignColors.black,
+                          size: 30,
+                        ),
+                      ),
                     ],
                   ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Display correctness.
+                    Container(
+                      decoration: BoxDecoration(
+                        color: statement.statementCorrectness ==
+                                CorrectnessCategory.correct
+                            ? DesignColors.green
+                            : DesignColors.red,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(5),
+                        ),
+                      ),
+                      padding: const EdgeInsets.all(10),
+                      child: Text(
+                        statement.statementCorrectness ==
+                                CorrectnessCategory.correct
+                            ? "Fakt"
+                            : "Fake",
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline3
+                            ?.copyWith(color: Colors.white),
+                      ),
+                    ),
+                    // Display Media and date.
+                    Text(
+                      statement.statementMedia +
+                          ', ' +
+                          statement.dateAsString(),
+                      style: Theme.of(context).textTheme.bodyText2,
+                    )
+                  ],
                 ),
                 Row(children: [
                   Expanded(
@@ -116,7 +163,7 @@ class StatementCard extends StatelessWidget {
                   Align(
                     alignment: Alignment.center,
                     child: Text(
-                      "Fakten gecheckt von:",
+                      "Faktenchecks zur Aussage von:",
                       style: Theme.of(context).textTheme.headline2,
                     ),
                   ),
