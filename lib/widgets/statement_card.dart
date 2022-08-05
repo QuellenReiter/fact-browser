@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:fact_browser/constants/constants.dart';
 import 'package:fact_browser/models/statement.dart';
@@ -67,7 +69,8 @@ class StatementCard extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(right: 5),
                         child: SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.2,
+                          width:
+                              min(MediaQuery.of(context).size.width * 0.2, 250),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: AspectRatio(

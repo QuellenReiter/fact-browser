@@ -60,6 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
     searchController = widget.query == null
         ? TextEditingController()
         : TextEditingController(text: widget.query);
+
     searchController.addListener(() {
       widget.onQueryChanged(searchController.text);
     });
@@ -79,6 +80,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.query == null ||
+        (widget.query!.isEmpty || searchController.text.isEmpty)) {
+      widget.onQueryChanged("");
+    }
     // Return the search page widget hierarchy.
     return Scaffold(
       appBar: MainAppBar(
@@ -133,7 +138,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   builder: (context, val, child) {
                     return Text(
                       searchController.text.isNotEmpty
-                          ? "Ergebnisse für \"${searchController.text}\""
+                          ? widget.statements!.statements.isEmpty ||
+                                  widget.statements == null
+                              ? "Keine Ergebnisse für \"${searchController.text}\""
+                              : "Ergebnisse für \"${searchController.text}\""
                           : "Aktuellste Einträge",
                       style: Theme.of(context).textTheme.headline2,
                     );

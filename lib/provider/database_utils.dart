@@ -245,6 +245,7 @@ class DatabaseUtils {
     );
     var queryResult = await client.query(
       QueryOptions(
+        // if no query, get the 8 newest statements.
         document: query == null || query.isEmpty
             ? gql(
                 Queries.getnNewestStatements(8),
