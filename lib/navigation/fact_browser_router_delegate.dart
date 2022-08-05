@@ -111,7 +111,7 @@ class FactBrowserRouterDelegate extends RouterDelegate<FactBrowserRoutePath>
             onSelectStatement: _onSelectStatement,
             onQueryChanged: _onQueryChanged,
             onLogin: _onLogin,
-            query: null,
+            query: _query,
             statements: _statements,
             isLoggedIn: loggedIn,
             createStatement: _createStatement,

@@ -7,7 +7,7 @@ import 'package:fact_browser/widgets/statement_card.dart';
 
 /// The Homescreen page with a searchbar.
 class HomeScreen extends StatefulWidget {
-  const HomeScreen(
+  HomeScreen(
       {Key? key,
       required this.title,
       required this.onSelectStatement,
@@ -35,7 +35,7 @@ class HomeScreen extends StatefulWidget {
   final String title;
 
   /// The search term inputted by the user.
-  final String? query;
+  String? query;
 
   /// Stores if user is logged in.
   final bool isLoggedIn;
@@ -61,10 +61,6 @@ class _HomeScreenState extends State<HomeScreen> {
         ? TextEditingController()
         : TextEditingController(text: widget.query);
 
-    searchController.addListener(() {
-      widget.onQueryChanged(searchController.text);
-    });
-
     if (widget.statements == null) {
       widget.onQueryChanged("");
     }
@@ -80,10 +76,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.query == null ||
-        (widget.query!.isEmpty || searchController.text.isEmpty)) {
-      widget.onQueryChanged("");
-    }
     // Return the search page widget hierarchy.
     return Scaffold(
       appBar: MainAppBar(
@@ -128,20 +120,31 @@ class _HomeScreenState extends State<HomeScreen> {
                           fillColor: Colors.transparent,
                           contentPadding: EdgeInsets.all(10),
                         ),
+                        onSubmitted: (String query) {
+                          widget.query = query;
+                          widget.onQueryChanged(query);
+                        },
                       ),
                     ),
-                  )
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.search),
+                    onPressed: () {
+                      widget.query = searchController.text;
+                      widget.onQueryChanged(searchController.text);
+                    },
+                  ),
                 ],
               ),
               ValueListenableBuilder(
                   valueListenable: searchController,
                   builder: (context, val, child) {
                     return Text(
-                      searchController.text.isNotEmpty
+                      widget.query != null && widget.query!.isNotEmpty
                           ? widget.statements!.statements.isEmpty ||
                                   widget.statements == null
-                              ? "Keine Ergebnisse für \"${searchController.text}\""
-                              : "Ergebnisse für \"${searchController.text}\""
+                              ? "Keine Ergebnisse für \"${widget.query}\""
+                              : "Ergebnisse für \"${widget.query}\""
                           : "Aktuellste Einträge",
                       style: Theme.of(context).textTheme.headline2,
                     );
