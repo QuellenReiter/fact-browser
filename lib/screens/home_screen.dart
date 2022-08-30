@@ -1,9 +1,11 @@
+import 'package:fact_browser/constants/constants.dart';
 import 'package:fact_browser/provider/device_type_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:fact_browser/models/statement.dart';
 import 'package:fact_browser/widgets/main_app_bar.dart';
 import 'package:fact_browser/widgets/statement_card.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// The Homescreen page with a searchbar.
 class HomeScreen extends StatefulWidget {
@@ -89,7 +91,20 @@ class _HomeScreenState extends State<HomeScreen> {
               child: const Icon(Icons.add),
               onPressed: () => widget.createStatement(),
             )
-          : null,
+          : FloatingActionButton.extended(
+              backgroundColor: DesignColors.pink,
+              onPressed: () {
+                launch("https://quellenreiter.app");
+              },
+              label: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.install_mobile_rounded, color: Colors.white),
+                  Text("App installieren",
+                      style: TextStyle(color: Colors.white)),
+                ],
+              ),
+            ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
